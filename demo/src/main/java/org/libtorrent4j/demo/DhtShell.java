@@ -93,8 +93,6 @@ public final class DhtShell {
                 mput(s, line);
             } else if (is_mget(line)) {
                 mget(s, line);
-            } else if (is_magnet(line)) {
-                magnet(s, line);
             } else if (is_count_nodes(line)) {
                 count_nodes(s);
             } else if (is_invalid(line)) {
@@ -223,18 +221,6 @@ public final class DhtShell {
         print("Waiting a max of 20 seconds to get mutable data for public key: " + arr[1]);
         SessionManager.MutableItem data = sm.dhtGetItem(publicKey, new byte[0], 20);
         print(data.item.toString());
-    }
-
-    private static boolean is_magnet(String s) {
-        return s.startsWith("magnet ");
-    }
-
-    private static void magnet(SessionManager session, String s) {
-        String sha1 = s.split(" ")[1];
-        String uri = "magnet:?xt=urn:btih:" + sha1;
-        print("Waiting a max of 20 seconds to fetch magnet for sha1: " + sha1);
-        byte[] data = session.fetchMagnet(uri, 20, new File("."));
-        print(Entry.bdecode(data).toString());
     }
 
     private static boolean is_count_nodes(String s) {

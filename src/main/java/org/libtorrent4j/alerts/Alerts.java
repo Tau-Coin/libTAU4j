@@ -254,12 +254,6 @@ public final class Alerts {
                 return new TorrentDeleteFailedAlert(cast_to_torrent_delete_failed_alert(a));
             }
         };
-        arr[37] = new CastLambda() {
-            @Override
-            public Alert cast(alert a) {
-                return new SaveResumeDataAlert(cast_to_save_resume_data_alert(a));
-            }
-        };
         arr[38] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
@@ -432,18 +426,6 @@ public final class Alerts {
             @Override
             public Alert cast(alert a) {
                 return new IncomingConnectionAlert(cast_to_incoming_connection_alert(a));
-            }
-        };
-        arr[67] = new CastLambda() {
-            @Override
-            public Alert cast(alert a) {
-                return new AddTorrentAlert(cast_to_add_torrent_alert(a));
-            }
-        };
-        arr[68] = new CastLambda() {
-            @Override
-            public Alert cast(alert a) {
-                return new StateUpdateAlert(cast_to_state_update_alert(a));
             }
         };
         arr[69] = new CastLambda() {

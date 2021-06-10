@@ -7,7 +7,6 @@
 
 package org.libtorrent4j;
 
-import org.libtorrent4j.alerts.AddTorrentAlert;
 import org.libtorrent4j.alerts.Alert;
 import org.libtorrent4j.alerts.AlertType;
 import org.libtorrent4j.alerts.Alerts;
@@ -19,7 +18,6 @@ import org.libtorrent4j.alerts.ExternalIpAlert;
 import org.libtorrent4j.alerts.ListenSucceededAlert;
 import org.libtorrent4j.alerts.SessionStatsAlert;
 import org.libtorrent4j.alerts.SocketType;
-import org.libtorrent4j.alerts.StateUpdateAlert;
 import org.libtorrent4j.alerts.TorrentAlert;
 import org.libtorrent4j.swig.add_torrent_params;
 import org.libtorrent4j.swig.address;
@@ -434,21 +432,6 @@ public class SessionManager {
         }
     }
 
-    /**
-     * This functions instructs the session to post the
-     * {@link StateUpdateAlert},
-     * containing the status of all torrents whose state changed since the
-     * last time this function was called.
-     * <p>
-     * Only torrents who has the state subscription flag set will be
-     * included.
-     */
-    public void postTorrentUpdates() {
-        if (session != null) {
-            session.post_torrent_updates();
-        }
-    }
-
     public boolean isDhtRunning() {
         return session != null && session.is_dht_running();
     }
@@ -459,14 +442,6 @@ public class SessionManager {
 
     public void stopDht() {
         toggleDht(false);
-    }
-
-    /**
-     * @param ti
-     * @param saveDir
-     */
-    public void download(TorrentInfo ti, File saveDir) {
-        download(ti, saveDir, null, null, null, new torrent_flags_t());
     }
 
     /**
@@ -816,11 +791,6 @@ public class SessionManager {
         }
     }
 
-    private boolean isFetchMagnetDownload(AddTorrentAlert alert) {
-        String name = alert.torrentName();
-        return name != null && name.contains(FETCH_MAGNET_DOWNLOAD_KEY);
-    }
-
     private static alert_category_t alertMask(boolean logging) {
         alert_category_t mask = alert.all_categories;
         if (!logging) {
@@ -894,12 +864,6 @@ public class SessionManager {
                                     alert = Alerts.cast(a);
                                     onExternalIpAlert((ExternalIpAlert) alert);
                                     break;
-                                case ADD_TORRENT:
-                                    alert = Alerts.cast(a);
-                                    if (isFetchMagnetDownload((AddTorrentAlert) alert)) {
-                                        continue;
-                                    }
-                                    break;
                             }
 
                             if (listeners[type] != null) {
@@ -923,7 +887,6 @@ public class SessionManager {
                     if ((now - lastStatsRequestTime) >= REQUEST_STATS_RESOLUTION_MILLIS) {
                         lastStatsRequestTime = now;
                         postSessionStats();
-                        postTorrentUpdates();
                     }
                 }
             }

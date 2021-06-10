@@ -3,8 +3,6 @@ package org.libtorrent4j;
 import org.libtorrent4j.swig.storage_mode_t;
 
 /**
- * Types of storage allocation used for {@link AddTorrentParams#setStorageMode(StorageMode)}.
- *
  * @author gubatron
  * @author aldenml
  */

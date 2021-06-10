@@ -7,11 +7,9 @@
 
 package org.libtorrent4j;
 
-import org.libtorrent4j.alerts.AddTorrentAlert;
 import org.libtorrent4j.alerts.DhtImmutableItemAlert;
 import org.libtorrent4j.alerts.DhtMutableItemAlert;
 import org.libtorrent4j.alerts.SessionStatsAlert;
-import org.libtorrent4j.alerts.StateUpdateAlert;
 import org.libtorrent4j.swig.error_code;
 import org.libtorrent4j.swig.int_vector;
 import org.libtorrent4j.swig.libtorrent_errors;
@@ -111,35 +109,6 @@ public final class SessionHandle
     }
 
     /**
-     * This functions instructs the session to post the
-     * {@link StateUpdateAlert},
-     * containing the status of all torrents whose state changed since the
-     * last time this function was called.
-     * <p>
-     * Only torrents who has the state subscription flag set will be
-     * included. This flag is on by default. See {@link AddTorrentParams}.
-     * the {@code flags} argument is the same as for torrent_handle::status().
-     *
-     * @param flags or-combination of native values
-     */
-    public void postTorrentUpdates(status_flags_t flags) {
-        h.post_torrent_updates(flags);
-    }
-
-    /**
-     * This functions instructs the session to post the
-     * {@link StateUpdateAlert},
-     * containing the status of all torrents whose state changed since the
-     * last time this function was called.
-     * <p>
-     * Only torrents who has the state subscription flag set will be
-     * included.
-     */
-    public void postTorrentUpdates() {
-        h.post_torrent_updates();
-    }
-
-    /**
      * This function will post a {@link SessionStatsAlert} object, containing a
      * snapshot of the performance counters from the internals of libtorrent.
      * To interpret these counters, query the session via
@@ -157,23 +126,6 @@ public final class SessionHandle
     }
 
     /**
-     * Returns a list of torrent handles to all the
-     * torrents currently in the session.
-     */
-    public List<TorrentHandle> torrents() {
-        torrent_handle_vector v = h.get_torrents();
-        int size = (int) v.size();
-
-        ArrayList<TorrentHandle> l = new ArrayList<>(size);
-
-        for (int i = 0; i < size; i++) {
-            l.add(new TorrentHandle(v.get(i)));
-        }
-
-        return l;
-    }
-
-    /**
      * Delete the files belonging to the torrent from disk,
      * including the part-file, if there is one.
      */
@@ -183,12 +135,6 @@ public final class SessionHandle
      * Delete just the part-file associated with this torrent.
      */
     public static final remove_flags_t DELETE_PARTFILE = session_handle.delete_partfile;
-
-    /**
-     * When set, the session will start paused. Call
-     * {@link #resume()} to start.
-     */
-    public static final session_flags_t PAUSED = session_handle.paused;
 
     // starts/stops UPnP, NATPMP or LSD port mappers they are stopped by
     // default These functions are not available in case
