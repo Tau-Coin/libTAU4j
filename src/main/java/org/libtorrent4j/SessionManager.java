@@ -1,0 +1,951 @@
+/*
+ * Copyright (c) 2018-2020, Alden Torres
+ *
+ * Licensed under the terms of the MIT license.
+ * Copy of the license at https://opensource.org/licenses/MIT
+ */
+
+package org.libtorrent4j;
+
+import org.libtorrent4j.alerts.AddTorrentAlert;
+import org.libtorrent4j.alerts.Alert;
+import org.libtorrent4j.alerts.AlertType;
+import org.libtorrent4j.alerts.Alerts;
+import org.libtorrent4j.alerts.DhtGetPeersReplyAlert;
+import org.libtorrent4j.alerts.DhtImmutableItemAlert;
+import org.libtorrent4j.alerts.DhtMutableItemAlert;
+import org.libtorrent4j.alerts.DhtStatsAlert;
+import org.libtorrent4j.alerts.ExternalIpAlert;
+import org.libtorrent4j.alerts.ListenSucceededAlert;
+import org.libtorrent4j.alerts.SessionStatsAlert;
+import org.libtorrent4j.alerts.SocketType;
+import org.libtorrent4j.alerts.StateUpdateAlert;
+import org.libtorrent4j.alerts.TorrentAlert;
+import org.libtorrent4j.swig.add_torrent_params;
+import org.libtorrent4j.swig.address;
+import org.libtorrent4j.swig.alert;
+import org.libtorrent4j.swig.alert_category_t;
+import org.libtorrent4j.swig.alert_ptr_vector;
+import org.libtorrent4j.swig.byte_vector;
+import org.libtorrent4j.swig.entry;
+import org.libtorrent4j.swig.error_code;
+import org.libtorrent4j.swig.info_hash_t;
+import org.libtorrent4j.swig.libtorrent;
+import org.libtorrent4j.swig.port_filter;
+import org.libtorrent4j.swig.remove_flags_t;
+import org.libtorrent4j.swig.session;
+import org.libtorrent4j.swig.session_params;
+import org.libtorrent4j.swig.settings_pack;
+import org.libtorrent4j.swig.sha1_hash;
+import org.libtorrent4j.swig.tcp_endpoint_vector;
+import org.libtorrent4j.swig.torrent_flags_t;
+import org.libtorrent4j.swig.torrent_handle;
+import org.libtorrent4j.swig.torrent_handle_vector;
+import org.libtorrent4j.swig.torrent_info;
+import org.libtorrent4j.swig.torrent_status;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.ReentrantLock;
+
+/**
+ * @author gubatron
+ * @author aldenml
+ */
+public class SessionManager {
+
+    private static final long REQUEST_STATS_RESOLUTION_MILLIS = 1000;
+    private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
+
+    private static final int[] METADATA_ALERT_TYPES = new int[]
+            {AlertType.METADATA_RECEIVED.swig(), AlertType.METADATA_FAILED.swig()};
+    private static final String FETCH_MAGNET_DOWNLOAD_KEY = "fetch_magnet___";
+
+    private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {AlertType.DHT_IMMUTABLE_ITEM.swig()};
+    private static final int[] DHT_MUTABLE_ITEM_TYPES = {AlertType.DHT_MUTABLE_ITEM.swig()};
+    private static final int[] DHT_GET_PEERS_REPLY_ALERT_TYPES = {AlertType.DHT_GET_PEERS_REPLY.swig()};
+
+    private final boolean logging;
+
+    private final AlertListener[] listeners;
+
+    private final ReentrantLock sync;
+    private final ReentrantLock syncMagnet;
+
+    private volatile session session;
+
+    private final SessionStats stats;
+    private long lastStatsRequestTime;
+    private boolean firewalled;
+    private final Map<String, String> listenEndpoints;
+    private String externalAddress;
+    private int externalPort;
+    private Thread alertsLoop;
+
+    private Throwable lastAlertError;
+
+    public SessionManager(boolean logging) {
+        this.logging = logging;
+
+        this.listeners = new AlertListener[Alerts.NUM_ALERT_TYPES + 1];
+
+        this.sync = new ReentrantLock();
+        this.syncMagnet = new ReentrantLock();
+
+        this.stats = new SessionStats();
+        this.listenEndpoints = new HashMap<>();
+
+        resetState();
+    }
+
+    public SessionManager() {
+        this(false);
+    }
+
+    public session swig() {
+        return session;
+    }
+
+    public void addListener(AlertListener listener) {
+        modifyListeners(true, listener);
+    }
+
+    public void removeListener(AlertListener listener) {
+        modifyListeners(false, listener);
+    }
+
+    public void start(SessionParams params) {
+        if (session != null) {
+            return;
+        }
+
+        sync.lock();
+
+        try {
+            if (session != null) {
+                return;
+            }
+
+            onBeforeStart();
+
+            resetState();
+
+            SettingsPack sp = params.getSettings();
+
+            // we always control the alert mask
+            sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging).to_int());
+
+            // limit metadata size by default
+            if (!sp.hasValue(settings_pack.int_types.max_metadata_size.swigValue())) {
+                sp.setMaxMetadataSize(2 * 1024 * 1024);
+            }
+
+            // use some dht bootstrap nodes if none is provided
+            if (!sp.hasValue(settings_pack.string_types.dht_bootstrap_nodes.swigValue())) {
+                sp.setDhtBootstrapNodes(defaultDhtBootstrapNodes());
+            }
+
+            session = new session(params.swig());
+            alertsLoop();
+
+            // block all connections to port < 1024, but
+            // allows 80 and 443 for web seeds
+            port_filter f = new port_filter();
+            f.add_rule(0, 79, 1);
+            f.add_rule(81, 442, 1);
+            f.add_rule(444, 1023, 1);
+            session.set_port_filter(f);
+
+            onAfterStart();
+
+        } finally {
+            sync.unlock();
+        }
+    }
+
+    public void start() {
+        start(new SessionParams());
+    }
+
+    /**
+     * This method blocks during the destruction of the native session, it
+     * could take some time, don't call this from the UI thread or other
+     * sensitive multithreaded code.
+     */
+    public void stop() {
+        if (session == null) {
+            return;
+        }
+
+        sync.lock();
+
+        try {
+            if (session == null) {
+                return;
+            }
+
+            onBeforeStop();
+
+            session s = session;
+            session = null; // stop alerts loop and session methods
+
+            // guarantee one more alert is post and detected
+            s.post_session_stats();
+            try {
+                // 250 is to ensure that the sleep is bigger
+                // than the wait in alerts loop
+                Thread.sleep(ALERTS_LOOP_WAIT_MILLIS + 250);
+            } catch (InterruptedException ignore) {
+            }
+
+            if (alertsLoop != null) {
+                try {
+                    alertsLoop.join();
+                } catch (Throwable e) {
+                    // ignore
+                }
+            }
+
+            resetState();
+
+            s.delete();
+
+            onAfterStop();
+
+        } finally {
+            sync.unlock();
+        }
+    }
+
+    /**
+     * This method blocks for at least a second plus the time
+     * needed to destroy the native session, don't call it from the UI thread.
+     */
+    public void restart() {
+        sync.lock();
+
+        try {
+
+            session_params params = session.session_state();
+
+            stop();
+            Thread.sleep(1000); // allow some time to release native resources
+            start(new SessionParams(params));
+
+        } catch (InterruptedException e) {
+            // ignore
+        } finally {
+            sync.unlock();
+        }
+    }
+
+    public boolean isRunning() {
+        return session != null;
+    }
+
+    public SessionStats stats() {
+        return stats;
+    }
+
+    public long downloadRate() {
+        return stats.downloadRate();
+    }
+
+    public long uploadRate() {
+        return stats.uploadRate();
+    }
+
+    public long totalDownload() {
+        return stats.totalDownload();
+    }
+
+    public long totalUpload() {
+        return stats.totalUpload();
+    }
+
+    public long dhtNodes() {
+        return stats.dhtNodes();
+    }
+
+    public boolean isFirewalled() {
+        return firewalled;
+    }
+
+    public String externalAddress() {
+        return externalAddress;
+    }
+
+    public List<String> listenEndpoints() {
+        return new ArrayList<>(listenEndpoints.values());
+    }
+
+    //--------------------------------------------------
+    // Settings methods
+    //--------------------------------------------------
+
+    /**
+     * Returns a setting pack with all the settings
+     * the current session is working with.
+     * <p>
+     * If the current internal session is null, returns
+     * null.
+     */
+    public SettingsPack settings() {
+        return session != null ? new SettingsPack(session.get_settings()) : null;
+    }
+
+    public void applySettings(SettingsPack sp) {
+        if (session != null) {
+
+            if (sp == null) {
+                throw new IllegalArgumentException("settings pack can't be null");
+            }
+
+            session.apply_settings(sp.swig());
+            onApplySettings(sp);
+        }
+    }
+
+    public int downloadRateLimit() {
+        if (session == null) {
+            return 0;
+        }
+        return settings().downloadRateLimit();
+    }
+
+    public void downloadRateLimit(int limit) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().downloadRateLimit(limit));
+    }
+
+    public int uploadRateLimit() {
+        if (session == null) {
+            return 0;
+        }
+        return settings().uploadRateLimit();
+    }
+
+    public void uploadRateLimit(int limit) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().uploadRateLimit(limit));
+    }
+
+    public int maxActiveDownloads() {
+        if (session == null) {
+            return 0;
+        }
+        return settings().activeDownloads();
+    }
+
+    public void maxActiveDownloads(int limit) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().activeDownloads(limit));
+    }
+
+    public int maxActiveSeeds() {
+        if (session == null) {
+            return 0;
+        }
+        return settings().activeSeeds();
+    }
+
+    public void maxActiveSeeds(int limit) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().activeSeeds(limit));
+    }
+
+    public int maxConnections() {
+        if (session == null) {
+            return 0;
+        }
+        return settings().connectionsLimit();
+    }
+
+    public void maxConnections(int limit) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().connectionsLimit(limit));
+    }
+
+    public int maxPeers() {
+        if (session == null) {
+            return 0;
+        }
+        return settings().maxPeerlistSize();
+    }
+
+    public void maxPeers(int limit) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().maxPeerlistSize(limit));
+    }
+
+    public String listenInterfaces() {
+        if (session == null) {
+            return null;
+        }
+        return settings().listenInterfaces();
+    }
+
+    public void listenInterfaces(String value) {
+        if (session == null) {
+            return;
+        }
+        applySettings(new SettingsPack().listenInterfaces(value));
+    }
+
+    //--------------------------------------------------
+    // more methods
+    //--------------------------------------------------
+
+    /**
+     * This function will post a {@link SessionStatsAlert} object, containing a
+     * snapshot of the performance counters from the internals of libtorrent.
+     */
+    public void postSessionStats() {
+        if (session != null) {
+            session.post_session_stats();
+        }
+    }
+
+    /**
+     * This will cause a {@link DhtStatsAlert} to be posted.
+     */
+    public void postDhtStats() {
+        if (session != null) {
+            session.post_dht_stats();
+        }
+    }
+
+    /**
+     * This functions instructs the session to post the
+     * {@link StateUpdateAlert},
+     * containing the status of all torrents whose state changed since the
+     * last time this function was called.
+     * <p>
+     * Only torrents who has the state subscription flag set will be
+     * included.
+     */
+    public void postTorrentUpdates() {
+        if (session != null) {
+            session.post_torrent_updates();
+        }
+    }
+
+    public boolean isDhtRunning() {
+        return session != null && session.is_dht_running();
+    }
+
+    public void startDht() {
+        toggleDht(true);
+    }
+
+    public void stopDht() {
+        toggleDht(false);
+    }
+
+    /**
+     * @param ti
+     * @param saveDir
+     */
+    public void download(TorrentInfo ti, File saveDir) {
+        download(ti, saveDir, null, null, null, new torrent_flags_t());
+    }
+
+    /**
+     * @param sha1
+     * @param timeout in seconds
+     * @return the item
+     */
+    public Entry dhtGetItem(Sha1Hash sha1, int timeout) {
+        if (session == null) {
+            return null;
+        }
+
+        final sha1_hash target = sha1.swig();
+        final AtomicReference<Entry> result = new AtomicReference<>();
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        AlertListener listener = new AlertListener() {
+
+            @Override
+            public int[] types() {
+                return DHT_IMMUTABLE_ITEM_TYPES;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                DhtImmutableItemAlert a = (DhtImmutableItemAlert) alert;
+                if (target.eq(a.swig().getTarget())) {
+                    result.set(new Entry(new entry(a.swig().getItem())));
+                    signal.countDown();
+                }
+            }
+        };
+
+        addListener(listener);
+
+        try {
+
+            session.dht_get_item(target);
+
+            signal.await(timeout, TimeUnit.SECONDS);
+
+        } catch (Throwable e) {
+            Log.error("Error getting immutable item", e);
+        } finally {
+            removeListener(listener);
+        }
+
+        return result.get();
+    }
+
+    /**
+     * @param entry the data
+     * @return the target key
+     */
+    public Sha1Hash dhtPutItem(Entry entry) {
+        return session != null ? new SessionHandle(session).dhtPutItem(entry) : null;
+    }
+
+    public MutableItem dhtGetItem(final byte[] key, final byte[] salt, int timeout) {
+        if (session == null) {
+            return null;
+        }
+
+        final AtomicReference<MutableItem> result = new AtomicReference<>();
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        AlertListener listener = new AlertListener() {
+
+            @Override
+            public int[] types() {
+                return DHT_MUTABLE_ITEM_TYPES;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                DhtMutableItemAlert a = (DhtMutableItemAlert) alert;
+                boolean sameKey = Arrays.equals(key, a.key());
+                boolean sameSalt = Arrays.equals(salt, a.salt());
+                if (sameKey && sameSalt) {
+                    Entry e = new Entry(new entry(a.swig().getItem()));
+                    MutableItem item = new MutableItem(e, a.signature(), a.seq());
+                    result.set(item);
+                    signal.countDown();
+                }
+            }
+        };
+
+        addListener(listener);
+
+        try {
+
+            new SessionHandle(session).dhtGetItem(key, salt);
+
+            signal.await(timeout, TimeUnit.SECONDS);
+
+        } catch (Throwable e) {
+            Log.error("Error getting mutable item", e);
+        } finally {
+            removeListener(listener);
+        }
+
+        return result.get();
+    }
+
+    public void dhtPutItem(byte[] publicKey, byte[] privateKey, Entry entry, byte[] salt) {
+        if (session != null) {
+            new SessionHandle(session).dhtPutItem(publicKey, privateKey, entry, salt);
+        }
+    }
+
+    /**
+     * @param sha1
+     * @param timeout in seconds
+     * @return the peer list or an empty list
+     */
+    public ArrayList<TcpEndpoint> dhtGetPeers(Sha1Hash sha1, int timeout) {
+        final ArrayList<TcpEndpoint> result = new ArrayList<>();
+        if (session == null) {
+            return result;
+        }
+
+        final sha1_hash target = sha1.swig();
+        final CountDownLatch signal = new CountDownLatch(1);
+
+        AlertListener listener = new AlertListener() {
+
+            @Override
+            public int[] types() {
+                return DHT_GET_PEERS_REPLY_ALERT_TYPES;
+            }
+
+            @Override
+            public void alert(Alert<?> alert) {
+                DhtGetPeersReplyAlert a = (DhtGetPeersReplyAlert) alert;
+                if (target.eq(a.swig().getInfo_hash())) {
+                    result.addAll(a.peers());
+                    signal.countDown();
+                }
+            }
+        };
+
+        addListener(listener);
+
+        try {
+
+            session.dht_get_peers(target);
+
+            signal.await(timeout, TimeUnit.SECONDS);
+
+        } catch (Throwable e) {
+            Log.error("Error getting peers from the dht", e);
+        } finally {
+            removeListener(listener);
+        }
+
+        return result;
+    }
+
+    public void dhtAnnounce(Sha1Hash sha1, int port, byte flags) {
+        if (session != null) {
+            session.dht_announce_ex(sha1.swig(), port, flags);
+        }
+    }
+
+    public void dhtAnnounce(Sha1Hash sha1) {
+        if (session != null) {
+            session.dht_announce_ex(sha1.swig());
+        }
+    }
+
+    public byte[] saveState() {
+        if (session == null) {
+            return null;
+        }
+
+        session_params params = session.session_state();
+        byte_vector v = session_params.write_session_params_buf(params);
+        return Vectors.byte_vector2bytes(v);
+    }
+
+    /**
+     * Instructs the session to reopen all listen and outgoing sockets.
+     * <p>
+     * It's useful in the case your platform doesn't support the built in
+     * IP notifier mechanism, or if you have a better more reliable way to
+     * detect changes in the IP routing table.
+     */
+    public void reopenNetworkSockets() {
+        if (session != null) {
+            session.reopen_network_sockets();
+        }
+    }
+
+    public String magnetPeers() {
+        if (session == null) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        if (externalAddress != null && externalPort > 0) {
+            sb.append("&x.pe=");
+            sb.append(externalAddress).append(":").append(externalPort);
+        }
+
+        for (String endp : listenEndpoints.values()) {
+            sb.append("&x.pe=").append(endp);
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * This methods return the last error recorded calling the alert
+     * listeners.
+     *
+     * @return the last alert listener exception registered (or null)
+     */
+    public Throwable lastAlertError() {
+        return lastAlertError;
+    }
+
+    protected void onBeforeStart() {
+    }
+
+    protected void onAfterStart() {
+    }
+
+    protected void onBeforeStop() {
+    }
+
+    protected void onAfterStop() {
+    }
+
+    protected void onApplySettings(SettingsPack sp) {
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        stop();
+        super.finalize();
+    }
+
+    private void resetState() {
+        stats.clear();
+        firewalled = true;
+        listenEndpoints.clear();
+        externalAddress = null;
+        alertsLoop = null;
+    }
+
+    private void modifyListeners(boolean add, AlertListener listener) {
+        if (listener == null) {
+            return;
+        }
+
+        int[] types = listener.types();
+
+        // all alert-type including listener
+        if (types == null) {
+            modifyListeners(add, Alerts.NUM_ALERT_TYPES, listener);
+        } else {
+            for (int i = 0; i < types.length; i++) {
+                modifyListeners(add, types[i], listener);
+            }
+        }
+    }
+
+    private synchronized void modifyListeners(boolean add, int type, AlertListener listener) {
+        if (add) {
+            listeners[type] = AlertMulticaster.add(listeners[type], listener);
+        } else {
+            listeners[type] = AlertMulticaster.remove(listeners[type], listener);
+        }
+    }
+
+    private void fireAlert(Alert<?> a, int type) {
+        AlertListener listener = listeners[type];
+        if (listener != null) {
+            try {
+                listener.alert(a);
+            } catch (Throwable e) {
+                Log.warn("Error calling alert listener: " + e.getMessage());
+                lastAlertError = e;
+            }
+        }
+    }
+
+    private void onListenSucceeded(ListenSucceededAlert alert) {
+        try {
+            // only store TCP endpoints
+            if (alert.socketType() == SocketType.TCP) {
+                return;
+            }
+
+            Address addr = alert.address();
+
+            if (addr.isV4()) {
+                // consider just one IPv4 listen endpoint port
+                // as the external port
+                externalPort = alert.port();
+            }
+
+            // only consider valid addresses
+            if (addr.isLoopback() || addr.isMulticast() || addr.isUnspecified()) {
+                return;
+            }
+
+            String address = addr.toString();
+            int port = alert.port();
+
+            // avoid local-link addresses
+            if (address.startsWith("127.") || address.startsWith("fe80::")) {
+                return;
+            }
+
+            String endp = (addr.isV6() ? "[" + address + "]" : address) + ":" + port;
+            listenEndpoints.put(address, endp);
+        } catch (Throwable e) {
+            Log.error("Error adding listen endpoint to internal list", e);
+        }
+    }
+
+    private void toggleDht(boolean on) {
+        if (session == null || isDhtRunning() == on) {
+            return;
+        }
+
+        SettingsPack sp = new SettingsPack();
+        sp.setEnableDht(on);
+
+        applySettings(sp);
+    }
+
+    private void onExternalIpAlert(ExternalIpAlert alert) {
+        try {
+            // libtorrent perform all kind of tests
+            // to avoid non usable addresses
+            address addr = alert.swig().get_external_address();
+            // filter out non IPv4 addresses
+            if (!addr.is_v4()) {
+                return;
+            }
+            externalAddress = alert.externalAddress().toString();
+        } catch (Throwable e) {
+            Log.error("Error saving reported external ip", e);
+        }
+    }
+
+    private boolean isFetchMagnetDownload(AddTorrentAlert alert) {
+        String name = alert.torrentName();
+        return name != null && name.contains(FETCH_MAGNET_DOWNLOAD_KEY);
+    }
+
+    private static alert_category_t alertMask(boolean logging) {
+        alert_category_t mask = alert.all_categories;
+        if (!logging) {
+            alert_category_t log_mask = alert.session_log_notification;
+            log_mask = log_mask.or_(alert.torrent_log_notification);
+            log_mask = log_mask.or_(alert.peer_log_notification);
+            log_mask = log_mask.or_(alert.dht_log_notification);
+            log_mask = log_mask.or_(alert.port_mapping_log_notification);
+            log_mask = log_mask.or_(alert.picker_log_notification);
+
+            mask = mask.and_(log_mask.inv());
+        }
+        return mask;
+    }
+
+    protected String defaultDhtBootstrapNodes() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("dht.libtorrent.org:25401").append(",");
+        sb.append("router.bittorrent.com:6881").append(",");
+        sb.append("router.utorrent.com:6881").append(",");
+        sb.append("dht.transmissionbt.com:6881");
+
+        return sb.toString();
+    }
+
+    private static boolean isSpecialType(int type) {
+        return type == AlertType.SESSION_STATS.swig() ||
+                type == AlertType.STATE_UPDATE.swig() ||
+                type == AlertType.SESSION_STATS_HEADER.swig();
+    }
+
+    private void alertsLoop() {
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                alert_ptr_vector v = new alert_ptr_vector();
+
+                while (session != null) {
+                    alert ptr = session.wait_for_alert_ms(ALERTS_LOOP_WAIT_MILLIS);
+
+                    if (session == null) {
+                        return;
+                    }
+
+                    if (ptr != null) {
+                        session.pop_alerts(v);
+                        long size = v.size();
+                        for (int i = 0; i < size; i++) {
+                            alert a = v.get(i);
+                            int type = a.type();
+
+                            Alert<?> alert = null;
+
+                            switch (AlertType.fromSwig(type)) {
+                                case SESSION_STATS:
+                                    alert = Alerts.cast(a);
+                                    stats.update((SessionStatsAlert) alert);
+                                    break;
+                                case PORTMAP:
+                                    firewalled = false;
+                                    break;
+                                case PORTMAP_ERROR:
+                                    firewalled = true;
+                                    break;
+                                case LISTEN_SUCCEEDED:
+                                    alert = Alerts.cast(a);
+                                    onListenSucceeded((ListenSucceededAlert) alert);
+                                    break;
+                                case EXTERNAL_IP:
+                                    alert = Alerts.cast(a);
+                                    onExternalIpAlert((ExternalIpAlert) alert);
+                                    break;
+                                case ADD_TORRENT:
+                                    alert = Alerts.cast(a);
+                                    if (isFetchMagnetDownload((AddTorrentAlert) alert)) {
+                                        continue;
+                                    }
+                                    break;
+                            }
+
+                            if (listeners[type] != null) {
+                                if (alert == null) {
+                                    alert = Alerts.cast(a);
+                                }
+                                fireAlert(alert, type);
+                            }
+
+                            if (!isSpecialType(type) && listeners[Alerts.NUM_ALERT_TYPES] != null) {
+                                if (alert == null) {
+                                    alert = Alerts.cast(a);
+                                }
+                                fireAlert(alert, Alerts.NUM_ALERT_TYPES);
+                            }
+                        }
+                        v.clear();
+                    }
+
+                    long now = System.currentTimeMillis();
+                    if ((now - lastStatsRequestTime) >= REQUEST_STATS_RESOLUTION_MILLIS) {
+                        lastStatsRequestTime = now;
+                        postSessionStats();
+                        postTorrentUpdates();
+                    }
+                }
+            }
+        };
+
+        Thread t = new Thread(r, "SessionManager-alertsLoop");
+        t.setDaemon(true);
+        t.start();
+
+        alertsLoop = t;
+    }
+
+    public static final class MutableItem {
+
+        private MutableItem(Entry item, byte[] signature, long seq) {
+            this.item = item;
+            this.signature = signature;
+            this.seq = seq;
+        }
+
+        public final Entry item;
+        public final byte[] signature;
+        public final long seq;
+    }
+}
