@@ -22,6 +22,13 @@ if ! $(LIBTORRENT_ROOT)
 	EXIT "You need to define LIBTORRENT_ROOT" ;
 }
 
+LEVELDB_ROOT = [ os.environ LEVELDB_ROOT ] ;
+ECHO "LEVELDB_ROOT = "$(LEVELDB_ROOT) ;
+if ! $(LEVELDB_ROOT)
+{
+	EXIT "You need to define LEVELDB_ROOT" ;
+}
+
 use-project /torrent : $(LIBTORRENT_ROOT) ;
 
 rule libtorrent_linking ( properties * )
@@ -30,6 +37,7 @@ rule libtorrent_linking ( properties * )
 
     result += <deprecated-functions>off ;
     result += <logging>on ;
+    result += <db>on ;
     result += <crypto>openssl ;
     result += <webtorrent>on ;
     result += <optimization>speed ;
@@ -47,6 +55,12 @@ feature ssl : on off : composite propagated link-incompatible ;
 feature.compose <ssl>on :
     <openssl-include>$(OPENSSL_ROOT)/include
     <openssl-lib>$(OPENSSL_ROOT)/lib
+    ;
+
+feature db : on off : composite propagated link-incompatible ;
+feature.compose <db>on :
+    <leveldb-include>$(LEVELDB_ROOT)/include
+    <leveldb-lib>$(LEVELDB_ROOT)/lib
     ;
 
 lib torrent4j
