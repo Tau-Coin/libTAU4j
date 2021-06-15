@@ -1,0 +1,84 @@
+name: Linux
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+env:
+  BOOST_DOT_VERSION: "1.76.0"
+  BOOST_VERSION: "1_76_0"
+  OPENSSL_VERSION: "1.1.1k"
+  OPENSSL_NO_OPTS: "no-deprecated no-shared no-makedepend no-static-engine no-stdio no-posix-io no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -O3"
+  CXX: g++-10
+  CC: gcc-10
+
+jobs:
+
+  x86_64-b2:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: setup gcc
+        run: |
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+          sudo apt update
+          sudo apt install gcc-10
+      - name: setup boost
+        run: |
+          wget -nv -O boost.tar.gz https://boostorg.jfrog.io/artifactory/main/release/${BOOST_DOT_VERSION}/source/boost_${BOOST_VERSION}.tar.gz
+          tar xzf boost.tar.gz
+          mv boost_${BOOST_VERSION} boost
+          cd boost
+          ./bootstrap.sh
+          cd ..
+      - name: setup openssl
+        run: |
+          wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
+          tar xzf openssl.tar.gz
+          cd openssl-${OPENSSL_VERSION}
+          ./Configure linux-x86_64 ${OPENSSL_NO_OPTS} -fPIC --prefix=${PWD}/../openssl
+          make &> /dev/null
+          make install_sw &> /dev/null
+          cd ..
+      - name: leveldb
+        run: |
+          wget -nv -O leveldb.tar.gz https://github.com/google/leveldb/archive/refs/tags/1.23.tar.gz
+          tar xzf leveldb.tar.gz
+          cd leveldb
+          vim CMakeLists.txt -> add_compile_options(-fPIC) && option(LEVELDB_BUILD_TESTS "Build LevelDB's unit tests" OFF) option(LEVELDB_BUILD_BENCHMARKS "Build LevelDB's benchmarks" OFF)
+          mkdir build
+          cd build
+          cmake -D CMAKE_INSTALL_PREFIX=${PWD}/../../leveldb  ../
+          make
+          make install
+      - name: build
+        run: |
+          export BOOST_ROOT=${PWD}/boost
+          export OPENSSL_ROOT=${PWD}/openssl
+          export LIBTORRENT_ROOT=${PWD}/swig/deps/libtorrent
+          cd swig
+          ${BOOST_ROOT}/b2 -j2 --user-config=config/linux-x86_64-config.jam variant=release toolset=gcc-x86_64 target-os=linux location=bin/release/linux/x86_64
+          cd ..
+      - name: strip
+        run: |
+          objcopy --only-keep-debug swig/bin/release/linux/x86_64/libtorrent4j.so swig/bin/release/linux/x86_64/libtorrent4j.so.debug
+          strip --strip-unneeded -x swig/bin/release/linux/x86_64/libtorrent4j.so
+      - name: dependencies
+        run: readelf -d swig/bin/release/linux/x86_64/libtorrent4j.so
+      - name: test
+        run: |
+          cp swig/bin/release/linux/x86_64/libtorrent4j.so .
+          ./gradlew test
+      - uses: actions/upload-artifact@v2
+        with:
+          name: libtorrent4j-linux-b2
+          path: |
+            swig/bin/release/linux/x86_64/libtorrent4j.so
+            swig/bin/release/linux/x86_64/libtorrent4j.so.debug
+          retention-days: 5
