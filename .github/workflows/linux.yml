@@ -57,6 +57,14 @@ jobs:
           cmake -D CMAKE_INSTALL_PREFIX=${PWD}/../../leveldb  ../
           make
           make install
+      - name: sqlite
+        run: |
+          wget -nv -O sqlite.tar.gz https://sqlite.org/2021/sqlite-autoconf-3360000.tar.gz
+          tar xzf sqlite.tar.gz
+          cd sqlite
+          ./configure --prefix=${SQLITE_ROOT} CFLAGS=-fPIC CXXFLAGS=-fPIC
+          make
+          make install
       - name: build
         run: |
           export BOOST_ROOT=${PWD}/boost
