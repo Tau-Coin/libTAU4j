@@ -192,9 +192,9 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %template(string_string_pair) std::pair<std::string, std::string>;
 %template(byte_vector_byte_vector_pair) std::pair<std::vector<std::int8_t>, std::vector<std::int8_t>>;
 
-%template(sha1_hash_udp_endpoint_pair) std::pair<libtorrent::digest32<160>, libtorrent::udp::endpoint>;
+%template(sha256_hash_udp_endpoint_pair) std::pair<libtorrent::digest32<256>, libtorrent::udp::endpoint>;
 %template(bdecode_node_bdecode_node_pair) std::pair<libtorrent::bdecode_node, libtorrent::bdecode_node>;
-%template(address_sha1_hash_pair) std::pair<libtorrent::address, libtorrent::digest32<160>>;
+%template(address_sha256_hash_pair) std::pair<libtorrent::address, libtorrent::digest32<256>>;
 
 %template(string_vector) std::vector<std::string>;
 %template(int_vector) std::vector<int>;
@@ -209,7 +209,6 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %template(udp_endpoint_vector) std::vector<libtorrent::udp::endpoint>;
 %template(announce_endpoint_vector) std::vector<libtorrent::announce_endpoint>;
 %template(announce_entry_vector) std::vector<libtorrent::announce_entry>;
-%template(web_seed_entry_vector) std::vector<libtorrent::web_seed_entry>;
 %template(file_slice_vector) std::vector<libtorrent::file_slice>;
 %template(piece_block_vector) std::vector<libtorrent::piece_block>;
 %template(torrent_status_vector) std::vector<libtorrent::torrent_status>;
@@ -226,8 +225,8 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 
 %template(bool_vector_vector) std::vector<std::vector<bool>>;
 %template(sha256_hash_vector_vector) std::vector<std::vector<libtorrent::digest32<256>>>;
-%template(sha1_hash_udp_endpoint_pair_vector) std::vector<std::pair<libtorrent::digest32<160>, libtorrent::udp::endpoint>>;
-%template(address_sha1_hash_pair_vector) std::vector<std::pair<libtorrent::address, libtorrent::digest32<160>>>;
+%template(sha256_hash_udp_endpoint_pair_vector) std::vector<std::pair<libtorrent::digest32<256>, libtorrent::udp::endpoint>>;
+%template(address_sha256_hash_pair_vector) std::vector<std::pair<libtorrent::address, libtorrent::digest32<256>>>;
 
 %template(byte_array_32) std::array<std::int8_t, 32>;
 %template(byte_array_64) std::array<std::int8_t, 64>;
@@ -265,6 +264,7 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 
 // general ignores
 %ignore libtorrent::aux;
+%ignore libtorrent::communication;
 %ignore mem_copy;
 
 // directors

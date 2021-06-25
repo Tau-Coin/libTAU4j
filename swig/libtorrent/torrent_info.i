@@ -25,6 +25,7 @@
  %ignore libtorrent::torrent_info::set_piece_layers;
 %ignore libtorrent::aux::sanitize_append_path_element;
 %ignore libtorrent::aux::verify_encoding;
+%ignore libtorrent::web_seed_entry;
 
 %include "libtorrent/torrent_info.hpp"
 

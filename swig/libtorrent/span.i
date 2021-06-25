@@ -25,6 +25,7 @@ private:
     span(); // disable constructor in java side
 };
 
-%template(byte_span) libtorrent::span<std::int8_t const>;
+
 
 }
+%template(byte_span) libtorrent::span<std::int8_t const>;
