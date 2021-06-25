@@ -3223,6 +3223,7 @@ public class libtorrent_jni {
   public final static native long new_session__SWIG_0(long jarg1, session_params jarg1_);
   public final static native long new_session__SWIG_1();
   public final static native long new_session__SWIG_2(long jarg1, session jarg1_);
+  public final static native long new_session__SWIG_3(long jarg1, session_params jarg1_, String jarg2);
   public final static native void delete_session(long jarg1);
   public final static native long session_abort(long jarg1, session jarg1_);
   public final static native long create_torrent_modification_time_get();
