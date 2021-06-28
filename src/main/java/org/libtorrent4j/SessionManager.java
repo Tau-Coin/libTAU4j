@@ -168,55 +168,6 @@ public class SessionManager {
         }
     }
 
-    public void start(SessionParams params, String seed) {
-        if (session != null) {
-            return;
-        }
-
-        sync.lock();
-
-        try {
-            if (session != null) {
-                return;
-            }
-
-            onBeforeStart();
-
-            resetState();
-
-            SettingsPack sp = params.getSettings();
-
-            // we always control the alert mask
-            sp.setInteger(settings_pack.int_types.alert_mask.swigValue(), alertMask(logging).to_int());
-
-            // limit metadata size by default
-            if (!sp.hasValue(settings_pack.int_types.max_metadata_size.swigValue())) {
-                sp.setMaxMetadataSize(2 * 1024 * 1024);
-            }
-
-            // use some dht bootstrap nodes if none is provided
-            if (!sp.hasValue(settings_pack.string_types.dht_bootstrap_nodes.swigValue())) {
-                sp.setDhtBootstrapNodes(defaultDhtBootstrapNodes());
-            }
-
-            session = new session(params.swig(), seed);
-            alertsLoop();
-
-            // block all connections to port < 1024, but
-            // allows 80 and 443 for web seeds
-            port_filter f = new port_filter();
-            f.add_rule(0, 79, 1);
-            f.add_rule(81, 442, 1);
-            f.add_rule(444, 1023, 1);
-            session.set_port_filter(f);
-
-            onAfterStart();
-
-        } finally {
-            sync.unlock();
-        }
-    }
-
     public void start() {
         start(new SessionParams());
     }
