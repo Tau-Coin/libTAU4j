@@ -137,13 +137,6 @@ struct picker_flags_tag;
     }
 }
 
-%extend tracker_alert {
-
-    tcp::endpoint get_local_endpoint() {
-        return $self->local_endpoint;
-    }
-}
-
 %extend dht_lookup {
 
     std::string get_type() {
@@ -220,13 +213,6 @@ struct picker_flags_tag;
 %extend session_stats_alert {
     long long get_value(int index) {
         return $self->counters()[index];
-    }
-}
-
-%extend read_piece_alert {
-
-    int64_t buffer_ptr() {
-        return reinterpret_cast<int64_t>($self->buffer.get());
     }
 }
 
