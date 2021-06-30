@@ -47,7 +47,7 @@ rule libtorrent_linking ( properties * )
     result += <kvdb>on ;
     result += <sqldb>on ;
     result += <crypto>openssl ;
-    result += <webtorrent>on ;
+    result += <webtorrent>off ;
     result += <optimization>speed ;
     result += <cxxstd>17 ;
 
