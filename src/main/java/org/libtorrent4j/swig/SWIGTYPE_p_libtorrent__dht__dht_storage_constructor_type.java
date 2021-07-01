@@ -8,18 +8,18 @@
 
 package org.libtorrent4j.swig;
 
-public class SWIGTYPE_p_libtorrent__dht_sample_infohashes_alert {
+public class SWIGTYPE_p_libtorrent__dht__dht_storage_constructor_type {
   private transient long swigCPtr;
 
-  protected SWIGTYPE_p_libtorrent__dht_sample_infohashes_alert(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
+  protected SWIGTYPE_p_libtorrent__dht__dht_storage_constructor_type(long cPtr, @SuppressWarnings("unused") boolean futureUse) {
     swigCPtr = cPtr;
   }
 
-  protected SWIGTYPE_p_libtorrent__dht_sample_infohashes_alert() {
+  protected SWIGTYPE_p_libtorrent__dht__dht_storage_constructor_type() {
     swigCPtr = 0;
   }
 
-  protected static long getCPtr(SWIGTYPE_p_libtorrent__dht_sample_infohashes_alert obj) {
+  protected static long getCPtr(SWIGTYPE_p_libtorrent__dht__dht_storage_constructor_type obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 }

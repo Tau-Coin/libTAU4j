@@ -553,30 +553,6 @@ public final class SettingsPack
     }
 
     /**
-     * Starts and stops Local Service Discovery. This service will
-     * broadcast the info-hashes of all the non-private torrents on the
-     * local network to look for peers on the same swarm within multicast
-     * reach.
-     *
-     * @return true if enable
-     */
-    public boolean isEnableLsd() {
-        return h.get_bool(settings_pack.bool_types.enable_lsd.swigValue());
-    }
-
-    /**
-     * Starts and stops Local Service Discovery. This service will
-     * broadcast the info-hashes of all the non-private torrents on the
-     * local network to look for peers on the same swarm within multicast
-     * reach.
-     *
-     * @param value true if enable
-     */
-    public void setEnableLsd(boolean value) {
-        h.set_bool(settings_pack.bool_types.enable_lsd.swigValue(), value);
-    }
-
-    /**
      * The maximum allowed size (in bytes) to be
      * received by the metadata extension, i.e. magnet links.
      */

@@ -1,6 +1,6 @@
 package org.libtorrent4j.alerts;
 
-import org.libtorrent4j.Sha1Hash;
+import org.libtorrent4j.Sha256Hash;
 import org.libtorrent4j.Vectors;
 import org.libtorrent4j.swig.dht_put_alert;
 
@@ -23,8 +23,8 @@ public final class DhtPutAlert extends AbstractAlert<dht_put_alert> {
      *
      *
      */
-    public Sha1Hash target() {
-        return new Sha1Hash(alert.getTarget());
+    public Sha256Hash target() {
+        return new Sha256Hash(alert.getTarget());
     }
 
     /**

@@ -146,6 +146,7 @@ public class settings_pack extends settings_interface {
     public final static settings_pack.string_types i2p_hostname = new settings_pack.string_types("i2p_hostname");
     public final static settings_pack.string_types peer_fingerprint = new settings_pack.string_types("peer_fingerprint");
     public final static settings_pack.string_types db_dir = new settings_pack.string_types("db_dir");
+    public final static settings_pack.string_types account_seed = new settings_pack.string_types("account_seed");
     public final static settings_pack.string_types dht_bootstrap_nodes = new settings_pack.string_types("dht_bootstrap_nodes");
     public final static settings_pack.string_types webtorrent_stun_server = new settings_pack.string_types("webtorrent_stun_server");
     public final static settings_pack.string_types max_string_setting_internal = new settings_pack.string_types("max_string_setting_internal");
@@ -184,7 +185,7 @@ public class settings_pack extends settings_interface {
       swigNext = this.swigValue+1;
     }
 
-    private static string_types[] swigValues = { user_agent, announce_ip, handshake_client_version, outgoing_interfaces, listen_interfaces, proxy_hostname, proxy_username, proxy_password, i2p_hostname, peer_fingerprint, db_dir, dht_bootstrap_nodes, webtorrent_stun_server, max_string_setting_internal };
+    private static string_types[] swigValues = { user_agent, announce_ip, handshake_client_version, outgoing_interfaces, listen_interfaces, proxy_hostname, proxy_username, proxy_password, i2p_hostname, peer_fingerprint, db_dir, account_seed, dht_bootstrap_nodes, webtorrent_stun_server, max_string_setting_internal };
     private static int swigNext = 0;
     private final int swigValue;
     private final String swigName;

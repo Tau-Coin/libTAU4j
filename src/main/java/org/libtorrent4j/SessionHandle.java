@@ -20,8 +20,6 @@ import org.libtorrent4j.swig.save_state_flags_t;
 import org.libtorrent4j.swig.session_flags_t;
 import org.libtorrent4j.swig.session_handle;
 import org.libtorrent4j.swig.status_flags_t;
-import org.libtorrent4j.swig.torrent_handle;
-import org.libtorrent4j.swig.torrent_handle_vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -223,7 +221,7 @@ public final class SessionHandle
     public int[] addPortMapping(PortmapProtocol t, int externalPort, int localPort) {
         int_vector v = h.add_port_mapping_ex(portmap_protocol.swigToEnum(t.swig()), externalPort, localPort);
 
-        int size = v.size();
+        int size = (int)v.size();
         int[] arr = new int[size];
 
         for (int i = 0; i < size; i++) {
@@ -275,7 +273,7 @@ public final class SessionHandle
      *
      * @param target
      */
-    public void dhtGetItem(Sha1Hash target) {
+    public void dhtGetItem(Sha256Hash target) {
         h.dht_get_item(target.swig());
     }
 
@@ -302,8 +300,8 @@ public final class SessionHandle
      *
      * @param entry
      */
-    public Sha1Hash dhtPutItem(Entry entry) {
-        return new Sha1Hash(h.dht_put_item(entry.swig()));
+    public Sha256Hash dhtPutItem(Entry entry) {
+        return new Sha256Hash(h.dht_put_item(entry.swig()));
     }
 
     // store an immutable item. The ``key`` is the public key the blob is
@@ -350,50 +348,6 @@ public final class SessionHandle
             Vectors.bytes2byte_array_64(privateKey),
             entry.swig(),
             Vectors.bytes2byte_vector(salt));
-    }
-
-    /**
-     * @param infoHash
-     */
-    public void dhtGetPeers(Sha1Hash infoHash) {
-        h.dht_get_peers(infoHash.swig());
-    }
-
-    public static final int DHT_ANNOUNCE_SEED = 1;
-    public static final int DHT_ANNOUNCE_IMPLIED_PORT = 1 << 1;
-    public static final int DHT_ANNOUNCE_SSL_TORRENT = 1 << 2;
-
-    /**
-     * @param infoHash
-     * @param port
-     * @param flags
-     */
-    public void dhtAnnounce(Sha1Hash infoHash, int port, byte flags) {
-        h.dht_announce_ex(infoHash.swig(), port, flags);
-    }
-
-    /**
-     * @param infoHash
-     */
-    public void dhtAnnounce(Sha1Hash infoHash) {
-        h.dht_announce_ex(infoHash.swig());
-    }
-
-    /**
-     * @param endp
-     * @param entry
-     * @param userdata
-     */
-    public void dhtDirectRequest(UdpEndpoint endp, Entry entry, long userdata) {
-        h.dht_direct_request(endp.swig(), entry.swig(), userdata);
-    }
-
-    /**
-     * @param endp
-     * @param entry
-     */
-    public void dhtDirectRequest(UdpEndpoint endp, Entry entry) {
-        h.dht_direct_request(endp.swig(), entry.swig());
     }
 
     /**

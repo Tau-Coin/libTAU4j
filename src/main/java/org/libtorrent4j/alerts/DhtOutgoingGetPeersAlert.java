@@ -1,6 +1,6 @@
 package org.libtorrent4j.alerts;
 
-import org.libtorrent4j.Sha1Hash;
+import org.libtorrent4j.Sha256Hash;
 import org.libtorrent4j.UdpEndpoint;
 import org.libtorrent4j.swig.dht_outgoing_get_peers_alert;
 
@@ -22,8 +22,8 @@ public final class DhtOutgoingGetPeersAlert extends AbstractAlert<dht_outgoing_g
      *
      *
      */
-    public Sha1Hash infoHash() {
-        return new Sha1Hash(alert.getInfo_hash());
+    public Sha256Hash infoHash() {
+        return new Sha256Hash(alert.getInfo_hash());
     }
 
     /**
@@ -32,8 +32,8 @@ public final class DhtOutgoingGetPeersAlert extends AbstractAlert<dht_outgoing_g
      *
      *
      */
-    public Sha1Hash obfuscatedInfoHash() {
-        return new Sha1Hash(alert.getObfuscated_info_hash());
+    public Sha256Hash obfuscatedInfoHash() {
+        return new Sha256Hash(alert.getObfuscated_info_hash());
     }
 
     /**

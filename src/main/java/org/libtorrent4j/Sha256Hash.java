@@ -7,49 +7,48 @@
 
 package org.libtorrent4j;
 
-import org.libtorrent4j.swig.sha1_hash;
-import org.libtorrent4j.swig.sha1_hash_vector;
+import org.libtorrent4j.swig.sha256_hash;
+import org.libtorrent4j.swig.sha256_hash_vector;
 
 import java.util.ArrayList;
 
 /**
- * This type holds a SHA-1 digest or any other kind of 20 byte
+ * This type holds a SHA-2 digest or any other kind of 32 byte
  * sequence. It implements a number of convenience functions, such
  * as bit operations, comparison operators etc.
  * <p>
- * In libtorrent it is primarily used to hold info-hashes, piece-hashes,
- * peer IDs, node IDs etc.
+ * In libtorrent it is primarily used to hold info-hashes, node IDs etc.
  *
  * @author gubatron
  * @author aldenml
  */
-public final class Sha1Hash
-    extends SwigObject<sha1_hash>
-    implements Comparable<Sha1Hash>, Cloneable {
+public final class Sha256Hash
+    extends SwigObject<sha256_hash>
+    implements Comparable<Sha256Hash>, Cloneable {
 
     /**
      * @param h native object
      */
-    public Sha1Hash(sha1_hash h) {
+    public Sha256Hash(sha256_hash h) {
         super(h);
     }
 
     /**
-     * Constructs an all-zero sha1-hash
+     * Constructs an all-zero sha256-hash
      */
-    public Sha1Hash() {
-        this(new sha1_hash());
+    public Sha256Hash() {
+        this(new sha256_hash());
     }
 
     /**
-     * set the sha1-hash to all zeroes.
+     * set the sha256-hash to all zeroes.
      */
     public void clear() {
         h.clear();
     }
 
     /**
-     * return true if the sha1-hash is all zero.
+     * return true if the sha256-hash is all zero.
      *
      * @return true if zero
      */
@@ -80,8 +79,8 @@ public final class Sha1Hash
      * @return {@inheritDoc}
      */
     @Override
-    public int compareTo(Sha1Hash o) {
-        return sha1_hash.compare(this.h, o.h);
+    public int compareTo(Sha256Hash o) {
+        return sha256_hash.compare(this.h, o.h);
     }
 
     /**
@@ -101,11 +100,11 @@ public final class Sha1Hash
      */
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Sha1Hash)) {
+        if (!(obj instanceof Sha256Hash)) {
             return false;
         }
 
-        return h.eq(((Sha1Hash) obj).h);
+        return h.eq(((Sha256Hash) obj).h);
     }
 
     /**
@@ -117,55 +116,55 @@ public final class Sha1Hash
     }
 
     @Override
-    public Sha1Hash clone() {
-        return new Sha1Hash(new sha1_hash(h));
+    public Sha256Hash clone() {
+        return new Sha256Hash(new sha256_hash(h));
     }
 
     /**
-     * returns an all-F sha1-hash. i.e. the maximum value
-     * representable by a 160 bit number (20 bytes). This is
+     * returns an all-F sha256-hash. i.e. the maximum value
+     * representable by a 256 bit number (32 bytes). This is
      * a static member function.
      *
      * @return the maximum number
      */
-    public static Sha1Hash max() {
-        return new Sha1Hash(sha1_hash.max());
+    public static Sha256Hash max() {
+        return new Sha256Hash(sha256_hash.max());
     }
 
     /**
-     * returns an all-zero sha1-hash. i.e. the minimum value
-     * representable by a 160 bit number (20 bytes). This is
+     * returns an all-zero sha256-hash. i.e. the minimum value
+     * representable by a 256 bit number (32 bytes). This is
      * a static member function.
      *
      * @return the minimum number (zero)
      */
-    public static Sha1Hash min() {
-        return new Sha1Hash(sha1_hash.min());
+    public static Sha256Hash min() {
+        return new Sha256Hash(sha256_hash.min());
     }
 
     /**
      * @param bytes hash as an array of bytes
      */
-    public static Sha1Hash fromBytes(byte[] bytes) {
-        if (bytes.length != 20) {
-            throw new IllegalArgumentException("bytes array must be of length 20");
+    public static Sha256Hash fromBytes(byte[] bytes) {
+        if (bytes.length != 32) {
+            throw new IllegalArgumentException("bytes array must be of length 32");
         }
 
-        return new Sha1Hash(new sha1_hash(Vectors.bytes2byte_vector(bytes)));
+        return new Sha256Hash(new sha256_hash(Vectors.bytes2byte_vector(bytes)));
     }
 
     /**
      * @param hex hex coded representation of the hash
      */
-    public static Sha1Hash parseHex(String hex) {
+    public static Sha256Hash parseHex(String hex) {
         return fromBytes(Hex.decode(hex));
     }
 
-    static ArrayList<Sha1Hash> convert(sha1_hash_vector v) {
-        ArrayList<Sha1Hash> l = new ArrayList<Sha1Hash>((int)v.size());
+    static ArrayList<Sha256Hash> convert(sha256_hash_vector v) {
+        ArrayList<Sha256Hash> l = new ArrayList<Sha256Hash>((int)v.size());
 
         for (int i = 0; i < (int)v.size(); i++) {
-            l.add(new Sha1Hash(v.get(i)));
+            l.add(new Sha256Hash(v.get(i)));
         }
 
         return l;

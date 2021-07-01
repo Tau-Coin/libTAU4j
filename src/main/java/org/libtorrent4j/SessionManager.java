@@ -18,7 +18,6 @@ import org.libtorrent4j.alerts.ExternalIpAlert;
 import org.libtorrent4j.alerts.ListenSucceededAlert;
 import org.libtorrent4j.alerts.SessionStatsAlert;
 import org.libtorrent4j.alerts.SocketType;
-import org.libtorrent4j.alerts.TorrentAlert;
 import org.libtorrent4j.swig.add_torrent_params;
 import org.libtorrent4j.swig.address;
 import org.libtorrent4j.swig.alert;
@@ -34,13 +33,8 @@ import org.libtorrent4j.swig.remove_flags_t;
 import org.libtorrent4j.swig.session;
 import org.libtorrent4j.swig.session_params;
 import org.libtorrent4j.swig.settings_pack;
-import org.libtorrent4j.swig.sha1_hash;
+import org.libtorrent4j.swig.sha256_hash;
 import org.libtorrent4j.swig.tcp_endpoint_vector;
-import org.libtorrent4j.swig.torrent_flags_t;
-import org.libtorrent4j.swig.torrent_handle;
-import org.libtorrent4j.swig.torrent_handle_vector;
-import org.libtorrent4j.swig.torrent_info;
-import org.libtorrent4j.swig.torrent_status;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -61,10 +55,6 @@ public class SessionManager {
 
     private static final long REQUEST_STATS_RESOLUTION_MILLIS = 1000;
     private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
-
-    private static final int[] METADATA_ALERT_TYPES = new int[]
-            {AlertType.METADATA_RECEIVED.swig(), AlertType.METADATA_FAILED.swig()};
-    private static final String FETCH_MAGNET_DOWNLOAD_KEY = "fetch_magnet___";
 
     private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {AlertType.DHT_IMMUTABLE_ITEM.swig()};
     private static final int[] DHT_MUTABLE_ITEM_TYPES = {AlertType.DHT_MUTABLE_ITEM.swig()};
@@ -445,16 +435,16 @@ public class SessionManager {
     }
 
     /**
-     * @param sha1
+     * @param sha256
      * @param timeout in seconds
      * @return the item
      */
-    public Entry dhtGetItem(Sha1Hash sha1, int timeout) {
+    public Entry dhtGetItem(Sha256Hash sha256, int timeout) {
         if (session == null) {
             return null;
         }
 
-        final sha1_hash target = sha1.swig();
+        final sha256_hash target = sha256.swig();
         final AtomicReference<Entry> result = new AtomicReference<>();
         final CountDownLatch signal = new CountDownLatch(1);
 
@@ -496,7 +486,7 @@ public class SessionManager {
      * @param entry the data
      * @return the target key
      */
-    public Sha1Hash dhtPutItem(Entry entry) {
+    public Sha256Hash dhtPutItem(Entry entry) {
         return session != null ? new SessionHandle(session).dhtPutItem(entry) : null;
     }
 
@@ -549,66 +539,6 @@ public class SessionManager {
     public void dhtPutItem(byte[] publicKey, byte[] privateKey, Entry entry, byte[] salt) {
         if (session != null) {
             new SessionHandle(session).dhtPutItem(publicKey, privateKey, entry, salt);
-        }
-    }
-
-    /**
-     * @param sha1
-     * @param timeout in seconds
-     * @return the peer list or an empty list
-     */
-    public ArrayList<TcpEndpoint> dhtGetPeers(Sha1Hash sha1, int timeout) {
-        final ArrayList<TcpEndpoint> result = new ArrayList<>();
-        if (session == null) {
-            return result;
-        }
-
-        final sha1_hash target = sha1.swig();
-        final CountDownLatch signal = new CountDownLatch(1);
-
-        AlertListener listener = new AlertListener() {
-
-            @Override
-            public int[] types() {
-                return DHT_GET_PEERS_REPLY_ALERT_TYPES;
-            }
-
-            @Override
-            public void alert(Alert<?> alert) {
-                DhtGetPeersReplyAlert a = (DhtGetPeersReplyAlert) alert;
-                if (target.eq(a.swig().getInfo_hash())) {
-                    result.addAll(a.peers());
-                    signal.countDown();
-                }
-            }
-        };
-
-        addListener(listener);
-
-        try {
-
-            session.dht_get_peers(target);
-
-            signal.await(timeout, TimeUnit.SECONDS);
-
-        } catch (Throwable e) {
-            Log.error("Error getting peers from the dht", e);
-        } finally {
-            removeListener(listener);
-        }
-
-        return result;
-    }
-
-    public void dhtAnnounce(Sha1Hash sha1, int port, byte flags) {
-        if (session != null) {
-            session.dht_announce_ex(sha1.swig(), port, flags);
-        }
-    }
-
-    public void dhtAnnounce(Sha1Hash sha1) {
-        if (session != null) {
-            session.dht_announce_ex(sha1.swig());
         }
     }
 

@@ -86,10 +86,10 @@ public final class LibTorrent {
     public static List<StatsMetric> sessionStatsMetrics() {
         stats_metric_vector v = libtorrent.session_stats_metrics();
 
-        ArrayList<StatsMetric> l = new ArrayList<>(v.size());
+        ArrayList<StatsMetric> l = new ArrayList<StatsMetric>((int)v.size());
 
-        for (stats_metric m : v) {
-            l.add(new StatsMetric(m));
+        for (int i = 0; i < (int)v.size(); i++) {
+            l.add(new StatsMetric(v.get(i)));
         }
 
         return l;

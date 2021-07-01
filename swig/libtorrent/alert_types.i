@@ -32,7 +32,6 @@
 %ignore libtorrent::dht_mutable_item_alert::signature;
 %ignore libtorrent::dht_put_alert::public_key;
 %ignore libtorrent::dht_put_alert::signature;
-%ignore libtorrent::dht_sample_infohashes_alert;
 %ignore libtorrent::communication_new_device_id_alert;
 %ignore libtorrent::communication_new_message_alert;
 %ignore libtorrent::communication_confirmation_root_alert;

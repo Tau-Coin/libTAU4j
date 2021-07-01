@@ -1,6 +1,6 @@
 package org.libtorrent4j.alerts;
 
-import org.libtorrent4j.Sha1Hash;
+import org.libtorrent4j.Sha256Hash;
 import org.libtorrent4j.swig.dht_get_peers_alert;
 
 /**
@@ -19,7 +19,7 @@ public final class DhtGetPeersAlert extends AbstractAlert<dht_get_peers_alert> {
     /**
      * @return the hash
      */
-    public Sha1Hash infoHash() {
-        return new Sha1Hash(alert.getInfo_hash());
+    public Sha256Hash infoHash() {
+        return new Sha256Hash(alert.getInfo_hash());
     }
 }

@@ -10,6 +10,7 @@ package org.libtorrent4j;
 import org.libtorrent4j.swig.boost_string_entry_map;
 import org.libtorrent4j.swig.entry;
 import org.libtorrent4j.swig.entry_vector;
+import org.libtorrent4j.swig.string_vector;
 
 import java.io.File;
 import java.io.IOException;
@@ -212,7 +213,14 @@ public final class Entry {
 
         @Override
         public Set<String> keySet() {
-            return new HashSet<>(m.keys());
+            Set<String> ret = new HashSet<String>();
+            string_vector strvec = m.keys();
+
+            for (int i = 0; i < (int)strvec.size(); i++) {
+                ret.add(strvec.get(i));
+            }
+
+            return ret;
         }
 
         @Override

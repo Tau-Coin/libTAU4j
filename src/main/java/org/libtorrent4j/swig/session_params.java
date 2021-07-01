@@ -74,6 +74,14 @@ public class session_params {
     return (cPtr == 0) ? null : new dht_state(cPtr, false);
   }
 
+  public void setDht_storage_constructor(SWIGTYPE_p_libtorrent__dht__dht_storage_constructor_type value) {
+    libtorrent_jni.session_params_dht_storage_constructor_set(swigCPtr, this, SWIGTYPE_p_libtorrent__dht__dht_storage_constructor_type.getCPtr(value));
+  }
+
+  public SWIGTYPE_p_libtorrent__dht__dht_storage_constructor_type getDht_storage_constructor() {
+    return new SWIGTYPE_p_libtorrent__dht__dht_storage_constructor_type(libtorrent_jni.session_params_dht_storage_constructor_get(swigCPtr, this), true);
+  }
+
   public void setExt_state(string_string_map value) {
     libtorrent_jni.session_params_ext_state_set(swigCPtr, this, string_string_map.getCPtr(value), value);
   }
