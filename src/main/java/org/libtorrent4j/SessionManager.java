@@ -10,15 +10,11 @@ package org.libtorrent4j;
 import org.libtorrent4j.alerts.Alert;
 import org.libtorrent4j.alerts.AlertType;
 import org.libtorrent4j.alerts.Alerts;
-import org.libtorrent4j.alerts.DhtGetPeersReplyAlert;
-import org.libtorrent4j.alerts.DhtImmutableItemAlert;
-import org.libtorrent4j.alerts.DhtMutableItemAlert;
 import org.libtorrent4j.alerts.DhtStatsAlert;
 import org.libtorrent4j.alerts.ExternalIpAlert;
 import org.libtorrent4j.alerts.ListenSucceededAlert;
 import org.libtorrent4j.alerts.SessionStatsAlert;
 import org.libtorrent4j.alerts.SocketType;
-import org.libtorrent4j.swig.add_torrent_params;
 import org.libtorrent4j.swig.address;
 import org.libtorrent4j.swig.alert;
 import org.libtorrent4j.swig.alert_category_t;
@@ -26,14 +22,12 @@ import org.libtorrent4j.swig.alert_ptr_vector;
 import org.libtorrent4j.swig.byte_vector;
 import org.libtorrent4j.swig.entry;
 import org.libtorrent4j.swig.error_code;
-import org.libtorrent4j.swig.info_hash_t;
 import org.libtorrent4j.swig.libtorrent;
 import org.libtorrent4j.swig.port_filter;
 import org.libtorrent4j.swig.remove_flags_t;
 import org.libtorrent4j.swig.session;
 import org.libtorrent4j.swig.session_params;
 import org.libtorrent4j.swig.settings_pack;
-import org.libtorrent4j.swig.sha256_hash;
 import org.libtorrent4j.swig.tcp_endpoint_vector;
 
 import java.io.File;
@@ -55,10 +49,6 @@ public class SessionManager {
 
     private static final long REQUEST_STATS_RESOLUTION_MILLIS = 1000;
     private static final long ALERTS_LOOP_WAIT_MILLIS = 500;
-
-    private static final int[] DHT_IMMUTABLE_ITEM_TYPES = {AlertType.DHT_IMMUTABLE_ITEM.swig()};
-    private static final int[] DHT_MUTABLE_ITEM_TYPES = {AlertType.DHT_MUTABLE_ITEM.swig()};
-    private static final int[] DHT_GET_PEERS_REPLY_ALERT_TYPES = {AlertType.DHT_GET_PEERS_REPLY.swig()};
 
     private final boolean logging;
 
@@ -432,114 +422,6 @@ public class SessionManager {
 
     public void stopDht() {
         toggleDht(false);
-    }
-
-    /**
-     * @param sha256
-     * @param timeout in seconds
-     * @return the item
-     */
-    public Entry dhtGetItem(Sha256Hash sha256, int timeout) {
-        if (session == null) {
-            return null;
-        }
-
-        final sha256_hash target = sha256.swig();
-        final AtomicReference<Entry> result = new AtomicReference<>();
-        final CountDownLatch signal = new CountDownLatch(1);
-
-        AlertListener listener = new AlertListener() {
-
-            @Override
-            public int[] types() {
-                return DHT_IMMUTABLE_ITEM_TYPES;
-            }
-
-            @Override
-            public void alert(Alert<?> alert) {
-                DhtImmutableItemAlert a = (DhtImmutableItemAlert) alert;
-                if (target.eq(a.swig().getTarget())) {
-                    result.set(new Entry(new entry(a.swig().getItem())));
-                    signal.countDown();
-                }
-            }
-        };
-
-        addListener(listener);
-
-        try {
-
-            session.dht_get_item(target);
-
-            signal.await(timeout, TimeUnit.SECONDS);
-
-        } catch (Throwable e) {
-            Log.error("Error getting immutable item", e);
-        } finally {
-            removeListener(listener);
-        }
-
-        return result.get();
-    }
-
-    /**
-     * @param entry the data
-     * @return the target key
-     */
-    public Sha256Hash dhtPutItem(Entry entry) {
-        return session != null ? new SessionHandle(session).dhtPutItem(entry) : null;
-    }
-
-    public MutableItem dhtGetItem(final byte[] key, final byte[] salt, int timeout) {
-        if (session == null) {
-            return null;
-        }
-
-        final AtomicReference<MutableItem> result = new AtomicReference<>();
-        final CountDownLatch signal = new CountDownLatch(1);
-
-        AlertListener listener = new AlertListener() {
-
-            @Override
-            public int[] types() {
-                return DHT_MUTABLE_ITEM_TYPES;
-            }
-
-            @Override
-            public void alert(Alert<?> alert) {
-                DhtMutableItemAlert a = (DhtMutableItemAlert) alert;
-                boolean sameKey = Arrays.equals(key, a.key());
-                boolean sameSalt = Arrays.equals(salt, a.salt());
-                if (sameKey && sameSalt) {
-                    Entry e = new Entry(new entry(a.swig().getItem()));
-                    MutableItem item = new MutableItem(e, a.signature(), a.seq());
-                    result.set(item);
-                    signal.countDown();
-                }
-            }
-        };
-
-        addListener(listener);
-
-        try {
-
-            new SessionHandle(session).dhtGetItem(key, salt);
-
-            signal.await(timeout, TimeUnit.SECONDS);
-
-        } catch (Throwable e) {
-            Log.error("Error getting mutable item", e);
-        } finally {
-            removeListener(listener);
-        }
-
-        return result.get();
-    }
-
-    public void dhtPutItem(byte[] publicKey, byte[] privateKey, Entry entry, byte[] salt) {
-        if (session != null) {
-            new SessionHandle(session).dhtPutItem(publicKey, privateKey, entry, salt);
-        }
     }
 
     public byte[] saveState() {

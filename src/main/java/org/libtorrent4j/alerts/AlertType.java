@@ -27,17 +27,11 @@ public enum AlertType {
     LISTEN_FAILED(listen_failed_alert.alert_type),
     UDP_ERROR(udp_error_alert.alert_type),
     DHT_ERROR(dht_error_alert.alert_type),
-    DHT_PUT(dht_put_alert.alert_type),
-    DHT_MUTABLE_ITEM(dht_mutable_item_alert.alert_type),
-    DHT_IMMUTABLE_ITEM(dht_immutable_item_alert.alert_type),
-    DHT_OUTGOING_GET_PEERS(dht_outgoing_get_peers_alert.alert_type),
     LOG(log_alert.alert_type),
     DHT_STATS(dht_stats_alert.alert_type),
     DHT_LOG(dht_log_alert.alert_type),
     DHT_PKT(dht_pkt_alert.alert_type),
-    DHT_GET_PEERS_REPLY(dht_get_peers_reply_alert.alert_type),
     SESSION_ERROR(session_error_alert.alert_type),
-    DHT_LIVE_NODES(dht_live_nodes_alert.alert_type),
     SESSION_STATS_HEADER(session_stats_header_alert.alert_type),
     ALERTS_DROPPED(alerts_dropped_alert.alert_type),
     UNKNOWN(-1);
@@ -124,7 +118,7 @@ public enum AlertType {
         arr[53] = UNKNOWN;
         arr[54] = UNKNOWN;
         arr[55] = UNKNOWN;
-        arr[56] = DHT_GET_PEERS;
+        arr[56] = UNKNOWN;
         arr[57] = UNKNOWN;
         arr[58] = UNKNOWN;
         arr[59] = UNKNOWN;
@@ -142,11 +136,11 @@ public enum AlertType {
         arr[71] = UNKNOWN;
         arr[72] = UNKNOWN;
         arr[73] = DHT_ERROR;
-        arr[74] = DHT_IMMUTABLE_ITEM;
-        arr[75] = DHT_MUTABLE_ITEM;
-        arr[76] = DHT_PUT;
+        arr[74] = UNKNOWN;
+        arr[75] = UNKNOWN;
+        arr[76] = UNKNOWN;
         arr[77] = UNKNOWN;
-        arr[78] = DHT_OUTGOING_GET_PEERS;
+        arr[78] = UNKNOWN;
         arr[79] = LOG;
         arr[80] = UNKNOWN;
         arr[81] = UNKNOWN;
@@ -155,11 +149,11 @@ public enum AlertType {
         arr[84] = UNKNOWN;
         arr[85] = DHT_LOG;
         arr[86] = DHT_PKT;
-        arr[87] = DHT_GET_PEERS_REPLY;
+        arr[87] = UNKNOWN;
         arr[88] = UNKNOWN;
         arr[89] = UNKNOWN;
         arr[90] = SESSION_ERROR;
-        arr[91] = DHT_LIVE_NODES;
+        arr[91] = UNKNOWN;
         arr[92] = SESSION_STATS_HEADER;
         arr[93] = UNKNOWN;
         arr[94] = UNKNOWN;

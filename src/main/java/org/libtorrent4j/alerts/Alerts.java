@@ -365,7 +365,7 @@ public final class Alerts {
         arr[56] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new DhtGetPeersAlert(cast_to_dht_get_peers_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[57] = new CastLambda() {
@@ -461,19 +461,19 @@ public final class Alerts {
         arr[74] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new DhtImmutableItemAlert(cast_to_dht_immutable_item_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[75] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new DhtMutableItemAlert(cast_to_dht_mutable_item_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[76] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new DhtPutAlert(cast_to_dht_put_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[77] = new CastLambda() {
@@ -485,7 +485,7 @@ public final class Alerts {
         arr[78] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new DhtOutgoingGetPeersAlert(cast_to_dht_outgoing_get_peers_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[79] = new CastLambda() {
@@ -539,7 +539,7 @@ public final class Alerts {
         arr[87] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new DhtGetPeersReplyAlert(cast_to_dht_get_peers_reply_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[88] = new CastLambda() {
@@ -563,7 +563,7 @@ public final class Alerts {
         arr[91] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new DhtLiveNodesAlert(cast_to_dht_live_nodes_alert(a));
+                return handleUnknownAlert(a);
             }
         };
         arr[92] = new CastLambda() {
