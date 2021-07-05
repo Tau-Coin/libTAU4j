@@ -78,6 +78,27 @@ namespace libtorrent {
     {
         $self->delete_port_mapping(libtorrent::port_mapping_t{handle});
     }
+
+    void set_loop_time_interval(int milliseconds)
+    {
+        $self->set_loop_time_interval(milliseconds);
+    }
+
+    void add_new_friend(std::array<std::uint8_t, 32>& pubkey)
+    {
+        $self->add_new_friend(pubkey);
+    }
+
+    void delete_friend(std::array<std::uint8_t, 32>& pubkey)
+    {
+        $self->delete_friend(pubkey);
+    }
+
+    void set_chatting_friend(std::array<std::uint8_t, 32>& pubkey)
+    {
+        $self->set_chatting_friend(pubkey);
+    }
+
 }
 
 }

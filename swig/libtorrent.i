@@ -231,6 +231,7 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 
 %template(byte_array_32) std::array<std::int8_t, 32>;
 %template(byte_array_64) std::array<std::int8_t, 64>;
+%template(unsigned_byte_array_32) std::array<std::uint8_t, 32>;
 
 %template(int_string_map) std::map<int, std::string>;
 %template(string_string_map) std::map<std::string, std::string>;
