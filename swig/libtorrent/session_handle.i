@@ -84,19 +84,44 @@ namespace libtorrent {
         $self->set_loop_time_interval(milliseconds);
     }
 
-    void add_new_friend(std::array<std::uint8_t, 32>& pubkey)
+    bool add_new_friend(std::array<std::uint8_t, 32>& pubkey)
     {
-        $self->add_new_friend(pubkey);
+        return $self->add_new_friend(pubkey);
     }
 
-    void delete_friend(std::array<std::uint8_t, 32>& pubkey)
+    bool delete_friend(std::array<std::uint8_t, 32>& pubkey)
     {
-        $self->delete_friend(pubkey);
+        return $self->delete_friend(pubkey);
     }
 
     void set_chatting_friend(std::array<std::uint8_t, 32>& pubkey)
     {
         $self->set_chatting_friend(pubkey);
+    }
+
+    std::vector<unsigned char> get_friend_info(std::array<unsigned char, 32> pubkey)
+    {
+        return $self->get_friend_info(pubkey);
+    }
+
+    void unset_chatting_friend()
+    {
+        $self->unset_chatting_friend();
+    }
+
+    bool update_friend_info(std::array<unsigned char, 32> pubkey, std::vector<unsigned char> friend_info)
+    {
+        return $self->update_friend_info(pubkey, friend_info);
+    }
+
+    void set_active_friends(std::vector<std::array<unsigned char, 32>> active_friends)
+    {
+        $self->set_active_friends(active_friends);
+    }
+
+    bool add_new_message(std::vector<unsigned char> msg)
+    {
+        return $self->add_new_message(msg);
     }
 
 }

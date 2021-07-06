@@ -202,6 +202,8 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %template(int64_vector) std::vector<long long>;
 %template(byte_vector) std::vector<std::int8_t>;
 %template(bool_vector) std::vector<bool>;
+%template(char_vector) std::vector<char>;
+%template(unsigned_char_vector) std::vector<unsigned char>;
 %template(int_byte_pair_vector) std::vector<std::pair<int, std::int8_t>>;
 %template(string_int_pair_vector) std::vector<std::pair<std::string, int>>;
 %template(string_string_pair_vector) std::vector<std::pair<std::string, std::string>>;
@@ -232,6 +234,7 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %template(byte_array_32) std::array<std::int8_t, 32>;
 %template(byte_array_64) std::array<std::int8_t, 64>;
 %template(unsigned_byte_array_32) std::array<std::uint8_t, 32>;
+%template(vector_unsigned_byte_array_32) std::vector<std::array<std::uint8_t, 32>>;
 
 %template(int_string_map) std::map<int, std::string>;
 %template(string_string_map) std::map<std::string, std::string>;
