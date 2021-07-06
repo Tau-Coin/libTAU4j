@@ -44,8 +44,6 @@ rule libtorrent_linking ( properties * )
 
     result += <deprecated-functions>off ;
     result += <logging>on ;
-    result += <kvdb>on ;
-    result += <sqldb>on ;
     result += <crypto>openssl ;
     result += <webtorrent>off ;
     result += <optimization>speed ;
@@ -65,19 +63,7 @@ feature.compose <ssl>on :
     <openssl-lib>$(OPENSSL_ROOT)/lib
     ;
 
-feature kvdb : on off : composite propagated link-incompatible ;
-feature.compose <kvdb>on :
-    <leveldb-include>$(LEVELDB_ROOT)/include
-    <leveldb-lib>$(LEVELDB_ROOT)/lib
-    ;
-
-feature sqldb : on off : composite propagated link-incompatible ;
-feature.compose <sqldb>on :
-    <sqlite-include>$(SQLITE_ROOT)/include
-    <sqlite-lib>$(SQLITE_ROOT)/lib
-    ;
-
-lib torrent4j
+lib TAU4j
 
     : # sources
 	 libtorrent_jni.cpp
