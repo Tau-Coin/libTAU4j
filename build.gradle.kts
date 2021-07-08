@@ -12,8 +12,8 @@ plugins {
     jacoco
 }
 
-group = "org.libtorrent4j"
-version = "2.0.3-19"
+group = "org.libTAU4j"
+version = "0.0.0"
 
 java {
     // using java 8 for android compatibility
@@ -58,11 +58,11 @@ tasks.test {
 
 tasks.register<Zip>("nativeMacOSJar") {
     destinationDirectory.set(file("$buildDir/libs"))
-    archiveBaseName.set("libtorrent4j-macos")
+    archiveBaseName.set("libTAU4j-macos")
     archiveExtension.set("jar")
 
     from("swig/bin/release/macos") {
-        include("**/*libtorrent4j.dylib")
+        include("**/*libTAU4j.dylib")
         exclude("**/ed25519", "**/src", "**/*.dSYM")
         into("lib")
     }
@@ -70,11 +70,11 @@ tasks.register<Zip>("nativeMacOSJar") {
 
 tasks.register<Zip>("nativeWindowsJar") {
     destinationDirectory.set(file("$buildDir/libs"))
-    archiveBaseName.set("libtorrent4j-windows")
+    archiveBaseName.set("libTAU4j-windows")
     archiveExtension.set("jar")
 
     from("swig/bin/release/windows") {
-        include("**/*libtorrent4j.dll")
+        include("**/*libTAU4j.dll")
         exclude("**/ed25519", "**/src")
         into("lib")
     }
@@ -82,11 +82,11 @@ tasks.register<Zip>("nativeWindowsJar") {
 
 tasks.register<Zip>("nativeLinuxJar") {
     destinationDirectory.set(file("$buildDir/libs"))
-    archiveBaseName.set("libtorrent4j-linux")
+    archiveBaseName.set("libTAU4j-linux")
     archiveExtension.set("jar")
 
     from("swig/bin/release/linux") {
-        include("**/*libtorrent4j.so")
+        include("**/*libTAU4j.so")
         exclude("**/ed25519", "**/src")
         into("lib")
     }
@@ -94,44 +94,44 @@ tasks.register<Zip>("nativeLinuxJar") {
 
 tasks.register<Zip>("nativeAndroidArmJar") {
     destinationDirectory.set(file("$buildDir/libs"))
-    archiveBaseName.set("libtorrent4j-android-arm")
+    archiveBaseName.set("libTAU4j-android-arm")
     archiveExtension.set("jar")
 
     from("swig/bin/release/android") {
-        include("armeabi-v7a/libtorrent4j.so")
+        include("armeabi-v7a/libTAU4j.so")
         into("lib")
     }
 }
 
 tasks.register<Zip>("nativeAndroidX86Jar") {
     destinationDirectory.set(file("$buildDir/libs"))
-    archiveBaseName.set("libtorrent4j-android-x86")
+    archiveBaseName.set("libTAU4j-android-x86")
     archiveExtension.set("jar")
 
     from("swig/bin/release/android") {
-        include("x86/libtorrent4j.so")
+        include("x86/libTAU4j.so")
         into("lib")
     }
 }
 
 tasks.register<Zip>("nativeAndroidArm64Jar") {
     destinationDirectory.set(file("$buildDir/libs"))
-    archiveBaseName.set("libtorrent4j-android-arm64")
+    archiveBaseName.set("libTAU4j-android-arm64")
     archiveExtension.set("jar")
 
     from("swig/bin/release/android") {
-        include("arm64-v8a/libtorrent4j.so")
+        include("arm64-v8a/libTAU4j.so")
         into("lib")
     }
 }
 
 tasks.register<Zip>("nativeAndroidX64Jar") {
     destinationDirectory.set(file("$buildDir/libs"))
-    archiveBaseName.set("libtorrent4j-android-x86_64")
+    archiveBaseName.set("libTAU4j-android-x86_64")
     archiveExtension.set("jar")
 
     from("swig/bin/release/android") {
-        include("x86_64/libtorrent4j.so")
+        include("x86_64/libTAU4j.so")
         into("lib")
     }
 }
@@ -143,16 +143,16 @@ tasks.withType<GenerateModuleMetadata> {
 fun generatePom(pomName: String, addDeps: Boolean = false) = Action<org.gradle.api.publish.maven.MavenPom> {
     name.set(pomName)
     description.set("A swig Java interface for libtorrent")
-    url.set("https://github.com/aldenml/libtorrent4j")
+    url.set("https://github.com/aldenml/libTAU4j")
     scm {
-        connection.set("scm:git:git://github.com/aldenml/libtorrent4j.git")
-        developerConnection.set("scm:git:ssh:git@github.com/aldenml/libtorrent4j.git")
-        url.set("https://github.com/aldenml/libtorrent4j")
+        connection.set("scm:git:git://github.com/aldenml/libTAU4j.git")
+        developerConnection.set("scm:git:ssh:git@github.com/aldenml/libTAU4j.git")
+        url.set("https://github.com/aldenml/libTAU4j")
     }
     licenses {
         license {
             name.set("The MIT License")
-            url.set("https://github.com/aldenml/libtorrent4j/blob/master/LICENSE.md")
+            url.set("https://github.com/aldenml/libTAU4j/blob/master/LICENSE.md")
         }
     }
     developers {
@@ -169,7 +169,7 @@ fun generatePom(pomName: String, addDeps: Boolean = false) = Action<org.gradle.a
             val dependenciesNode = root.appendNode("dependencies")
             val depNode = dependenciesNode.appendNode("dependency")
             depNode.appendNode("groupId", group)
-            depNode.appendNode("artifactId", "libtorrent4j")
+            depNode.appendNode("artifactId", "libTAU4j")
             depNode.appendNode("version", version)
         }
 }
@@ -177,42 +177,42 @@ fun generatePom(pomName: String, addDeps: Boolean = false) = Action<org.gradle.a
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            artifactId = "libtorrent4j"
+            artifactId = "libTAU4j"
             from(components["java"])
             pom(generatePom(artifactId))
         }
         create<MavenPublication>("mavenMacOS") {
-            artifactId = "libtorrent4j-macos"
+            artifactId = "libTAU4j-macos"
             artifact(tasks["nativeMacOSJar"])
             pom(generatePom(artifactId, true))
         }
         create<MavenPublication>("mavenWindows") {
-            artifactId = "libtorrent4j-windows"
+            artifactId = "libTAU4j-windows"
             artifact(tasks["nativeWindowsJar"])
             pom(generatePom(artifactId, true))
         }
         create<MavenPublication>("mavenLinux") {
-            artifactId = "libtorrent4j-linux"
+            artifactId = "libTAU4j-linux"
             artifact(tasks["nativeLinuxJar"])
             pom(generatePom(artifactId, true))
         }
         create<MavenPublication>("mavenAndroidArm") {
-            artifactId = "libtorrent4j-android-arm"
+            artifactId = "libTAU4j-android-arm"
             artifact(tasks["nativeAndroidArmJar"])
             pom(generatePom(artifactId, true))
         }
         create<MavenPublication>("mavenAndroidX86") {
-            artifactId = "libtorrent4j-android-x86"
+            artifactId = "libTAU4j-android-x86"
             artifact(tasks["nativeAndroidX86Jar"])
             pom(generatePom(artifactId, true))
         }
         create<MavenPublication>("mavenAndroidArm64") {
-            artifactId = "libtorrent4j-android-arm64"
+            artifactId = "libTAU4j-android-arm64"
             artifact(tasks["nativeAndroidArm64Jar"])
             pom(generatePom(artifactId, true))
         }
         create<MavenPublication>("mavenAndroidX64") {
-            artifactId = "libtorrent4j-android-x86_64"
+            artifactId = "libTAU4j-android-x86_64"
             artifact(tasks["nativeAndroidX64Jar"])
             pom(generatePom(artifactId, true))
         }

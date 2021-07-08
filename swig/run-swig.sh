@@ -1,8 +1,5 @@
 #!/bin/bash
-# NOTE: Run this script manually every time you make changes to libtorrent.i, this is not ran by any of the build scripts, including .travis.yml
-
-export BOOST_ROOT=/home/ubuntu/workspace/libTAU2/deps/boost
-export LIBTORRENT_ROOT=/home/ubuntu/workspace/libTAU2/libTAU-recursive/libTAU
+# NOTE: Run this script manually every time you make changes to libTAU.i, this is not ran by any of the build scripts, including .travis.yml
 
 #abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
 #abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
@@ -196,7 +193,7 @@ function refixCode() {
 
 function runJni()
 {
-    JAVA_SRC_OUTPUT=../src/main/java/org/libtorrent4j/swig
+    JAVA_SRC_OUTPUT=../src/main/java/org/libTAU4j/swig
     rm -rf ${JAVA_SRC_OUTPUT}
     mkdir -p ${JAVA_SRC_OUTPUT}
 
@@ -205,9 +202,9 @@ function runJni()
     # Make sure your swig command is compiled from source, version 3.0.12 works on mac
     # https://sourceforge.net/projects/swig/files/swig/swig-3.0.12/swig-3.0.12.tar.gz/download
     
-    swig -c++ -java -o libtorrent_jni.cpp \
+    swig -c++ -java -o libTAU_jni.cpp \
         -outdir ${JAVA_SRC_OUTPUT} \
-        -package org.libtorrent4j.swig \
+        -package org.libTAU4j.swig \
         -I${BOOST_ROOT} \
         -I${LIBTORRENT_ROOT}/include \
         -DBOOST_ASIO_DECL="" \
@@ -244,7 +241,7 @@ function runJni()
         -DNDEBUG=1 \
         -D_bit="" \
         -Dfinal="" \
-        libtorrent.i
+        libTAU.i
 
     # at first sight, this could look like a very dangerous thing to
     # do, but in practice, these director types are controlled by us
@@ -252,17 +249,17 @@ function runJni()
     # compile with -fno-rtti.
     uname=`uname -s`
     if [ "$(uname)" == "Darwin" ]; then    
-	sed -i '' 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp
+	sed -i '' 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libTAU_jni.cpp
     else
-	sed -i 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libtorrent_jni.cpp	
+	sed -i 's/dynamic_cast<SwigDirector_/static_cast<SwigDirector_/g' libTAU_jni.cpp	
     fi
     
-    # replace jlibtorrent version
+    # replace jlibTAU version
     #uname=`uname -s`
     if [ "$(uname)" == "Darwin" ]; then
-	sed -i '' 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/org/libtorrent4j/swig/libtorrent_jni.java
+	sed -i '' 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/org/libTAU4j/swig/libTAU_jni.java
     else
-	sed -i 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/org/libtorrent4j/swig/libtorrent_jni.java	
+	sed -i 's/\$JLIBTORRENT_VERSION\$/'"${JLIBTORRENT_VERSION}"'/g' ../src/main/java/org/libTAU4j/swig/libTAU_jni.java	
     fi
 }
 

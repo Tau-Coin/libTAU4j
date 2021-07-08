@@ -1,1 +1,1 @@
-rootProject.name = "libtorrent4j"
+rootProject.name = "libTAU4j"
