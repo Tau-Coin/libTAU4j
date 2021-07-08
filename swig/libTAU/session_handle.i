@@ -8,6 +8,9 @@
 %ignore libtorrent::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::int64_t&, std::string const&)>);
 %ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>, std::string);
 %ignore libtorrent::session_handle::dht_get_item(std::array<char, 32>);
+%ignore libtorrent::session_handle::add_new_friend(std::array<unsigned char, 32> pubkey);
+%ignore libtorrent::session_handle::delete_friend(std::array<unsigned char, 32> pubkey);
+%ignore libtorrent::session_handle::set_chatting_friend(std::array<unsigned char, 32> pubkey);
 %ignore libtorrent::session_handle::set_load_function;
 %ignore libtorrent::session_handle::set_alert_notify;
 %ignore libtorrent::session_handle::native_handle;
