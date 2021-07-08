@@ -1,48 +1,48 @@
-%ignore libtorrent::read_piece_alert::read_piece_alert;
-%ignore libtorrent::read_piece_alert::buffer;
-%ignore libtorrent::peer_log_alert::event_type;
-%ignore libtorrent::dht_pkt_alert::pkt_buf;
-%ignore libtorrent::session_stats_alert::counters;
-%ignore libtorrent::dht_lookup::type;
-%ignore libtorrent::dht_sample_infohashes_alert::endpoint;
-%ignore libtorrent::dht_sample_infohashes_alert::interval;
-%ignore libtorrent::dht_announce_alert::ip;
-%ignore libtorrent::external_ip_alert::external_address;
-%ignore libtorrent::listen_failed_alert::address;
-%ignore libtorrent::listen_succeeded_alert::address;
-%ignore libtorrent::incoming_connection_alert::endpoint;
-%ignore libtorrent::peer_alert::endpoint;
-%ignore libtorrent::dht_direct_response_alert::endpoint;
-%ignore libtorrent::dht_outgoing_get_peers_alert::endpoint;
-%ignore libtorrent::dht_pkt_alert::node;
-%ignore libtorrent::udp_error_alert::endpoint;
-%ignore libtorrent::portmap_alert::mapping;
-%ignore libtorrent::portmap_error_alert::mapping;
-%ignore libtorrent::listen_failed_alert::socket_type;
-%ignore libtorrent::listen_succeeded_alert::socket_type;
-%ignore libtorrent::lsd_error_alert::local_address;
-%ignore libtorrent::portmap_alert::local_address;
-%ignore libtorrent::portmap_error_alert::local_address;
-%ignore libtorrent::portmap_log_alert::local_address;
-%ignore libtorrent::socks5_alert::ip;
-%ignore libtorrent::tracker_alert::local_endpoint;
-%ignore libtorrent::dht_stats_alert::local_endpoint;
-%ignore libtorrent::performance_alert::deprecated_bittyrant_with_no_uplimit;
-%ignore libtorrent::dht_mutable_item_alert::key;
-%ignore libtorrent::dht_mutable_item_alert::signature;
-%ignore libtorrent::dht_put_alert::public_key;
-%ignore libtorrent::dht_put_alert::signature;
-%ignore libtorrent::communication_new_device_id_alert;
-%ignore libtorrent::communication_new_message_alert;
-%ignore libtorrent::communication_confirmation_root_alert;
-%ignore libtorrent::communication_syncing_message_alert;
-%ignore libtorrent::performance_warning_str;
+%ignore libTAU::read_piece_alert::read_piece_alert;
+%ignore libTAU::read_piece_alert::buffer;
+%ignore libTAU::peer_log_alert::event_type;
+%ignore libTAU::dht_pkt_alert::pkt_buf;
+%ignore libTAU::session_stats_alert::counters;
+%ignore libTAU::dht_lookup::type;
+%ignore libTAU::dht_sample_infohashes_alert::endpoint;
+%ignore libTAU::dht_sample_infohashes_alert::interval;
+%ignore libTAU::dht_announce_alert::ip;
+%ignore libTAU::external_ip_alert::external_address;
+%ignore libTAU::listen_failed_alert::address;
+%ignore libTAU::listen_succeeded_alert::address;
+%ignore libTAU::incoming_connection_alert::endpoint;
+%ignore libTAU::peer_alert::endpoint;
+%ignore libTAU::dht_direct_response_alert::endpoint;
+%ignore libTAU::dht_outgoing_get_peers_alert::endpoint;
+%ignore libTAU::dht_pkt_alert::node;
+%ignore libTAU::udp_error_alert::endpoint;
+%ignore libTAU::portmap_alert::mapping;
+%ignore libTAU::portmap_error_alert::mapping;
+%ignore libTAU::listen_failed_alert::socket_type;
+%ignore libTAU::listen_succeeded_alert::socket_type;
+%ignore libTAU::lsd_error_alert::local_address;
+%ignore libTAU::portmap_alert::local_address;
+%ignore libTAU::portmap_error_alert::local_address;
+%ignore libTAU::portmap_log_alert::local_address;
+%ignore libTAU::socks5_alert::ip;
+%ignore libTAU::tracker_alert::local_endpoint;
+%ignore libTAU::dht_stats_alert::local_endpoint;
+%ignore libTAU::performance_alert::deprecated_bittyrant_with_no_uplimit;
+%ignore libTAU::dht_mutable_item_alert::key;
+%ignore libTAU::dht_mutable_item_alert::signature;
+%ignore libTAU::dht_put_alert::public_key;
+%ignore libTAU::dht_put_alert::signature;
+%ignore libTAU::communication_new_device_id_alert;
+%ignore libTAU::communication_new_message_alert;
+%ignore libTAU::communication_confirmation_root_alert;
+%ignore libTAU::communication_syncing_message_alert;
+%ignore libTAU::performance_warning_str;
 
 %rename("$ignore", regextarget=1, %$isconstructor) ".*_alert$";
 
-%include "libtorrent/alert_types.hpp"
+%include "libTAU/alert_types.hpp"
 
-namespace libtorrent {
+namespace libTAU {
 
 struct picker_flags_tag;
 %template(picker_flags_t) flags::bitfield_flag<std::uint32_t, picker_flags_tag>;
@@ -132,7 +132,7 @@ struct picker_flags_tag;
     }
 
     std::int64_t get_interval() {
-        return libtorrent::total_milliseconds($self->interval);
+        return libTAU::total_milliseconds($self->interval);
     }
 }
 

@@ -1,3 +1,3 @@
-%ignore libtorrent::error_to_close_reason;
+%ignore libTAU::error_to_close_reason;
 
-%include "libtorrent/close_reason.hpp"
+%include "libTAU/close_reason.hpp"

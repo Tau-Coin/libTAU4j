@@ -10,7 +10,7 @@ BOOST_MINOR="0"
 SWIG=`pwd`
 SRC="${HOME}/data/libTAU-android-x86-build"
 BOOST_ROOT="${SRC}/boost"
-LIBTORRENT_ROOT="${SRC}/libtorrent"
+LIBTORRENT_ROOT="${SRC}/libTAU"
 OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
 OPENSSL_ROOT="${SRC}/openssl"
 OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"
@@ -154,13 +154,13 @@ build_openssl() {
   fi
 }
 
-prepare_libtorrent() {
+prepare_libTAU() {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
   abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
   if [ ! -d ${LIBTORRENT_ROOT} ]; then
     pushd ${SRC}
-    git clone https://github.com/arvidn/libtorrent
+    git clone https://github.com/arvidn/libTAU
     popd
   fi 
   pushd ${LIBTORRENT_ROOT}
@@ -199,7 +199,7 @@ build_libraries() {
   $run_strip
   if [[ $os_build == "windows" ]]; then
     # expected but parametrized for flexibility and project
-    # SHARED_LIB = lib${LIBRARY_NAME}.dll, libtorrent4j.dll
+    # SHARED_LIB = lib${LIBRARY_NAME}.dll, libTAU4j.dll
     # SHARED_LIB_FINAL = ${LIBRARY_NAME}.dll, torrent4j.dll
     mv bin/release/windows/${os_arch}/${SHARED_LIB} bin/release/windows/${os_arch}/${SHARED_LIB_FINAL};
   fi

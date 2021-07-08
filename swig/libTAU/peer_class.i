@@ -1,4 +1,4 @@
-%ignore libtorrent::peer_class;
-%ignore libtorrent::peer_class_pool;
+%ignore libTAU::peer_class;
+%ignore libTAU::peer_class_pool;
 
-%include "libtorrent/peer_class.hpp"
+%include "libTAU/peer_class.hpp"

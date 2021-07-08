@@ -1,32 +1,32 @@
-%ignore libtorrent::bdecode_node::bdecode_node(bdecode_node&&);
-%ignore libtorrent::bdecode_node::non_owning;
-%ignore libtorrent::bdecode_node::data_section;
-%ignore libtorrent::bdecode_node::list_string_value_at;
-%ignore libtorrent::bdecode_node::dict_find;
-%ignore libtorrent::bdecode_node::dict_find_dict;
-%ignore libtorrent::bdecode_node::dict_find_list;
-%ignore libtorrent::bdecode_node::dict_find_string;
-%ignore libtorrent::bdecode_node::dict_find_int;
-%ignore libtorrent::bdecode_node::dict_find_string_value;
-%ignore libtorrent::bdecode_node::dict_find_int_value;
-%ignore libtorrent::bdecode_node::dict_at;
-%ignore libtorrent::bdecode_node::string_value;
-%ignore libtorrent::bdecode_node::string_ptr;
-%ignore libtorrent::bdecode_node::swap;
-%ignore libtorrent::bdecode_node::reserve;
-%ignore libtorrent::bdecode_node::switch_underlying_buffer;
-%ignore libtorrent::bdecode_node::has_soft_error;
-%ignore libtorrent::bdecode_errors::make_error_code;
-%ignore libtorrent::bdecode;
-%ignore libtorrent::bdecode_category;
-%ignore libtorrent::parse_int;
+%ignore libTAU::bdecode_node::bdecode_node(bdecode_node&&);
+%ignore libTAU::bdecode_node::non_owning;
+%ignore libTAU::bdecode_node::data_section;
+%ignore libTAU::bdecode_node::list_string_value_at;
+%ignore libTAU::bdecode_node::dict_find;
+%ignore libTAU::bdecode_node::dict_find_dict;
+%ignore libTAU::bdecode_node::dict_find_list;
+%ignore libTAU::bdecode_node::dict_find_string;
+%ignore libTAU::bdecode_node::dict_find_int;
+%ignore libTAU::bdecode_node::dict_find_string_value;
+%ignore libTAU::bdecode_node::dict_find_int_value;
+%ignore libTAU::bdecode_node::dict_at;
+%ignore libTAU::bdecode_node::string_value;
+%ignore libTAU::bdecode_node::string_ptr;
+%ignore libTAU::bdecode_node::swap;
+%ignore libTAU::bdecode_node::reserve;
+%ignore libTAU::bdecode_node::switch_underlying_buffer;
+%ignore libTAU::bdecode_node::has_soft_error;
+%ignore libTAU::bdecode_errors::make_error_code;
+%ignore libTAU::bdecode;
+%ignore libTAU::bdecode_category;
+%ignore libTAU::parse_int;
 
-%rename(bdecode_no_error) libtorrent::bdecode_errors::no_error;
-%rename(bdecode_errors) libtorrent::bdecode_errors::error_code_enum;
+%rename(bdecode_no_error) libTAU::bdecode_errors::no_error;
+%rename(bdecode_errors) libTAU::bdecode_errors::error_code_enum;
 
-%include "libtorrent/bdecode.hpp"
+%include "libTAU/bdecode.hpp"
 
-namespace libtorrent {
+namespace libTAU {
 
 %extend bdecode_node {
 
@@ -71,11 +71,11 @@ namespace libtorrent {
     }
 
     static std::string to_string(bdecode_node const& e, bool single_line, int indent) {
-        return libtorrent::print_entry(e, single_line, indent);
+        return libTAU::print_entry(e, single_line, indent);
     }
 
     static int bdecode(std::vector<std::int8_t>& buffer, bdecode_node& ret, error_code& ec) {
-        return libtorrent::bdecode((char const*)&buffer[0], (char const*)&buffer[0] + buffer.size(), ret, ec);
+        return libTAU::bdecode((char const*)&buffer[0], (char const*)&buffer[0] + buffer.size(), ret, ec);
     }
 }
 

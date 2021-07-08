@@ -1,3 +1,3 @@
-%ignore libtorrent::fingerprint;
+%ignore libTAU::fingerprint;
 
-%include "libtorrent/fingerprint.hpp"
+%include "libTAU/fingerprint.hpp"

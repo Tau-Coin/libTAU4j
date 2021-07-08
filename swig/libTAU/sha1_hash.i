@@ -1,4 +1,4 @@
-namespace libtorrent {
+namespace libTAU {
 
 template <std::ptrdiff_t N>
 class digest32
@@ -79,13 +79,13 @@ using sha256_hash = digest32<256>;
 
     std::string to_hex()
     {
-        return libtorrent::aux::to_hex(*$self);
+        return libTAU::aux::to_hex(*$self);
     }
 
     static digest32<160> from_hex(std::string s)
     {
-        libtorrent::digest32<160> hash;
-        libtorrent::aux::from_hex(s, hash.data());
+        libTAU::digest32<160> hash;
+        libTAU::aux::from_hex(s, hash.data());
         return hash;
     }
 
@@ -126,13 +126,13 @@ using sha256_hash = digest32<256>;
 
     std::string to_hex()
     {
-        return libtorrent::aux::to_hex(*$self);
+        return libTAU::aux::to_hex(*$self);
     }
 
     static digest32<256> from_hex(std::string s)
     {
-        libtorrent::digest32<256> hash;
-        libtorrent::aux::from_hex(s, hash.data());
+        libTAU::digest32<256> hash;
+        libTAU::aux::from_hex(s, hash.data());
         return hash;
     }
 
@@ -144,8 +144,8 @@ using sha256_hash = digest32<256>;
 
 }
 
-%template(sha1_hash) libtorrent::digest32<160>;
-%template(sha256_hash) libtorrent::digest32<256>;
+%template(sha1_hash) libTAU::digest32<160>;
+%template(sha256_hash) libTAU::digest32<256>;
 
-%template(sha1_hash_vector) std::vector<libtorrent::digest32<160>>;
-%template(sha256_hash_vector) std::vector<libtorrent::digest32<256>>;
+%template(sha1_hash_vector) std::vector<libTAU::digest32<160>>;
+%template(sha256_hash_vector) std::vector<libTAU::digest32<256>>;

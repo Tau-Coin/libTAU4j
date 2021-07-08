@@ -1,4 +1,4 @@
-namespace libtorrent {
+namespace libTAU {
 
 %rename(tcp_endpoint) tcp::endpoint;
 %rename(udp_endpoint) udp::endpoint;

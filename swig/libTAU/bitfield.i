@@ -1,4 +1,4 @@
-namespace libtorrent {
+namespace libTAU {
 
 struct bitfield
 {
@@ -43,7 +43,7 @@ struct bitfield
 %extend bitfield
 {
     bitfield(std::vector<std::int8_t> const& v) {
-        return new libtorrent::bitfield({reinterpret_cast<char const*>(v.data()), static_cast<int>(v.size())});
+        return new libTAU::bitfield({reinterpret_cast<char const*>(v.data()), static_cast<int>(v.size())});
     }
 
     void assign(std::vector<std::int8_t> const& v)

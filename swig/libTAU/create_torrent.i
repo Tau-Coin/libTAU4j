@@ -1,14 +1,14 @@
-%ignore libtorrent::set_piece_hashes;
-%ignore libtorrent::create_torrent::add_url_seed(string_view);
-%ignore libtorrent::create_torrent::add_tracker(string_view);
-%ignore libtorrent::create_torrent::add_tracker(string_view, int);
-%ignore libtorrent::create_torrent::add_collection(string_view);
-%ignore libtorrent::create_torrent::set_root_cert(string_view);
-%ignore libtorrent::create_torrent::set_hash2(file_index_t, piece_index_t::diff_type, sha256_hash const&);
+%ignore libTAU::set_piece_hashes;
+%ignore libTAU::create_torrent::add_url_seed(string_view);
+%ignore libTAU::create_torrent::add_tracker(string_view);
+%ignore libTAU::create_torrent::add_tracker(string_view, int);
+%ignore libTAU::create_torrent::add_collection(string_view);
+%ignore libTAU::create_torrent::set_root_cert(string_view);
+%ignore libTAU::create_torrent::set_hash2(file_index_t, piece_index_t::diff_type, sha256_hash const&);
 
-%include "libtorrent/create_torrent.hpp"
+%include "libTAU/create_torrent.hpp"
 
-namespace libtorrent {
+namespace libTAU {
 
 struct create_flags_tag;
 %template(create_flags_t) flags::bitfield_flag<std::uint32_t, create_flags_tag>;

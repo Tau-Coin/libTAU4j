@@ -1,12 +1,12 @@
-%ignore libtorrent::announce_infohash::announce_infohash;
-%ignore libtorrent::announce_infohash::next_announce;
-%ignore libtorrent::announce_infohash::min_announce;
-%ignore libtorrent::announce_entry::announce_entry(string_view);
-%ignore libtorrent::announce_endpoint::info_hashes;
+%ignore libTAU::announce_infohash::announce_infohash;
+%ignore libTAU::announce_infohash::next_announce;
+%ignore libTAU::announce_infohash::min_announce;
+%ignore libTAU::announce_entry::announce_entry(string_view);
+%ignore libTAU::announce_endpoint::info_hashes;
 
-%include "libtorrent/announce_entry.hpp"
+%include "libTAU/announce_entry.hpp"
 
-namespace libtorrent {
+namespace libTAU {
 
 %extend announce_infohash
 {

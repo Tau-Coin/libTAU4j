@@ -1,4 +1,4 @@
-namespace libtorrent {
+namespace libTAU {
 
 struct peer_class_type_filter
 {

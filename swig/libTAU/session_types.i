@@ -1,6 +1,6 @@
-%include "libtorrent/session_types.hpp"
+%include "libTAU/session_types.hpp"
 
-namespace libtorrent {
+namespace libTAU {
 
 struct remove_flags_tag;
 %template(remove_flags_t) flags::bitfield_flag<std::uint8_t, remove_flags_tag>;

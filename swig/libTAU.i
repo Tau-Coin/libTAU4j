@@ -45,67 +45,67 @@
 %{
 // BEGIN common set include ----------------------------------------------------
 
-#include "libtorrent/flags.hpp"
-#include "libtorrent/address.hpp"
-#include "libtorrent/socket.hpp"
-#include "libtorrent/kademlia/dht_state.hpp"
-#include "libtorrent/client_data.hpp"
-#include "libtorrent/sha1_hash.hpp"
-#include "libtorrent/info_hash.hpp"
-#include "libtorrent/storage_defs.hpp"
-#include "libtorrent/bitfield.hpp"
-#include "libtorrent/operations.hpp"
-#include "libtorrent/error_code.hpp"
-#include "libtorrent/announce_entry.hpp"
-#include "libtorrent/file_storage.hpp"
-#include "libtorrent/peer_request.hpp"
-#include "libtorrent/bdecode.hpp"
-#include "libtorrent/torrent_info.hpp"
-#include "libtorrent/torrent_flags.hpp"
-#include "libtorrent/add_torrent_params.hpp"
-#include "libtorrent/close_reason.hpp"
-#include "libtorrent/peer_info.hpp"
-#include "libtorrent/pex_flags.hpp"
-#include "libtorrent/torrent_status.hpp"
-#include "libtorrent/torrent_handle.hpp"
-#include "libtorrent/performance_counters.hpp"
-#include "libtorrent/portmap.hpp"
-#include "libtorrent/piece_block.hpp"
-#include "libtorrent/socket_type.hpp"
-#include "libtorrent/entry.hpp"
-#include "libtorrent/tracker_event.hpp"
-#include "libtorrent/alert.hpp"
-#include "libtorrent/alert_types.hpp"
-#include "libtorrent/settings_pack.hpp"
-#include "libtorrent/peer_class.hpp"
-#include "libtorrent/peer_class_type_filter.hpp"
-#include "libtorrent/ip_filter.hpp"
-#include "libtorrent/session_types.hpp"
-#include "libtorrent/session_params.hpp"
-#include "libtorrent/session_handle.hpp"
-#include "libtorrent/session.hpp"
-#include "libtorrent/file_storage.hpp"
-#include "libtorrent/create_torrent.hpp"
-#include "libtorrent/session_stats.hpp"
-#include "libtorrent/version.hpp"
-#include "libtorrent/magnet_uri.hpp"
-#include "libtorrent/fingerprint.hpp"
-#include "libtorrent/read_resume_data.hpp"
-#include "libtorrent/write_resume_data.hpp"
+#include "libTAU/flags.hpp"
+#include "libTAU/address.hpp"
+#include "libTAU/socket.hpp"
+#include "libTAU/kademlia/dht_state.hpp"
+#include "libTAU/client_data.hpp"
+#include "libTAU/sha1_hash.hpp"
+#include "libTAU/info_hash.hpp"
+#include "libTAU/storage_defs.hpp"
+#include "libTAU/bitfield.hpp"
+#include "libTAU/operations.hpp"
+#include "libTAU/error_code.hpp"
+#include "libTAU/announce_entry.hpp"
+#include "libTAU/file_storage.hpp"
+#include "libTAU/peer_request.hpp"
+#include "libTAU/bdecode.hpp"
+#include "libTAU/torrent_info.hpp"
+#include "libTAU/torrent_flags.hpp"
+#include "libTAU/add_torrent_params.hpp"
+#include "libTAU/close_reason.hpp"
+#include "libTAU/peer_info.hpp"
+#include "libTAU/pex_flags.hpp"
+#include "libTAU/torrent_status.hpp"
+#include "libTAU/torrent_handle.hpp"
+#include "libTAU/performance_counters.hpp"
+#include "libTAU/portmap.hpp"
+#include "libTAU/piece_block.hpp"
+#include "libTAU/socket_type.hpp"
+#include "libTAU/entry.hpp"
+#include "libTAU/tracker_event.hpp"
+#include "libTAU/alert.hpp"
+#include "libTAU/alert_types.hpp"
+#include "libTAU/settings_pack.hpp"
+#include "libTAU/peer_class.hpp"
+#include "libTAU/peer_class_type_filter.hpp"
+#include "libTAU/ip_filter.hpp"
+#include "libTAU/session_types.hpp"
+#include "libTAU/session_params.hpp"
+#include "libTAU/session_handle.hpp"
+#include "libTAU/session.hpp"
+#include "libTAU/file_storage.hpp"
+#include "libTAU/create_torrent.hpp"
+#include "libTAU/session_stats.hpp"
+#include "libTAU/version.hpp"
+#include "libTAU/magnet_uri.hpp"
+#include "libTAU/fingerprint.hpp"
+#include "libTAU/read_resume_data.hpp"
+#include "libTAU/write_resume_data.hpp"
 
-#include <libtorrent/hex.hpp>
-#include <libtorrent/bencode.hpp>
+#include <libTAU/hex.hpp>
+#include <libTAU/bencode.hpp>
 
-namespace lt = libtorrent;
+namespace lt = libTAU;
 
-using piece_index_t = libtorrent::piece_index_t;
-using file_index_t = libtorrent::file_index_t;
-using queue_position_t = libtorrent::queue_position_t;
+using piece_index_t = libTAU::piece_index_t;
+using file_index_t = libTAU::file_index_t;
+using queue_position_t = libTAU::queue_position_t;
 
 #include "libTAU.hpp"
 
 template <typename IndexType>
-using typed_bitfield = libtorrent::typed_bitfield<IndexType>;
+using typed_bitfield = libTAU::typed_bitfield<IndexType>;
 
 // END common set include ------------------------------------------------------
 %}
@@ -116,7 +116,7 @@ using typed_bitfield = libtorrent::typed_bitfield<IndexType>;
 extern "C" {
 #endif
 
-SWIGEXPORT jlong JNICALL Java_org_libtorrent4j_swig_libtorrent_1jni_directBufferAddress(JNIEnv *jenv, jclass jcls, jobject jbuf) {
+SWIGEXPORT jlong JNICALL Java_org_libTAU4j_swig_libTAU_1jni_directBufferAddress(JNIEnv *jenv, jclass jcls, jobject jbuf) {
     try {
         return jlong(jenv->GetDirectBufferAddress(jbuf));
     } catch (std::exception& e) {
@@ -128,7 +128,7 @@ SWIGEXPORT jlong JNICALL Java_org_libtorrent4j_swig_libtorrent_1jni_directBuffer
     return 0;
 }
 
-SWIGEXPORT jlong JNICALL Java_org_libtorrent4j_swig_libtorrent_1jni_directBufferCapacity(JNIEnv *jenv, jclass jcls, jobject jbuf) {
+SWIGEXPORT jlong JNICALL Java_org_libTAU4j_swig_libTAU_1jni_directBufferCapacity(JNIEnv *jenv, jclass jcls, jobject jbuf) {
     try {
         return jlong(jenv->GetDirectBufferCapacity(jbuf));
     } catch (std::exception& e) {
@@ -191,11 +191,11 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %template(string_int_pair) std::pair<std::string, int>;
 %template(string_string_pair) std::pair<std::string, std::string>;
 %template(byte_vector_byte_vector_pair) std::pair<std::vector<std::int8_t>, std::vector<std::int8_t>>;
-%template(sha1_hash_udp_endpoint_pair) std::pair<libtorrent::digest32<160>, libtorrent::udp::endpoint>;
-%template(sha256_hash_udp_endpoint_pair) std::pair<libtorrent::digest32<256>, libtorrent::udp::endpoint>;
-%template(bdecode_node_bdecode_node_pair) std::pair<libtorrent::bdecode_node, libtorrent::bdecode_node>;
-%template(address_sha160_hash_pair) std::pair<libtorrent::address, libtorrent::digest32<160>>;
-%template(address_sha256_hash_pair) std::pair<libtorrent::address, libtorrent::digest32<256>>;
+%template(sha1_hash_udp_endpoint_pair) std::pair<libTAU::digest32<160>, libTAU::udp::endpoint>;
+%template(sha256_hash_udp_endpoint_pair) std::pair<libTAU::digest32<256>, libTAU::udp::endpoint>;
+%template(bdecode_node_bdecode_node_pair) std::pair<libTAU::bdecode_node, libTAU::bdecode_node>;
+%template(address_sha160_hash_pair) std::pair<libTAU::address, libTAU::digest32<160>>;
+%template(address_sha256_hash_pair) std::pair<libTAU::address, libTAU::digest32<256>>;
 
 %template(string_vector) std::vector<std::string>;
 %template(int_vector) std::vector<int>;
@@ -208,28 +208,28 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %template(string_int_pair_vector) std::vector<std::pair<std::string, int>>;
 %template(string_string_pair_vector) std::vector<std::pair<std::string, std::string>>;
 
-%template(tcp_endpoint_vector) std::vector<libtorrent::tcp::endpoint>;
-%template(udp_endpoint_vector) std::vector<libtorrent::udp::endpoint>;
-%template(announce_endpoint_vector) std::vector<libtorrent::announce_endpoint>;
-%template(announce_entry_vector) std::vector<libtorrent::announce_entry>;
-%template(file_slice_vector) std::vector<libtorrent::file_slice>;
-%template(piece_block_vector) std::vector<libtorrent::piece_block>;
-%template(torrent_status_vector) std::vector<libtorrent::torrent_status>;
-%template(dht_lookup_vector) std::vector<libtorrent::dht_lookup>;
-%template(dht_routing_bucket_vector) std::vector<libtorrent::dht_routing_bucket>;
-%template(entry_vector) std::vector<libtorrent::entry>;
-%template(partial_piece_info_vector) std::vector<libtorrent::partial_piece_info>;
-%template(peer_info_vector) std::vector<libtorrent::peer_info>;
-%template(torrent_handle_vector) std::vector<libtorrent::torrent_handle>;
-%template(alert_ptr_vector) std::vector<libtorrent::alert*>;
-%template(stats_metric_vector) std::vector<libtorrent::stats_metric>;
+%template(tcp_endpoint_vector) std::vector<libTAU::tcp::endpoint>;
+%template(udp_endpoint_vector) std::vector<libTAU::udp::endpoint>;
+%template(announce_endpoint_vector) std::vector<libTAU::announce_endpoint>;
+%template(announce_entry_vector) std::vector<libTAU::announce_entry>;
+%template(file_slice_vector) std::vector<libTAU::file_slice>;
+%template(piece_block_vector) std::vector<libTAU::piece_block>;
+%template(torrent_status_vector) std::vector<libTAU::torrent_status>;
+%template(dht_lookup_vector) std::vector<libTAU::dht_lookup>;
+%template(dht_routing_bucket_vector) std::vector<libTAU::dht_routing_bucket>;
+%template(entry_vector) std::vector<libTAU::entry>;
+%template(partial_piece_info_vector) std::vector<libTAU::partial_piece_info>;
+%template(peer_info_vector) std::vector<libTAU::peer_info>;
+%template(torrent_handle_vector) std::vector<libTAU::torrent_handle>;
+%template(alert_ptr_vector) std::vector<libTAU::alert*>;
+%template(stats_metric_vector) std::vector<libTAU::stats_metric>;
 %template(ip_interface_vector) std::vector<ip_interface>;
 %template(ip_route_vector) std::vector<ip_route>;
 
 %template(bool_vector_vector) std::vector<std::vector<bool>>;
-%template(sha256_hash_vector_vector) std::vector<std::vector<libtorrent::digest32<256>>>;
-%template(sha256_hash_udp_endpoint_pair_vector) std::vector<std::pair<libtorrent::digest32<256>, libtorrent::udp::endpoint>>;
-%template(address_sha256_hash_pair_vector) std::vector<std::pair<libtorrent::address, libtorrent::digest32<256>>>;
+%template(sha256_hash_vector_vector) std::vector<std::vector<libTAU::digest32<256>>>;
+%template(sha256_hash_udp_endpoint_pair_vector) std::vector<std::pair<libTAU::digest32<256>, libTAU::udp::endpoint>>;
+%template(address_sha256_hash_pair_vector) std::vector<std::pair<libTAU::address, libTAU::digest32<256>>>;
 
 %template(byte_array_32) std::array<std::int8_t, 32>;
 %template(byte_array_64) std::array<std::int8_t, 64>;
@@ -238,10 +238,10 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 
 %template(int_string_map) std::map<int, std::string>;
 %template(string_string_map) std::map<std::string, std::string>;
-%template(int_bitfield_map) std::map<int, libtorrent::bitfield>;
-%template(string_entry_map) std::map<std::string, libtorrent::entry>;
+%template(int_bitfield_map) std::map<int, libTAU::bitfield>;
+%template(string_entry_map) std::map<std::string, libTAU::entry>;
 
-%template(boost_string_entry_map) boost::container::map<std::string, libtorrent::entry>;
+%template(boost_string_entry_map) boost::container::map<std::string, libTAU::entry>;
 
 %template(bitset_128) std::bitset<128>;
 
@@ -268,8 +268,8 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %rename(to_bool) operator bool;
 
 // general ignores
-%ignore libtorrent::aux;
-%ignore libtorrent::communication;
+%ignore libTAU::aux;
+%ignore libTAU::communication;
 %ignore mem_copy;
 
 // directors
@@ -329,7 +329,7 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %include "libTAU/read_resume_data.i"
 %include "libTAU/write_resume_data.i"
 
-// for libtorrent.hpp
+// for libTAU.hpp
 %ignore set_piece_hashes_listener::progress_index;
 %ignore dht_put_item_cb;
 

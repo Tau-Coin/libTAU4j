@@ -1,3 +1,3 @@
-%ignore libtorrent::parse_magnet_uri;
+%ignore libTAU::parse_magnet_uri;
 
-%include "libtorrent/magnet_uri.hpp"
+%include "libTAU/magnet_uri.hpp"

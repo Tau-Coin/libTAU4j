@@ -1,9 +1,9 @@
-%ignore libtorrent::stats_metric::name;
-%ignore libtorrent::find_metric_idx;
+%ignore libTAU::stats_metric::name;
+%ignore libTAU::find_metric_idx;
 
-%include "libtorrent/session_stats.hpp"
+%include "libTAU/session_stats.hpp"
 
-namespace libtorrent {
+namespace libTAU {
 
 %extend stats_metric
 {

@@ -1,30 +1,30 @@
-%ignore libtorrent::torrent_handle::torrent_handle;
-%ignore libtorrent::torrent_handle::add_extension;
-%ignore libtorrent::torrent_handle::add_piece;
-%ignore libtorrent::torrent_handle::http_seeds;
-%ignore libtorrent::torrent_handle::url_seeds;
-%ignore libtorrent::torrent_handle::get_storage_impl;
-%ignore libtorrent::torrent_handle::file_status;
-%ignore libtorrent::torrent_handle::use_interface;
-%ignore libtorrent::torrent_handle::native_handle;
-%ignore libtorrent::torrent_handle::torrent_file;
-%ignore libtorrent::torrent_handle::torrent_file_with_hashes;
-%ignore libtorrent::torrent_handle::get_full_peer_list;
-%ignore libtorrent::torrent_handle::set_metadata;
-%ignore libtorrent::torrent_handle::set_ssl_certificate_buffer;
-%ignore libtorrent::torrent_handle::queue_position;
-%ignore libtorrent::torrent_handle::queue_position_set;
-%ignore libtorrent::torrent_handle::piece_priority;
-%ignore libtorrent::torrent_handle::prioritize_pieces;
-%ignore libtorrent::torrent_handle::get_piece_priorities;
-%ignore libtorrent::torrent_handle::file_priority;
-%ignore libtorrent::torrent_handle::prioritize_files;
-%ignore libtorrent::torrent_handle::get_file_priorities;
-%ignore libtorrent::hash_value;
+%ignore libTAU::torrent_handle::torrent_handle;
+%ignore libTAU::torrent_handle::add_extension;
+%ignore libTAU::torrent_handle::add_piece;
+%ignore libTAU::torrent_handle::http_seeds;
+%ignore libTAU::torrent_handle::url_seeds;
+%ignore libTAU::torrent_handle::get_storage_impl;
+%ignore libTAU::torrent_handle::file_status;
+%ignore libTAU::torrent_handle::use_interface;
+%ignore libTAU::torrent_handle::native_handle;
+%ignore libTAU::torrent_handle::torrent_file;
+%ignore libTAU::torrent_handle::torrent_file_with_hashes;
+%ignore libTAU::torrent_handle::get_full_peer_list;
+%ignore libTAU::torrent_handle::set_metadata;
+%ignore libTAU::torrent_handle::set_ssl_certificate_buffer;
+%ignore libTAU::torrent_handle::queue_position;
+%ignore libTAU::torrent_handle::queue_position_set;
+%ignore libTAU::torrent_handle::piece_priority;
+%ignore libTAU::torrent_handle::prioritize_pieces;
+%ignore libTAU::torrent_handle::get_piece_priorities;
+%ignore libTAU::torrent_handle::file_priority;
+%ignore libTAU::torrent_handle::prioritize_files;
+%ignore libTAU::torrent_handle::get_file_priorities;
+%ignore libTAU::hash_value;
 
-%include "libtorrent/torrent_handle.hpp"
+%include "libTAU/torrent_handle.hpp"
 
-namespace libtorrent {
+namespace libTAU {
 
 struct add_piece_flags_tag;
 %template(add_piece_flags_t) flags::bitfield_flag<std::uint8_t, add_piece_flags_tag>;
@@ -53,11 +53,11 @@ struct status_flags_tag;
         $self->add_piece(piece_index_t(piece), (char const*)&data[0], flags);
     }
 
-    libtorrent::torrent_info const* torrent_file_ptr() {
+    libTAU::torrent_info const* torrent_file_ptr() {
         return $self->torrent_file().get();
     }
 
-    libtorrent::torrent_info const* torrent_file_with_hashes_ptr()
+    libTAU::torrent_info const* torrent_file_with_hashes_ptr()
     {
         return $self->torrent_file_with_hashes().get();
     }
@@ -94,28 +94,28 @@ struct status_flags_tag;
 
     void piece_priority_ex(piece_index_t index, std::int8_t priority)
     {
-        $self->piece_priority(index, libtorrent::download_priority_t{std::uint8_t(priority)});
+        $self->piece_priority(index, libTAU::download_priority_t{std::uint8_t(priority)});
     }
 
     void prioritize_pieces_ex(std::vector<std::int8_t> const& pieces)
     {
-        std::vector<libtorrent::download_priority_t> v(pieces.size());
+        std::vector<libTAU::download_priority_t> v(pieces.size());
         for (std::size_t i = 0; i < v.size(); i++)
-            v[i] = libtorrent::download_priority_t{std::uint8_t(pieces[i])};
+            v[i] = libTAU::download_priority_t{std::uint8_t(pieces[i])};
         $self->prioritize_pieces(v);
     }
 
     void prioritize_pieces_ex(std::vector<std::pair<int, std::int8_t>> const& pieces)
     {
-        std::vector<std::pair<piece_index_t, libtorrent::download_priority_t>> v(pieces.size());
+        std::vector<std::pair<piece_index_t, libTAU::download_priority_t>> v(pieces.size());
         for (std::size_t i = 0; i < v.size(); i++)
-            v[i] = std::pair<piece_index_t, libtorrent::download_priority_t>(piece_index_t{pieces[i].first}, libtorrent::download_priority_t{std::uint8_t(pieces[i].second)});
+            v[i] = std::pair<piece_index_t, libTAU::download_priority_t>(piece_index_t{pieces[i].first}, libTAU::download_priority_t{std::uint8_t(pieces[i].second)});
         $self->prioritize_pieces(v);
     }
 
     std::vector<std::int8_t> get_piece_priorities_ex() const
     {
-        std::vector<libtorrent::download_priority_t> v = $self->get_piece_priorities();
+        std::vector<libTAU::download_priority_t> v = $self->get_piece_priorities();
         std::vector<std::int8_t> r(v.size());
         for (std::size_t i = 0; i < v.size(); i++)
             r[i] = std::int8_t(static_cast<std::uint8_t>(v[i]));
@@ -129,20 +129,20 @@ struct status_flags_tag;
 
     void file_priority_ex(file_index_t index, std::int8_t priority)
     {
-        $self->file_priority(index, libtorrent::download_priority_t{std::uint8_t(priority)});
+        $self->file_priority(index, libTAU::download_priority_t{std::uint8_t(priority)});
     }
 
     void prioritize_files_ex(std::vector<std::int8_t> const& files)
     {
-        std::vector<libtorrent::download_priority_t> v(files.size());
+        std::vector<libTAU::download_priority_t> v(files.size());
         for (std::size_t i = 0; i < v.size(); i++)
-            v[i] = libtorrent::download_priority_t{std::uint8_t(files[i])};
+            v[i] = libTAU::download_priority_t{std::uint8_t(files[i])};
         $self->prioritize_files(v);
     }
 
     std::vector<std::int8_t> get_file_priorities_ex() const
     {
-        std::vector<libtorrent::download_priority_t> v = $self->get_file_priorities();
+        std::vector<libTAU::download_priority_t> v = $self->get_file_priorities();
         std::vector<std::int8_t> r(v.size());
         for (std::size_t i = 0; i < v.size(); i++)
             r[i] = std::int8_t(static_cast<std::uint8_t>(v[i]));

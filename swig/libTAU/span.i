@@ -1,4 +1,4 @@
-namespace libtorrent {
+namespace libTAU {
 
 template <typename T>
 class span
@@ -28,4 +28,4 @@ private:
 
 
 }
-%template(byte_span) libtorrent::span<std::int8_t const>;
+%template(byte_span) libTAU::span<std::int8_t const>;

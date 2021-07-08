@@ -1,9 +1,9 @@
-%ignore libtorrent::alert::timestamp;
-%ignore libtorrent::alert_category::all;
+%ignore libTAU::alert::timestamp;
+%ignore libTAU::alert_category::all;
 
-%include "libtorrent/alert.hpp"
+%include "libTAU/alert.hpp"
 
-namespace libtorrent {
+namespace libTAU {
 
 struct alert_category_tag;
 %template(alert_category_t) flags::bitfield_flag<std::uint32_t, alert_category_tag>;
@@ -11,12 +11,12 @@ struct alert_category_tag;
 %extend alert {
 
     std::int64_t get_timestamp() {
-        return libtorrent::total_milliseconds($self->timestamp().time_since_epoch());
+        return libTAU::total_milliseconds($self->timestamp().time_since_epoch());
     }
 
 #define CAST_ALERT_METHOD(name) \
-    static libtorrent::##name const* cast_to_##name(alert const* a) { \
-        return libtorrent::alert_cast<libtorrent::##name>(a); \
+    static libTAU::##name const* cast_to_##name(alert const* a) { \
+        return libTAU::alert_cast<libTAU::##name>(a); \
     }
 
     CAST_ALERT_METHOD(udp_error_alert)

@@ -1,20 +1,20 @@
-%ignore libtorrent::peer_info::client;
-%ignore libtorrent::peer_info::last_request;
-%ignore libtorrent::peer_info::last_active;
-%ignore libtorrent::peer_info::download_queue_time;
-%ignore libtorrent::peer_info::deprecated_dl_rate;
-%ignore libtorrent::peer_info::pieces;
-%ignore libtorrent::peer_info::deprecated_estimated_reciprocation_rate;
+%ignore libTAU::peer_info::client;
+%ignore libTAU::peer_info::last_request;
+%ignore libTAU::peer_info::last_active;
+%ignore libTAU::peer_info::download_queue_time;
+%ignore libTAU::peer_info::deprecated_dl_rate;
+%ignore libTAU::peer_info::pieces;
+%ignore libTAU::peer_info::deprecated_estimated_reciprocation_rate;
 
-namespace libtorrent {
+namespace libTAU {
 
 typedef sha1_hash peer_id;
 
 }
 
-%include "libtorrent/peer_info.hpp"
+%include "libTAU/peer_info.hpp"
 
-namespace libtorrent {
+namespace libTAU {
 
 struct bandwidth_state_flags_tag;
 %template(bandwidth_state_flags_t) flags::bitfield_flag<std::uint8_t, bandwidth_state_flags_tag>;
@@ -36,15 +36,15 @@ struct peer_flags_tag;
     }
 
     int64_t get_last_request() {
-        return libtorrent::total_milliseconds($self->last_request);
+        return libTAU::total_milliseconds($self->last_request);
     }
 
     int64_t get_last_active() {
-        return libtorrent::total_milliseconds($self->last_active);
+        return libTAU::total_milliseconds($self->last_active);
     }
 
     int64_t get_download_queue_time() {
-        return libtorrent::total_milliseconds($self->download_queue_time);
+        return libTAU::total_milliseconds($self->download_queue_time);
     }
 
     std::int32_t get_flags() {

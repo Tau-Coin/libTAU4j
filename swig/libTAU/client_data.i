@@ -1,4 +1,4 @@
-namespace libtorrent {
+namespace libTAU {
 
 struct client_data_t
 {

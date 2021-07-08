@@ -1,16 +1,16 @@
-%ignore libtorrent::session_params::session_params(settings_pack&&, std::vector<std::shared_ptr<plugin>>);
-%ignore libtorrent::session_params::session_params(settings_pack const&, std::vector<std::shared_ptr<plugin>>);
-%ignore libtorrent::session_params::session_params(session_params&&);
-%ignore libtorrent::session_params::session_params(settings_pack&& sp);
-%ignore libtorrent::session_params::extensions;
-%ignore libtorrent::session_params::disk_io_constructor;
-%ignore libtorrent::read_session_params;
-%ignore libtorrent::write_session_params;
-%ignore libtorrent::write_session_params_buf;
+%ignore libTAU::session_params::session_params(settings_pack&&, std::vector<std::shared_ptr<plugin>>);
+%ignore libTAU::session_params::session_params(settings_pack const&, std::vector<std::shared_ptr<plugin>>);
+%ignore libTAU::session_params::session_params(session_params&&);
+%ignore libTAU::session_params::session_params(settings_pack&& sp);
+%ignore libTAU::session_params::extensions;
+%ignore libTAU::session_params::disk_io_constructor;
+%ignore libTAU::read_session_params;
+%ignore libTAU::write_session_params;
+%ignore libTAU::write_session_params_buf;
 
-%include "libtorrent/session_params.hpp"
+%include "libTAU/session_params.hpp"
 
-namespace libtorrent
+namespace libTAU
 {
 
 %extend session_params

@@ -1,4 +1,4 @@
-namespace libtorrent {
+namespace libTAU {
 
 class address
 {

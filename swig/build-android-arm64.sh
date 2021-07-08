@@ -27,6 +27,6 @@ press_any_to_continue
 #prepare_boost
 #prepare_openssl
 #build_openssl
-#prepare_libtorrent
+#prepare_libTAU
 build_libraries
 #cleanup_objects

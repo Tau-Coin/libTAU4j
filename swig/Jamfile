@@ -36,9 +36,9 @@ if ! $(SQLITE_ROOT)
 	EXIT "You need to define SQLITE_ROOT" ;
 }
 
-use-project /torrent : $(LIBTORRENT_ROOT) ;
+use-project /TAU : $(LIBTORRENT_ROOT) ;
 
-rule libtorrent_linking ( properties * )
+rule libTAU_linking ( properties * )
 {
     local result ;
 
@@ -49,7 +49,7 @@ rule libtorrent_linking ( properties * )
     result += <optimization>speed ;
     result += <cxxstd>17 ;
 
-    result += <library>/torrent//torrent/<link>static ;
+    result += <library>/TAU//TAU/<link>static ;
 
     return $(result) ;
 }
@@ -69,7 +69,7 @@ lib TAU4j
 	 libTAU_jni.cpp
 
     : # requirements
-    <conditional>@libtorrent_linking
+    <conditional>@libTAU_linking
     <include>.
 
     : # default build

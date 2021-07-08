@@ -1,11 +1,11 @@
-namespace libtorrent {
+namespace libTAU {
 
 class entry {
 public:
-    //typedef std::map<std::string, libtorrent::entry> dictionary_type;
+    //typedef std::map<std::string, libTAU::entry> dictionary_type;
     typedef boost::container::map<std::string, entry> dictionary_type;
     typedef std::string string_type;
-    typedef std::vector<libtorrent::entry> list_type;
+    typedef std::vector<libTAU::entry> list_type;
     typedef std::int64_t integer_type;
     typedef std::vector<char> preformatted_type;
 
@@ -60,7 +60,7 @@ public:
             $self->operator[](key) = value;
         }
 
-        void set(std::string const& key, libtorrent::entry const& value) {
+        void set(std::string const& key, libTAU::entry const& value) {
             $self->operator[](key) = value;
         }
 
@@ -76,20 +76,20 @@ public:
 
         std::vector<int8_t> bencode() {
             std::vector<int8_t> buffer;
-            libtorrent::bencode(std::back_inserter(buffer), *$self);
+            libTAU::bencode(std::back_inserter(buffer), *$self);
             return buffer;
         }
 
         static entry from_string_bytes(std::vector<int8_t> const& string_bytes) {
-            return libtorrent::entry(std::string(string_bytes.begin(), string_bytes.end()));
+            return libTAU::entry(std::string(string_bytes.begin(), string_bytes.end()));
         }
 
         static entry from_preformatted_bytes(std::vector<int8_t> const& preformatted_bytes) {
-            return libtorrent::entry(std::vector<char>(preformatted_bytes.begin(), preformatted_bytes.end()));
+            return libTAU::entry(std::vector<char>(preformatted_bytes.begin(), preformatted_bytes.end()));
         }
 
         static entry bdecode(std::vector<int8_t>& buffer) {
-            return libtorrent::bdecode({reinterpret_cast<char const*>(buffer.data()), static_cast<long>(buffer.size())});
+            return libTAU::bdecode({reinterpret_cast<char const*>(buffer.data()), static_cast<long>(buffer.size())});
         }
     }
 };

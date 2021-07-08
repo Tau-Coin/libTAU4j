@@ -1,4 +1,4 @@
-namespace libtorrent { namespace flags {
+namespace libTAU { namespace flags {
 
 template<typename UnderlyingType, typename Tag>
 struct bitfield_flag

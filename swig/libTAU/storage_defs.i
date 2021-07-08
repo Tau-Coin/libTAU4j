@@ -1,3 +1,3 @@
-%ignore libtorrent::storage_params;
+%ignore libTAU::storage_params;
 
-%include "libtorrent/storage_defs.hpp"
+%include "libTAU/storage_defs.hpp"

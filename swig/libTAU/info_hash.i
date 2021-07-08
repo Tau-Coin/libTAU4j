@@ -1,6 +1,6 @@
-%include "libtorrent/info_hash.hpp"
+%include "libTAU/info_hash.hpp"
 
-namespace libtorrent {
+namespace libTAU {
 
 %extend info_hash_t
 {

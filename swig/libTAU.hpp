@@ -4,13 +4,13 @@
 #include <boost/version.hpp>
 #include <openssl/opensslv.h>
 
-#include <libtorrent/aux_/cpuid.hpp>
-#include <libtorrent/kademlia/ed25519.hpp>
-#include <libtorrent/kademlia/item.hpp>
-#include <libtorrent/aux_/enum_net.hpp>
-#include <libtorrent/aux_/random.hpp>
+#include <libTAU/aux_/cpuid.hpp>
+#include <libTAU/kademlia/ed25519.hpp>
+#include <libTAU/kademlia/item.hpp>
+#include <libTAU/aux_/enum_net.hpp>
+#include <libTAU/aux_/random.hpp>
 
-namespace lt = libtorrent;
+namespace lt = libTAU;
 
 struct alert_notify_callback
 {
@@ -39,7 +39,7 @@ const char* openssl_version_text()
 
 bool arm_neon_support()
 {
-    return libtorrent::aux::arm_neon_support;
+    return libTAU::aux::arm_neon_support;
 }
 
 std::array<std::int8_t, 32> ed25519_create_seed()
@@ -50,7 +50,7 @@ std::array<std::int8_t, 32> ed25519_create_seed()
 
 std::pair<std::vector<int8_t>, std::vector<int8_t>> ed25519_create_keypair(
     std::vector<int8_t>& seed) {
-    using namespace libtorrent::dht;
+    using namespace libTAU::dht;
 
     public_key pk;
     secret_key sk;
@@ -66,7 +66,7 @@ std::pair<std::vector<int8_t>, std::vector<int8_t>> ed25519_create_keypair(
 
 std::vector<int8_t> ed25519_sign(std::vector<int8_t>& msg,
     std::vector<int8_t>& pk, std::vector<int8_t>& sk) {
-    using namespace libtorrent::dht;
+    using namespace libTAU::dht;
 
     public_key pk1((char*)pk.data());
     secret_key sk1((char*)sk.data());
@@ -79,7 +79,7 @@ std::vector<int8_t> ed25519_sign(std::vector<int8_t>& msg,
 bool ed25519_verify(std::vector<int8_t>& sig,
     std::vector<int8_t>& msg,
     std::vector<int8_t>& pk) {
-    using namespace libtorrent::dht;
+    using namespace libTAU::dht;
 
     signature sig1((char*)sig.data());
     public_key pk1((char*)pk.data());
@@ -89,7 +89,7 @@ bool ed25519_verify(std::vector<int8_t>& sig,
 
 std::vector<int8_t> ed25519_add_scalar_public(std::vector<int8_t>& pk,
     std::vector<int8_t>& scalar) {
-    using namespace libtorrent::dht;
+    using namespace libTAU::dht;
 
     public_key pk1((char*)pk.data());
 
@@ -102,7 +102,7 @@ std::vector<int8_t> ed25519_add_scalar_public(std::vector<int8_t>& pk,
 
 std::vector<int8_t> ed25519_add_scalar_secret(std::vector<int8_t>& sk,
     std::vector<int8_t>& scalar) {
-    using namespace libtorrent::dht;
+    using namespace libTAU::dht;
 
     secret_key sk1((char*)sk.data());
 
@@ -115,7 +115,7 @@ std::vector<int8_t> ed25519_add_scalar_secret(std::vector<int8_t>& sk,
 
 std::vector<int8_t> ed25519_key_exchange(std::vector<int8_t>& pk,
     std::vector<int8_t>& sk) {
-    using namespace libtorrent::dht;
+    using namespace libTAU::dht;
 
     public_key pk1((char*)pk.data());
     secret_key sk1((char*)sk.data());
@@ -127,8 +127,8 @@ std::vector<int8_t> ed25519_key_exchange(std::vector<int8_t>& pk,
 // enum_net functions, very useful for networking
 struct ip_interface
 {
-    libtorrent::address interface_address;
-    libtorrent::address netmask;
+    libTAU::address interface_address;
+    libTAU::address netmask;
     std::vector<std::int8_t> name;
     std::vector<std::int8_t> friendly_name;
     std::vector<std::int8_t> description;
@@ -137,19 +137,19 @@ struct ip_interface
 
 struct ip_route
 {
-    libtorrent::address destination;
-    libtorrent::address netmask;
-    libtorrent::address gateway;
-    libtorrent::address source_hint;
+    libTAU::address destination;
+    libTAU::address netmask;
+    libTAU::address gateway;
+    libTAU::address source_hint;
     std::vector<std::int8_t> name;
     int mtu;
 };
 
-std::vector<ip_interface> enum_net_interfaces(libtorrent::session* s)
+std::vector<ip_interface> enum_net_interfaces(libTAU::session* s)
 {
     std::vector<ip_interface> ret;
     boost::system::error_code ec;
-    auto v = libtorrent::aux::enum_net_interfaces(s->get_context(), ec);
+    auto v = libTAU::aux::enum_net_interfaces(s->get_context(), ec);
     for (auto& e : v)
     {
         ip_interface iface;
@@ -164,11 +164,11 @@ std::vector<ip_interface> enum_net_interfaces(libtorrent::session* s)
     return ret;
 }
 
-std::vector<ip_route> enum_routes(libtorrent::session* s)
+std::vector<ip_route> enum_routes(libTAU::session* s)
 {
     std::vector<ip_route> ret;
     boost::system::error_code ec;
-    auto v = libtorrent::aux::enum_routes(s->get_context(), ec);
+    auto v = libTAU::aux::enum_routes(s->get_context(), ec);
     for (auto& e : v)
     {
         ip_route r;
@@ -190,7 +190,7 @@ void mem_copy(std::vector<std::int8_t> source
     std::memcpy(target, source.data(), std::min(source.size(), target_size));
 }
 
-libtorrent::address get_gateway(ip_interface const& iface
+libTAU::address get_gateway(ip_interface const& iface
     , std::vector<ip_route>& routes)
 {
     lt::aux::ip_interface lt_iface{};
@@ -218,8 +218,8 @@ libtorrent::address get_gateway(ip_interface const& iface
         .value_or(lt::address{});
 }
 
-std::string device_for_address(libtorrent::session* s
-    , libtorrent::address addr, boost::system::error_code& ec)
+std::string device_for_address(libTAU::session* s
+    , libTAU::address addr, boost::system::error_code& ec)
 {
     return lt::aux::device_for_address(addr, s->get_context(), ec);
 }
@@ -236,8 +236,8 @@ struct add_files_listener
     }
 };
 
-void add_files_ex(libtorrent::file_storage& fs, std::string const& file
-    , add_files_listener* listener, libtorrent::create_flags_t flags)
+void add_files_ex(libTAU::file_storage& fs, std::string const& file
+    , add_files_listener* listener, libTAU::create_flags_t flags)
 {
     add_files(fs, file, std::bind(&add_files_listener::pred
         , listener, std::placeholders::_1), flags);
@@ -258,18 +258,18 @@ struct set_piece_hashes_listener
     }
 };
 
-void set_piece_hashes_ex(libtorrent::create_torrent& t, std::string const& p
-    , set_piece_hashes_listener* listener, libtorrent::error_code& ec)
+void set_piece_hashes_ex(libTAU::create_torrent& t, std::string const& p
+    , set_piece_hashes_listener* listener, libTAU::error_code& ec)
 {
     set_piece_hashes(t, p, std::bind(&set_piece_hashes_listener::progress_index
         , listener, std::placeholders::_1), ec);
 }
 
-void dht_put_item_cb(libtorrent::entry& e, std::array<char, 64>& sig, std::int64_t& seq,
-    std::string salt, libtorrent::dht::public_key pk, libtorrent::dht::secret_key sk,
-    libtorrent::entry data)
+void dht_put_item_cb(libTAU::entry& e, std::array<char, 64>& sig, std::int64_t& seq,
+    std::string salt, libTAU::dht::public_key pk, libTAU::dht::secret_key sk,
+    libTAU::entry data)
 {
-    using namespace libtorrent::dht;
+    using namespace libTAU::dht;
 
     e = data;
     std::vector<char> buf;

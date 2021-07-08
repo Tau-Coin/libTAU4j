@@ -4,10 +4,10 @@
 %ignore LIBTORRENT_VERSION_NUM;
 %ignore LIBTORRENT_VERSION;
 %ignore LIBTORRENT_REVISION;
-%ignore libtorrent::version_major;
-%ignore libtorrent::version_minor;
-%ignore libtorrent::version_tiny;
-%ignore libtorrent::version_str;
-%ignore libtorrent::version_revision;
+%ignore libTAU::version_major;
+%ignore libTAU::version_minor;
+%ignore libTAU::version_tiny;
+%ignore libTAU::version_str;
+%ignore libTAU::version_revision;
 
-%include "libtorrent/version.hpp"
+%include "libTAU/version.hpp"

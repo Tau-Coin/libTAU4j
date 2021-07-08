@@ -12,182 +12,182 @@ function fixCode() {
     uname=`uname -s`
     if [ "$(uname)" == "Darwin" ]; then
       # FreeBSD's sed is weird, it needs that extra '' parameter there for some reason
-      sed -i '' 's/constexpr alert_category_t all = alert_category_t::all();/ \/\/deleted temporarily because it is defined twice/g' ${LIBTORRENT_ROOT}/include/libtorrent/alert.hpp
+      sed -i '' 's/constexpr alert_category_t all = alert_category_t::all();/ \/\/deleted temporarily because it is defined twice/g' ${LIBTORRENT_ROOT}/include/libTAU/alert.hpp
       # The line above will be reverted to normal when we build by the checkout, if not commented/deleted swig breaks
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/hasher512.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/announce_entry.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/torrent_peer.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/mmap.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/bdecode.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session_params.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/add_torrent_params.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/hasher.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/entry.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/upnp.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/mmap.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/hasher.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/entry.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/upnp.hpp
+      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
 
-      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/stack_allocator.hpp
-      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/torrent_peer.hpp
-      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/bdecode.hpp
-      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
-      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session_handle.hpp
+      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
+      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
+      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
+      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
+      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
+      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
 
-      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/stack_allocator.hpp
-      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/scope_end.hpp
-      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/copy_ptr.hpp
-      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/info_hash.hpp
-      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/units.hpp
-      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/flags.hpp
-      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session_handle.hpp
-      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/bitfield.hpp
-      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
+      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
+      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/scope_end.hpp
+      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/copy_ptr.hpp
+      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/info_hash.hpp
+      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/units.hpp
+      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/flags.hpp
+      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
+      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bitfield.hpp
+      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
 
-      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session.hpp
-      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/add_torrent_params.hpp
-      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/sha1_hash.hpp
-      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/disk_buffer_holder.hpp
+      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
+      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
+      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
+      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/sha1_hash.hpp
+      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
 
-      sed -i '' 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
-      sed -i '' 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
+      sed -i '' 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
+      sed -i '' 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
 
-      sed -i '' 's/) & TORRENT_COUNTER_NOEXCEPT;/)   TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libtorrent/performance_counters.hpp
+      sed -i '' 's/) & TORRENT_COUNTER_NOEXCEPT;/)   TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libTAU/performance_counters.hpp
     else
-      sed -i 's/constexpr alert_category_t all = alert_category_t::all();/ \/\/deleted temporarily because it is defined twice/g' ${LIBTORRENT_ROOT}/include/libtorrent/alert.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/hasher512.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/announce_entry.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/torrent_peer.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/mmap.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/bdecode.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session_params.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/add_torrent_params.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/hasher.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/entry.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/upnp.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
+      sed -i 's/constexpr alert_category_t all = alert_category_t::all();/ \/\/deleted temporarily because it is defined twice/g' ${LIBTORRENT_ROOT}/include/libTAU/alert.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/mmap.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/hasher.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/entry.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/upnp.hpp
+      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
 
-      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/stack_allocator.hpp
-      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/torrent_peer.hpp
-      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/bdecode.hpp
-      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
-      sed -i  's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session_handle.hpp
+      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
+      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
+      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
+      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
+      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
+      sed -i  's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
 
-      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/stack_allocator.hpp
-      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/scope_end.hpp
-      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/copy_ptr.hpp
-      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/info_hash.hpp
-      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/units.hpp
-      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/flags.hpp
-      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session_handle.hpp
-      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/bitfield.hpp
-      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
+      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
+      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/scope_end.hpp
+      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/copy_ptr.hpp
+      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/info_hash.hpp
+      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/units.hpp
+      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/flags.hpp
+      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
+      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bitfield.hpp
+      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
 
-      sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session.hpp
-      sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/add_torrent_params.hpp
-      sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/sha1_hash.hpp
-      sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/disk_buffer_holder.hpp
+      sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
+      sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
+      sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
+      sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/sha1_hash.hpp
+      sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
 
-      sed -i 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
-      sed -i 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
-      sed -i 's/) & TORRENT_COUNTER_NOEXCEPT;/)   TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libtorrent/performance_counters.hpp
+      sed -i 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
+      sed -i 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
+      sed -i 's/) & TORRENT_COUNTER_NOEXCEPT;/)   TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libTAU/performance_counters.hpp
     fi
 }
 
 function refixCode() {
     uname=`uname -s`    
     if [ "$(uname)" == "Darwin" ]; then  
-    sed -i '' 's/ \/\/deleted temporarily because it is defined twice/constexpr alert_category_t all = alert_category_t::all();/g' ${LIBTORRENT_ROOT}/include/libtorrent/alert.hpp
+    sed -i '' 's/ \/\/deleted temporarily because it is defined twice/constexpr alert_category_t all = alert_category_t::all();/g' ${LIBTORRENT_ROOT}/include/libTAU/alert.hpp
  
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/hasher512.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/announce_entry.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/torrent_peer.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/mmap.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/bdecode.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session_params.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/add_torrent_params.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/hasher.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/entry.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/upnp.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/mmap.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/hasher.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/entry.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/upnp.hpp
+      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
 
-      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/stack_allocator.hpp
-      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/torrent_peer.hpp
-      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/bdecode.hpp
-      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
-      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session_handle.hpp
+      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
+      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
+      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
+      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
+      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
+      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
 
-      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/stack_allocator.hpp
-      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/scope_end.hpp
-      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/copy_ptr.hpp
-      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/info_hash.hpp
-      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/units.hpp
-      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/flags.hpp
-      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session_handle.hpp
-      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/bitfield.hpp
-      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
+      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
+      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/scope_end.hpp
+      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/copy_ptr.hpp
+      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/info_hash.hpp
+      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/units.hpp
+      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/flags.hpp
+      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
+      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bitfield.hpp
+      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
 
-      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session.hpp
-      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/add_torrent_params.hpp
-      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/sha1_hash.hpp
-      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/disk_buffer_holder.hpp
+      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
+      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
+      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
+      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/sha1_hash.hpp
+      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
 
-      sed -i '' 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
-      sed -i '' 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp     
-      sed -i '' 's/)   TORRENT_COUNTER_NOEXCEPT;/) \& TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libtorrent/performance_counters.hpp 
+      sed -i '' 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
+      sed -i '' 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp     
+      sed -i '' 's/)   TORRENT_COUNTER_NOEXCEPT;/) \& TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libTAU/performance_counters.hpp 
     else
-      sed -i 's/ \/\/deleted temporarily because it is defined twice/constexpr alert_category_t all = alert_category_t::all();/g' ${LIBTORRENT_ROOT}/include/libtorrent/alert.hpp
+      sed -i 's/ \/\/deleted temporarily because it is defined twice/constexpr alert_category_t all = alert_category_t::all();/g' ${LIBTORRENT_ROOT}/include/libTAU/alert.hpp
 
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/hasher512.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/announce_entry.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/torrent_peer.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/mmap.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/bdecode.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session_params.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/add_torrent_params.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/hasher.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/entry.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/upnp.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/mmap.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/hasher.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/entry.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/upnp.hpp
+      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
 
-      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/stack_allocator.hpp
-      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/torrent_peer.hpp
-      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/bdecode.hpp
-      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
-      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session_handle.hpp
+      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
+      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
+      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
+      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
+      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
+      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
 
-      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/stack_allocator.hpp
-      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/scope_end.hpp
-      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/aux_/copy_ptr.hpp
-      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/info_hash.hpp
-      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/units.hpp
-      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/flags.hpp
-      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session_handle.hpp
-      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/bitfield.hpp
-      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp
+      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
+      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/scope_end.hpp
+      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/copy_ptr.hpp
+      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/info_hash.hpp
+      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/units.hpp
+      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/flags.hpp
+      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
+      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bitfield.hpp
+      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
 
-      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/file_storage.hpp
-      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/session.hpp
-      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/add_torrent_params.hpp
-      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/sha1_hash.hpp
-      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libtorrent/disk_buffer_holder.hpp
+      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
+      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
+      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
+      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/sha1_hash.hpp
+      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
 
-      sed -i 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libtorrent/announce_entry.hpp
-      sed -i 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libtorrent/torrent_handle.hpp      
-      sed -i 's/)   TORRENT_COUNTER_NOEXCEPT;/) \& TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libtorrent/performance_counters.hpp
+      sed -i 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
+      sed -i 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp      
+      sed -i 's/)   TORRENT_COUNTER_NOEXCEPT;/) \& TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libTAU/performance_counters.hpp
     fi
 }
 

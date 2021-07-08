@@ -1,14 +1,14 @@
-%ignore libtorrent::errors::deprecated_120;
-%ignore libtorrent::errors::deprecated_121;
-%ignore libtorrent::errors::deprecated_122;
-%ignore libtorrent::errors::deprecated_123;
-%ignore libtorrent::errors::deprecated_124;
-%ignore libtorrent::errors::make_error_code;
-%ignore libtorrent::http_category;
-%ignore libtorrent::libtorrent_category;
-%ignore libtorrent::print_error;
+%ignore libTAU::errors::deprecated_120;
+%ignore libTAU::errors::deprecated_121;
+%ignore libTAU::errors::deprecated_122;
+%ignore libTAU::errors::deprecated_123;
+%ignore libTAU::errors::deprecated_124;
+%ignore libTAU::errors::make_error_code;
+%ignore libTAU::http_category;
+%ignore libTAU::libTAU_category;
+%ignore libTAU::print_error;
 
-%rename(libTAU_no_error) libtorrent::errors::no_error;
-%rename(libTAU_errors) libtorrent::errors::error_code_enum;
+%rename(libTAU_no_error) libTAU::errors::no_error;
+%rename(libTAU_errors) libTAU::errors::error_code_enum;
 
-%include "libtorrent/error_code.hpp"
+%include "libTAU/error_code.hpp"

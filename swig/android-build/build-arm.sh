@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker run --rm -it -v "$PWD/../../":/libtorrent4j lt4j:latest "/b2-arm.sh"
+docker run --rm -it -v "$PWD/../../":/libTAU4j lt4j:latest "/b2-arm.sh"
 
 pushd ../../
 ./gradlew clean

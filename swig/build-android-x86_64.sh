@@ -2,7 +2,7 @@
 # This script is meant to run here inside the swig folder
 # It's supposed to be a one step build for the java jar and android (.so enclosing) jars (armv7 and x86)
 # Output .jar files will be at:
-# ../build/libs/jlibtorrent-<version>.jar
+# ../build/libs/jlibTAU-<version>.jar
 # ../build/libs/${LIBRARY_NAME}-android-x86_64-<version>.jar
 
 # remote android-x86 build with travis is available at https://s3.amazonaws.com/gubatron-${LIBRARY_NAME}/release/android/x86_64/lib${LIBRARY_NAME}.so
@@ -37,6 +37,6 @@ press_any_to_continue
 #prepare_boost
 #prepare_openssl
 #build_openssl
-#prepare_libtorrent
+#prepare_libTAU
 build_libraries
 #cleanup_objects
