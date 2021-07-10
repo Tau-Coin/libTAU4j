@@ -284,6 +284,12 @@ public final class Alerts {
                 return handleUnknownAlert(a);
             }
         };
+        arr[42] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new CommLogAlert(cast_to_communication_log_alert(a));
+            }
+        };
 
         return arr;
     }
