@@ -533,16 +533,6 @@ public final class SettingsPack
     }
 
     /**
-     * Starts the dht node and makes the trackerless service available to
-     * torrents.
-     *
-     * @return true if enable
-     */
-    public boolean isEnableDht() {
-        return h.get_bool(settings_pack.bool_types.enable_dht.swigValue());
-    }
-
-    /**
      * The maximum allowed size (in bytes) to be
      * received by the metadata extension, i.e. magnet links.
      */
