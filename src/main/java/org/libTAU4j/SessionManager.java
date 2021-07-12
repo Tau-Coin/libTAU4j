@@ -583,7 +583,7 @@ public class SessionManager {
         }
 
         SettingsPack sp = new SettingsPack();
-        sp.setEnableDht(on);
+        //sp.setEnableDht(on);
 
         applySettings(sp);
     }
