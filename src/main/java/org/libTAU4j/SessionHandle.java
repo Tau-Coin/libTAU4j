@@ -126,7 +126,7 @@ public final class SessionHandle
      * This is for adding new friend.
      */
     public void addNewFriend(String pubkey) {
-		//String -> unsigned_byte_array_32
+		//String -> byte_array_32
 		byte[] pk = Hex.decode(pubkey);
         h.add_new_friend(Vectors.bytes2byte_array_32(pk));
     }

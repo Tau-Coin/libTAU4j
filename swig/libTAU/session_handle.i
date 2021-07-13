@@ -9,8 +9,8 @@
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>, std::string);
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>);
 %ignore libTAU::session_handle::add_new_friend(std::array<char, 32> pubkey);
-%ignore libTAU::session_handle::delete_friend(std::array<unsigned char, 32> pubkey);
-%ignore libTAU::session_handle::set_chatting_friend(std::array<unsigned char, 32> pubkey);
+%ignore libTAU::session_handle::delete_friend(std::array<char, 32> pubkey);
+%ignore libTAU::session_handle::set_chatting_friend(std::array<char, 32> pubkey);
 %ignore libTAU::session_handle::set_load_function;
 %ignore libTAU::session_handle::set_alert_notify;
 %ignore libTAU::session_handle::native_handle;
@@ -95,17 +95,23 @@ namespace libTAU {
         return $self->add_new_friend(pk);
     }
 
-    bool delete_friend(std::array<std::uint8_t, 32>& pubkey)
+    bool delete_friend(std::array<std::int8_t, 32>& pubkey)
     {
-        return $self->delete_friend(pubkey);
+        std::array<char, 32> pk;
+        std::copy_n(pubkey.begin(), 32, pk.begin());
+
+        return $self->delete_friend(pk);
     }
 
-    void set_chatting_friend(std::array<std::uint8_t, 32>& pubkey)
+    void set_chatting_friend(std::array<std::int8_t, 32>& pubkey)
     {
-        $self->set_chatting_friend(pubkey);
+        std::array<char, 32> pk;
+        std::copy_n(pubkey.begin(), 32, pk.begin());
+
+        $self->set_chatting_friend(pk);
     }
 
-    std::vector<unsigned char> get_friend_info(std::array<unsigned char, 32> pubkey)
+    std::vector<unsigned char> get_friend_info(std::array<char, 32> pubkey)
     {
         return $self->get_friend_info(pubkey);
     }
@@ -115,12 +121,12 @@ namespace libTAU {
         $self->unset_chatting_friend();
     }
 
-    bool update_friend_info(std::array<unsigned char, 32> pubkey, std::vector<unsigned char> friend_info)
+    bool update_friend_info(std::array<char, 32> pubkey, std::vector<unsigned char> friend_info)
     {
         return $self->update_friend_info(pubkey, friend_info);
     }
 
-    void set_active_friends(std::vector<std::array<unsigned char, 32>> active_friends)
+    void set_active_friends(std::vector<std::array<char, 32>> active_friends)
     {
         $self->set_active_friends(active_friends);
     }
