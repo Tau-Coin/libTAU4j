@@ -7,6 +7,7 @@
 
 package org.libTAU4j;
 
+import org.libTAU4j.swig.unsigned_byte_array_32;
 import org.libTAU4j.swig.byte_array_32;
 import org.libTAU4j.swig.byte_array_64;
 import org.libTAU4j.swig.byte_vector;
@@ -148,6 +149,16 @@ public final class Vectors {
 
     public static byte_array_32 bytes2byte_array_32(byte[] arr) {
         byte_array_32 v = new byte_array_32();
+
+        for (int i = 0; i < 32; i++) {
+            v.set(i, arr[i]);
+        }
+
+        return v;
+    }
+
+    public static unsigned_byte_array_32 bytes2unsigned_byte_array_32(byte[] arr) {
+        unsigned_byte_array_32 v = new unsigned_byte_array_32();
 
         for (int i = 0; i < 32; i++) {
             v.set(i, arr[i]);

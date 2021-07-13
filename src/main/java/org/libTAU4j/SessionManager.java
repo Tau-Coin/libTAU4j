@@ -264,6 +264,11 @@ public class SessionManager {
         return new ArrayList<>(listenEndpoints.values());
     }
 
+	public void addNewFriend(String pk) {
+		if (session != null) {
+			new SessionHandle(session).addNewFriend(pk);
+		}
+	}
     //--------------------------------------------------
     // Settings methods
     //--------------------------------------------------

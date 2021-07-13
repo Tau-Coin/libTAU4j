@@ -8,7 +8,7 @@
 %ignore libTAU::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::int64_t&, std::string const&)>);
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>, std::string);
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>);
-%ignore libTAU::session_handle::add_new_friend(std::array<unsigned char, 32> pubkey);
+%ignore libTAU::session_handle::add_new_friend(std::array<char, 32> pubkey);
 %ignore libTAU::session_handle::delete_friend(std::array<unsigned char, 32> pubkey);
 %ignore libTAU::session_handle::set_chatting_friend(std::array<unsigned char, 32> pubkey);
 %ignore libTAU::session_handle::set_load_function;
@@ -87,9 +87,12 @@ namespace libTAU {
         $self->set_loop_time_interval(milliseconds);
     }
 
-    bool add_new_friend(std::array<std::uint8_t, 32>& pubkey)
+    bool add_new_friend(std::array<std::int8_t, 32>& pubkey)
     {
-        return $self->add_new_friend(pubkey);
+        std::array<char, 32> pk;
+        std::copy_n(pubkey.begin(), 32, pk.begin());
+
+        return $self->add_new_friend(pk);
     }
 
     bool delete_friend(std::array<std::uint8_t, 32>& pubkey)
