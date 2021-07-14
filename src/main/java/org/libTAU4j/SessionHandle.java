@@ -132,6 +132,14 @@ public final class SessionHandle
     }
 
     /**
+     * This is for updating friend info.
+     */
+    public void updateFriendInfo(String pubkey, byte[] info) {
+		byte[] pk = Hex.decode(pubkey);
+        h.update_friend_info(Vectors.bytes2byte_array_32(pk), Vectors.bytes2byte_vector(info));
+    }
+
+    /**
      * Delete the files belonging to the torrent from disk,
      * including the part-file, if there is one.
      */
