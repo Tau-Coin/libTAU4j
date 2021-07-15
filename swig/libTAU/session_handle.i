@@ -10,6 +10,7 @@
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>);
 %ignore libTAU::session_handle::add_new_friend(std::array<char, 32> pubkey);
 %ignore libTAU::session_handle::update_friend_info(std::array<char, 32> pubkey, std::vector<char> friend_info);
+%ignore libTAU::session_handle::get_friend_info(std::array<char, 32> pubkey);
 %ignore libTAU::session_handle::delete_friend(std::array<char, 32> pubkey);
 %ignore libTAU::session_handle::set_chatting_friend(std::array<char, 32> pubkey);
 %ignore libTAU::session_handle::set_load_function;
@@ -112,9 +113,16 @@ namespace libTAU {
         $self->set_chatting_friend(pk);
     }
 
-    std::vector<unsigned char> get_friend_info(std::array<char, 32> pubkey)
+    std::vector<std::int8_t> get_friend_info(std::array<std::int8_t, 32> pubkey)
     {
-        return $self->get_friend_info(pubkey);
+        std::array<char, 32> pk;
+        std::copy_n(pubkey.begin(), 32, pk.begin());
+
+        std::vector<char> friend_info = $self->get_friend_info(pk);
+
+        std::vector<std::int8_t> info; 
+        std::copy(friend_info.begin(), friend_info.end(), std::inserter(info, info.begin()));
+        return info;
     }
 
     void unset_chatting_friend()

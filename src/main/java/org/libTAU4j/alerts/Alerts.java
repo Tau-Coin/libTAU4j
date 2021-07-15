@@ -281,7 +281,7 @@ public final class Alerts {
         arr[41] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return handleUnknownAlert(a);
+                return new CommFriendInfoAlert(cast_to_communication_friend_info_alert(a));
             }
         };
         arr[42] = new CastLambda() {

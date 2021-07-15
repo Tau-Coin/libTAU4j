@@ -140,6 +140,14 @@ public final class SessionHandle
     }
 
     /**
+     * This is for getting friend info.
+     */
+    public void getFriendInfo(String pubkey) {
+		byte[] pk = Hex.decode(pubkey);
+        h.get_friend_info(Vectors.bytes2byte_array_32(pk));
+    }
+
+    /**
      * Delete the files belonging to the torrent from disk,
      * including the part-file, if there is one.
      */

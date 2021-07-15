@@ -30,6 +30,7 @@ public enum AlertType {
     LOG(log_alert.alert_type),
     DHT_STATS(dht_stats_alert.alert_type),
     DHT_LOG(dht_log_alert.alert_type),
+    COMM_FRIEND_INFO(communication_friend_info_alert.alert_type),
     COMM_LOG(communication_log_alert.alert_type),
     DHT_PKT(dht_pkt_alert.alert_type),
     SESSION_ERROR(session_error_alert.alert_type),
@@ -104,7 +105,7 @@ public enum AlertType {
         arr[38] = UNKNOWN;
         arr[39] = UNKNOWN;
         arr[40] = UNKNOWN;
-        arr[41] = UNKNOWN;
+        arr[41] = COMM_FRIEND_INFO;
         arr[42] = COMM_LOG;
 
         return arr;
