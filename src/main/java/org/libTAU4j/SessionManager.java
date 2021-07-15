@@ -275,6 +275,14 @@ public class SessionManager {
 			new SessionHandle(session).updateFriendInfo(pk, info);
 		}
 	}
+
+	public byte[] getFriendInfo(String pk) {
+		if (session != null) {
+			return new SessionHandle(session).getFriendInfo(pk);
+		} else {
+			return null;
+		}
+	}
     //--------------------------------------------------
     // Settings methods
     //--------------------------------------------------

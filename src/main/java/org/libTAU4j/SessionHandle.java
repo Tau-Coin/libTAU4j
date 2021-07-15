@@ -9,6 +9,7 @@ package org.libTAU4j;
 
 import org.libTAU4j.alerts.SessionStatsAlert;
 import org.libTAU4j.swig.error_code;
+import org.libTAU4j.swig.byte_vector;
 import org.libTAU4j.swig.int_vector;
 import org.libTAU4j.swig.libTAU_errors;
 import org.libTAU4j.swig.portmap_protocol;
@@ -142,9 +143,10 @@ public final class SessionHandle
     /**
      * This is for getting friend info.
      */
-    public void getFriendInfo(String pubkey) {
+    public byte[] getFriendInfo(String pubkey) {
 		byte[] pk = Hex.decode(pubkey);
-        h.get_friend_info(Vectors.bytes2byte_array_32(pk));
+        byte_vector info = h.get_friend_info(Vectors.bytes2byte_array_32(pk));
+		return Vectors.byte_vector2bytes(info);
     }
 
     /**
