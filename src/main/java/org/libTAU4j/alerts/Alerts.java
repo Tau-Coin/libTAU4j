@@ -257,7 +257,7 @@ public final class Alerts {
         arr[37] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return handleUnknownAlert(a);
+                return new CommNewDeviceIdAlert(cast_to_communication_new_device_id_alert(a));
             }
         };
         arr[38] = new CastLambda() {

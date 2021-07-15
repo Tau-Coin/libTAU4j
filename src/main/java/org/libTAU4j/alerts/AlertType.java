@@ -30,6 +30,7 @@ public enum AlertType {
     LOG(log_alert.alert_type),
     DHT_STATS(dht_stats_alert.alert_type),
     DHT_LOG(dht_log_alert.alert_type),
+    COMM_NEW_DEVICE_ID(communication_new_device_id_alert.alert_type),
     COMM_FRIEND_INFO(communication_friend_info_alert.alert_type),
     COMM_LOG(communication_log_alert.alert_type),
     DHT_PKT(dht_pkt_alert.alert_type),
