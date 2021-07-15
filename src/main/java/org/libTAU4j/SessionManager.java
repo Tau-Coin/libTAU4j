@@ -270,6 +270,12 @@ public class SessionManager {
 		}
 	}
 
+	public void deleteFriend(String pk) {
+		if (session != null) {
+			new SessionHandle(session).deleteFriend(pk);
+		}
+	}
+
 	public void updateFriendInfo(String pk, byte[] info) {
 		if (session != null) {
 			new SessionHandle(session).updateFriendInfo(pk, info);

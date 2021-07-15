@@ -53,6 +53,9 @@ struct alert_category_tag;
     CAST_ALERT_METHOD(alerts_dropped_alert)
     CAST_ALERT_METHOD(socks5_alert)
     CAST_ALERT_METHOD(communication_new_device_id_alert)
+    CAST_ALERT_METHOD(communication_new_message_alert)
+    CAST_ALERT_METHOD(communication_confirmation_root_alert)
+    CAST_ALERT_METHOD(communication_syncing_message_alert)
     CAST_ALERT_METHOD(communication_friend_info_alert)
     CAST_ALERT_METHOD(communication_log_alert)
 

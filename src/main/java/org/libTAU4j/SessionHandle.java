@@ -133,6 +133,15 @@ public final class SessionHandle
     }
 
     /**
+     * This is for deleting friend.
+     */
+    public void deleteFriend(String pubkey) {
+		//String -> byte_array_32
+		byte[] pk = Hex.decode(pubkey);
+        h.delete_friend(Vectors.bytes2byte_array_32(pk));
+    }
+
+    /**
      * This is for updating friend info.
      */
     public void updateFriendInfo(String pubkey, byte[] info) {

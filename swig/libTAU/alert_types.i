@@ -32,9 +32,6 @@
 %ignore libTAU::dht_mutable_item_alert::signature;
 %ignore libTAU::dht_put_alert::public_key;
 %ignore libTAU::dht_put_alert::signature;
-%ignore libTAU::communication_new_message_alert;
-%ignore libTAU::communication_confirmation_root_alert;
-%ignore libTAU::communication_syncing_message_alert;
 %ignore libTAU::performance_warning_str;
 
 %rename("$ignore", regextarget=1, %$isconstructor) ".*_alert$";

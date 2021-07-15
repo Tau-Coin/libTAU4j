@@ -263,19 +263,19 @@ public final class Alerts {
         arr[38] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return handleUnknownAlert(a);
+                return new CommNewMsgAlert(cast_to_communication_new_message_alert(a));
             }
         };
         arr[39] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return handleUnknownAlert(a);
+                return new CommConfirmRootAlert(cast_to_communication_confirmation_root_alert(a));
             }
         };
         arr[40] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return handleUnknownAlert(a);
+                return new CommSyncMsgAlert(cast_to_communication_syncing_message_alert(a));
             }
         };
         arr[41] = new CastLambda() {

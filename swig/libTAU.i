@@ -269,7 +269,6 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 
 // general ignores
 %ignore libTAU::aux;
-%ignore libTAU::communication;
 %ignore mem_copy;
 
 // directors
