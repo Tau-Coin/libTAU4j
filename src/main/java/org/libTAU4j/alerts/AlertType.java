@@ -105,10 +105,10 @@ public enum AlertType {
         arr[34] = UNKNOWN;
         arr[35] = ALERTS_DROPPED;
         arr[36] = UNKNOWN;
-        arr[37] = UNKNOWN;
-        arr[38] = UNKNOWN;
-        arr[39] = UNKNOWN;
-        arr[40] = UNKNOWN;
+        arr[37] = COMM_NEW_DEVICE_ID;
+        arr[38] = COMM_NEW_MSG;
+        arr[39] = COMM_CONFIRM_ROOT;
+        arr[40] = COMM_SYNC_MSG;
         arr[41] = COMM_FRIEND_INFO;
         arr[42] = COMM_LOG;
 
