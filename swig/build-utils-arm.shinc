@@ -196,7 +196,7 @@ build_libraries() {
   export LIBTORRENT_ROOT=${LIBTORRENT_ROOT}
   $run_bjam
   $run_objcopy
-  #$run_strip
+  $run_strip
   if [[ $os_build == "windows" ]]; then
     # expected but parametrized for flexibility and project
     # SHARED_LIB = lib${LIBRARY_NAME}.dll, libTAU4j.dll
