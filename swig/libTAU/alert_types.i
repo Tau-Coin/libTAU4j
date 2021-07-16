@@ -27,6 +27,7 @@
 %ignore libTAU::socks5_alert::ip;
 %ignore libTAU::tracker_alert::local_endpoint;
 %ignore libTAU::dht_stats_alert::local_endpoint;
+%ignore libTAU::communication_friend_info_alert::friend_info;
 %ignore libTAU::performance_alert::deprecated_bittyrant_with_no_uplimit;
 %ignore libTAU::dht_mutable_item_alert::key;
 %ignore libTAU::dht_mutable_item_alert::signature;
@@ -241,4 +242,12 @@ struct picker_flags_tag;
     }
 }
 
+%extend communication_friend_info_alert
+{
+    std::vector<std::int8_t> get_friend_info()
+    {
+        std::vector<std::uint8_t> info = $self->friend_info;
+        return *reinterpret_cast<std::vector<std::int8_t>*>(&info);
+    }
+}
 }
