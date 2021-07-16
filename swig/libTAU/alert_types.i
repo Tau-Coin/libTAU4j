@@ -27,6 +27,7 @@
 %ignore libTAU::socks5_alert::ip;
 %ignore libTAU::tracker_alert::local_endpoint;
 %ignore libTAU::dht_stats_alert::local_endpoint;
+%ignore libTAU::communication_new_device_id_alert::device_id;
 %ignore libTAU::communication_friend_info_alert::friend_info;
 %ignore libTAU::performance_alert::deprecated_bittyrant_with_no_uplimit;
 %ignore libTAU::dht_mutable_item_alert::key;
@@ -239,6 +240,15 @@ struct picker_flags_tag;
     udp::endpoint get_local_endpoint()
     {
         return $self->local_endpoint;
+    }
+}
+
+%extend communication_new_device_id_alert
+{
+    std::vector<std::int8_t> get_device_id()
+    {
+        std::vector<std::uint8_t> device_id = $self->device_id;
+        return *reinterpret_cast<std::vector<std::int8_t>*>(&device_id);
     }
 }
 
