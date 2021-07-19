@@ -1,6 +1,5 @@
 %ignore libTAU::session_handle::session_handle(aux::session_impl*);
 %ignore libTAU::session_handle::session_handle(session_handle&&);
-%ignore libTAU::session_handle::get_torrent_status;
 %ignore libTAU::session_handle::get_io_service;
 %ignore libTAU::session_handle::get_connection_queue;
 %ignore libTAU::session_handle::add_extension;
@@ -8,10 +7,12 @@
 %ignore libTAU::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::int64_t&, std::string const&)>);
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>, std::string);
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>);
+%ignore libTAU::session_handle::new_account_seed(std::array<char, 32> seed);
 %ignore libTAU::session_handle::add_new_friend(std::array<char, 32> pubkey);
 %ignore libTAU::session_handle::update_friend_info(std::array<char, 32> pubkey, std::vector<char> friend_info);
 %ignore libTAU::session_handle::get_friend_info(std::array<char, 32> pubkey);
 %ignore libTAU::session_handle::delete_friend(std::array<char, 32> pubkey);
+%ignore libTAU::session_handle::add_new_message(std::vector<char> msg);
 %ignore libTAU::session_handle::set_chatting_friend(std::array<char, 32> pubkey);
 %ignore libTAU::session_handle::set_load_function;
 %ignore libTAU::session_handle::set_alert_notify;
@@ -19,8 +20,6 @@
 %ignore libTAU::session_handle::set_dht_storage;
 %ignore libTAU::session_handle::get_cache_info;
 %ignore libTAU::session_handle::wait_for_alert;
-%ignore libTAU::session_handle::add_torrent(add_torrent_params&&, error_code&);
-%ignore libTAU::session_handle::async_add_torrent(add_torrent_params&&);
 %ignore libTAU::session_handle::apply_settings(settings_pack&&);
 %ignore libTAU::session_handle::get_context;
 %ignore libTAU::session_handle::add_port_mapping;
@@ -82,6 +81,14 @@ namespace libTAU {
     void delete_port_mapping_ex(int handle)
     {
         $self->delete_port_mapping(libTAU::port_mapping_t{handle});
+    }
+
+    void new_account_seed(std::array<std::int8_t, 32>& seed)
+    {
+        std::array<char, 32> char_seed;
+        std::copy_n(seed.begin(), 32, char_seed.begin());
+
+        return $self->new_account_seed(char_seed);
     }
 
     void set_loop_time_interval(int milliseconds)
@@ -146,9 +153,12 @@ namespace libTAU {
         $self->set_active_friends(active_friends);
     }
 
-    bool add_new_message(std::vector<unsigned char> msg)
+    bool add_new_message(std::vector<std::int8_t> msg)
     {
-        return $self->add_new_message(msg);
+        std::vector<char> message;
+        std::copy(msg.begin(), msg.end(), std::inserter(message, message.begin()));
+
+        return $self->add_new_message(message);
     }
 
 }
