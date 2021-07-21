@@ -113,7 +113,7 @@ public final class Alerts {
         arr[13] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return handleUnknownAlert(a);
+                return new SessionStartOverAlert(cast_to_session_start_over_alert(a));
             }
         };
         arr[14] = new CastLambda() {
@@ -131,7 +131,7 @@ public final class Alerts {
         arr[16] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return handleUnknownAlert(a);
+                return new SessionStopOverAlert(cast_to_session_stop_over_alert(a));
             }
         };
         arr[17] = new CastLambda() {

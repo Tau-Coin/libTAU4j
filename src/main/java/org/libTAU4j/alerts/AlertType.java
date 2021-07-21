@@ -19,10 +19,12 @@ public enum AlertType {
     PORTMAP_ERROR(portmap_error_alert.alert_type),
     PORTMAP_LOG(portmap_log_alert.alert_type),
     DHT_BOOTSTRAP(dht_bootstrap_alert.alert_type),
+    SES_START_OVER(session_start_over_alert.alert_type),
     DHT_GET_PEERS(dht_get_peers_alert.alert_type),
     EXTERNAL_IP(external_ip_alert.alert_type),
     LISTEN_SUCCEEDED(listen_succeeded_alert.alert_type),
     STATE_UPDATE(state_update_alert.alert_type),
+    SES_STOP_OVER(session_stop_over_alert.alert_type),
     SESSION_STATS(session_stats_alert.alert_type),
     LISTEN_FAILED(listen_failed_alert.alert_type),
     UDP_ERROR(udp_error_alert.alert_type),
@@ -81,10 +83,10 @@ public enum AlertType {
         arr[10] = UNKNOWN;
         arr[11] = UNKNOWN;
         arr[12] = DHT_BOOTSTRAP;
-        arr[13] = UNKNOWN;
+        arr[13] = SES_START_OVER;
         arr[14] = UNKNOWN;
         arr[15] = UNKNOWN;
-        arr[16] = UNKNOWN;
+        arr[16] = SES_STOP_OVER;
         arr[17] = SESSION_STATS;
         arr[18] = DHT_ERROR;
         arr[19] = UNKNOWN;

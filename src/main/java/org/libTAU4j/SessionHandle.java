@@ -124,6 +124,14 @@ public final class SessionHandle
     }
 
     /**
+     * This is for changing account.
+     */
+    public void updateAccountSeed(byte[] seed) {
+		//byte -> byte_array_32
+        h.new_account_seed(Vectors.bytes2byte_array_32(seed));
+    }
+
+    /**
      * This is for adding new friend.
      */
     public void addNewFriend(String pubkey) {

@@ -264,6 +264,12 @@ public class SessionManager {
         return new ArrayList<>(listenEndpoints.values());
     }
 
+	public void updateAccountSeed(byte[] seed) {
+		if (session != null) {
+			new SessionHandle(session).updateAccountSeed(seed);
+		}
+	}
+
 	public void addNewFriend(String pk) {
 		if (session != null) {
 			new SessionHandle(session).addNewFriend(pk);
