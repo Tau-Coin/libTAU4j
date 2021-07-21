@@ -7,18 +7,17 @@
 
 %pragma(java) jniclasscode=%{
 
+    public static String libTAUVersion() {
+        return "0.0.0";
+    }
+
     static {
         try {
             String path = System.getProperty("libTAU4j.jni.path", "");
             if ("".equals(path)) {
-                String libname = "TAU4j";
-                String os = System.getProperty("os.name");
-                if (os != null && os.toLowerCase(java.util.Locale.US).contains("windows"))
-                    libname = "lib" + libname;
-
-                System.loadLibrary(libname);
+                System.loadLibrary("TAU4j-" + libTAUVersion());
             } else {
-                System.load(path);
+                System.load("TAU4j");
             }
         } catch (LinkageError e) {
             throw new LinkageError(
