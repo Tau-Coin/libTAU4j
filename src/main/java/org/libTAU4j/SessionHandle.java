@@ -19,7 +19,7 @@ import org.libTAU4j.swig.save_state_flags_t;
 import org.libTAU4j.swig.session_flags_t;
 import org.libTAU4j.swig.session_handle;
 import org.libTAU4j.swig.status_flags_t;
-import org.libTAU4j.swig.unsigned_byte_array_32;
+import org.libTAU4j.swig.vector_byte_array_32;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -164,6 +164,42 @@ public final class SessionHandle
 		byte[] pk = Hex.decode(pubkey);
         byte_vector info = h.get_friend_info(Vectors.bytes2byte_array_32(pk));
 		return Vectors.byte_vector2bytes(info);
+    }
+
+    /**
+     * This is for setting active friends.
+     */
+    public void setActiveFriends(ArrayList<String> pubkeys) {
+
+		vector_byte_array_32 pks = new vector_byte_array_32();
+
+		for(int i= 0; i< pubkeys.size(); i++){
+			pks.add(Vectors.bytes2byte_array_32(Hex.decode(pubkeys.get(i))));
+		}
+
+        h.set_active_friends(pks);
+    }
+
+    /**
+     * This is for setting chatting friend.
+     */
+    public void setChattingFriend(String pubkey) {
+		byte[] pk = Hex.decode(pubkey);
+        h.set_chatting_friend(Vectors.bytes2byte_array_32(pk));
+    }
+
+    /**
+     * This is for adding new msg.
+     */
+    public void addNewMsg(byte[] msg) {
+        h.add_new_message(Vectors.bytes2byte_vector(msg));
+    }
+
+    /**
+     * This is for unset chatting friend.
+     */
+    public void unsetChattingFriend() {
+        h.unset_chatting_friend();
     }
 
     /**

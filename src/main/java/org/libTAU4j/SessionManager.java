@@ -282,6 +282,18 @@ public class SessionManager {
 		}
 	}
 
+	public void setChattingFriend(String pk) {
+		if (session != null) {
+			new SessionHandle(session).setChattingFriend(pk);
+		}
+	}
+
+	public void unsetChattingFriend() {
+		if (session != null) {
+			new SessionHandle(session).unsetChattingFriend();
+		}
+	}
+
 	public void updateFriendInfo(String pk, byte[] info) {
 		if (session != null) {
 			new SessionHandle(session).updateFriendInfo(pk, info);
@@ -295,6 +307,19 @@ public class SessionManager {
 			return null;
 		}
 	}
+
+	public void addNewMsg(byte[] msg) {
+		if (session != null) {
+			new SessionHandle(session).addNewMsg(msg);
+		}
+	}
+	
+	public void setActiveFriends(ArrayList<String> friends) {
+		if (session != null) {
+			new SessionHandle(session).setActiveFriends(friends);
+		}
+	}
+	
     //--------------------------------------------------
     // Settings methods
     //--------------------------------------------------

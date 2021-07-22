@@ -14,6 +14,7 @@
 %ignore libTAU::session_handle::delete_friend(std::array<char, 32> pubkey);
 %ignore libTAU::session_handle::add_new_message(std::vector<char> msg);
 %ignore libTAU::session_handle::set_chatting_friend(std::array<char, 32> pubkey);
+%ignore libTAU::session_handle::set_active_friends(std::vector<std::array<char, 32>> friends);
 %ignore libTAU::session_handle::set_load_function;
 %ignore libTAU::session_handle::set_alert_notify;
 %ignore libTAU::session_handle::native_handle;
@@ -148,9 +149,15 @@ namespace libTAU {
         return $self->update_friend_info(pk, info);
     }
 
-    void set_active_friends(std::vector<std::array<char, 32>> active_friends)
+    void set_active_friends(std::vector<std::array<std::int8_t, 32>> active_friends)
     {
-        $self->set_active_friends(active_friends);
+        std::vector<std::array<char, 32>> afs;
+		std::array<char, 32> pk;
+		for(auto af = active_friends.begin() ; af != active_friends.end(); af++) {
+        	std::copy_n((*af).begin(), 32, pk.begin());
+			afs.push_back(pk);
+		}
+        $self->set_active_friends(afs);
     }
 
     bool add_new_message(std::vector<std::int8_t> msg)
