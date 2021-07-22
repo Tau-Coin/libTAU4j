@@ -1,4 +1,4 @@
-#==如何添加新的alert？==
+# 如何添加新的alert？
 
 1. libTAU: alert_types.hpp声明新的alert，同时在源文件中完成实现；注意添加的alert有一个优先级，如 listen_succeeded_alert：
 TORRENT_DEFINE_ALERT_PRIO(listen_succeeded_alert, 49, alert_priority::critical)
@@ -10,8 +10,9 @@ TORRENT_DEFINE_ALERT_PRIO(listen_succeeded_alert, 49, alert_priority::critical)
 
 4. libTAU4j:src/main/java/org/libtorrent4j/alerts 完成对新创建alert的注册
 
-    Alerts.java: private static CastLambda[] buildTable()
+		Alerts.java: private static CastLambda[] buildTable()
     在上述方法中添加新创建的alert，一定使用正确的index。
     
-    AlertType.java:  创建alert对应的enum，同时在方法中
-    private static AlertType[] buildTable()  注册对应的enum。
+    	AlertType.java:  创建alert对应的enum，例如LISTEN_SUCCEEDED
+    
+    	private static AlertType[] buildTable()  注册对应的enum，例如arr[5] = LISTEN_SUCCEEDED;  这里的index序号和alert优先级保持一致。
