@@ -28,7 +28,11 @@
 %ignore libTAU::tracker_alert::local_endpoint;
 %ignore libTAU::dht_stats_alert::local_endpoint;
 %ignore libTAU::communication_new_device_id_alert::device_id;
+%ignore libTAU::communication_friend_info_alert::peer;
 %ignore libTAU::communication_friend_info_alert::friend_info;
+%ignore libTAU::communication_confirmation_root_alert::peer;
+%ignore libTAU::communication_syncing_message_alert::peer;
+%ignore libTAU::communication_last_seen_alert::peer;
 %ignore libTAU::communication_last_seen_alert::last_seen;
 %ignore libTAU::performance_alert::deprecated_bittyrant_with_no_uplimit;
 %ignore libTAU::dht_mutable_item_alert::key;
@@ -253,8 +257,23 @@ struct picker_flags_tag;
     }
 }
 
+%extend communication_confirmation_root_alert
+{
+    std::vector<std::int8_t> get_peer()
+    {
+        std::vector<std::uint8_t> peer = $self->peer;
+        return *reinterpret_cast<std::vector<std::int8_t>*>(&peer);
+    }
+}
+
 %extend communication_friend_info_alert
 {
+    std::vector<std::int8_t> get_peer()
+    {
+        std::vector<std::uint8_t> peer = $self->peer;
+        return *reinterpret_cast<std::vector<std::int8_t>*>(&peer);
+    }
+
     std::vector<std::int8_t> get_friend_info()
     {
         std::vector<std::uint8_t> info = $self->friend_info;
@@ -262,8 +281,23 @@ struct picker_flags_tag;
     }
 }
 
+%extend communication_syncing_message_alert
+{
+    std::vector<std::int8_t> get_peer()
+    {
+        std::vector<std::uint8_t> peer = $self->peer;
+        return *reinterpret_cast<std::vector<std::int8_t>*>(&peer);
+    }
+}
+
 %extend communication_last_seen_alert
 {
+    std::vector<std::int8_t> get_peer()
+    {
+        std::vector<std::uint8_t> peer = $self->peer;
+        return *reinterpret_cast<std::vector<std::int8_t>*>(&peer);
+    }
+
     std::uint32_t get_last_seen()
     {
         return $self->last_seen;
