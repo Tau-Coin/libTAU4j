@@ -105,9 +105,14 @@ public class alert {
     return (cPtr == 0) ? null : new dht_bootstrap_alert(cPtr, false);
   }
 
-  public static torrent_error_alert cast_to_torrent_error_alert(alert a) {
-    long cPtr = libTAU_jni.alert_cast_to_torrent_error_alert(alert.getCPtr(a), a);
-    return (cPtr == 0) ? null : new torrent_error_alert(cPtr, false);
+  public static session_start_over_alert cast_to_session_start_over_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_session_start_over_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new session_start_over_alert(cPtr, false);
+  }
+
+  public static session_stop_over_alert cast_to_session_stop_over_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_session_stop_over_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new session_stop_over_alert(cPtr, false);
   }
 
   public static incoming_connection_alert cast_to_incoming_connection_alert(alert a) {
@@ -218,6 +223,41 @@ public class alert {
   public static socks5_alert cast_to_socks5_alert(alert a) {
     long cPtr = libTAU_jni.alert_cast_to_socks5_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new socks5_alert(cPtr, false);
+  }
+
+  public static communication_new_device_id_alert cast_to_communication_new_device_id_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_communication_new_device_id_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new communication_new_device_id_alert(cPtr, false);
+  }
+
+  public static communication_new_message_alert cast_to_communication_new_message_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_communication_new_message_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new communication_new_message_alert(cPtr, false);
+  }
+
+  public static communication_confirmation_root_alert cast_to_communication_confirmation_root_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_communication_confirmation_root_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new communication_confirmation_root_alert(cPtr, false);
+  }
+
+  public static communication_syncing_message_alert cast_to_communication_syncing_message_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_communication_syncing_message_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new communication_syncing_message_alert(cPtr, false);
+  }
+
+  public static communication_friend_info_alert cast_to_communication_friend_info_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_communication_friend_info_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new communication_friend_info_alert(cPtr, false);
+  }
+
+  public static communication_log_alert cast_to_communication_log_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_communication_log_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new communication_log_alert(cPtr, false);
+  }
+
+  public static communication_last_seen_alert cast_to_communication_last_seen_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_communication_last_seen_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new communication_last_seen_alert(cPtr, false);
   }
 
   public final static alert_category_t error_notification = new alert_category_t(libTAU_jni.alert_error_notification_get(), false);

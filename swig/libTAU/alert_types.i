@@ -29,6 +29,7 @@
 %ignore libTAU::dht_stats_alert::local_endpoint;
 %ignore libTAU::communication_new_device_id_alert::device_id;
 %ignore libTAU::communication_friend_info_alert::friend_info;
+%ignore libTAU::communication_last_seen_alert::last_seen;
 %ignore libTAU::performance_alert::deprecated_bittyrant_with_no_uplimit;
 %ignore libTAU::dht_mutable_item_alert::key;
 %ignore libTAU::dht_mutable_item_alert::signature;
@@ -258,6 +259,14 @@ struct picker_flags_tag;
     {
         std::vector<std::uint8_t> info = $self->friend_info;
         return *reinterpret_cast<std::vector<std::int8_t>*>(&info);
+    }
+}
+
+%extend communication_last_seen_alert
+{
+    std::uint32_t get_last_seen()
+    {
+        return $self->last_seen;
     }
 }
 }

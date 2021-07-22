@@ -290,6 +290,12 @@ public final class Alerts {
                 return new CommLogAlert(cast_to_communication_log_alert(a));
             }
         };
+        arr[43] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new CommLastSeenAlert(cast_to_communication_last_seen_alert(a));
+            }
+        };
 
         return arr;
     }

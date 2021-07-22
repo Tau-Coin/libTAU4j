@@ -38,6 +38,7 @@ public enum AlertType {
     COMM_SYNC_MSG(communication_syncing_message_alert.alert_type),
     COMM_FRIEND_INFO(communication_friend_info_alert.alert_type),
     COMM_LOG(communication_log_alert.alert_type),
+    COMM_LAST_SEEN(communication_last_seen_alert.alert_type),
     DHT_PKT(dht_pkt_alert.alert_type),
     SESSION_ERROR(session_error_alert.alert_type),
     SESSION_STATS_HEADER(session_stats_header_alert.alert_type),
@@ -113,6 +114,7 @@ public enum AlertType {
         arr[40] = COMM_SYNC_MSG;
         arr[41] = COMM_FRIEND_INFO;
         arr[42] = COMM_LOG;
+        arr[43] = COMM_LAST_SEEN;
 
         return arr;
     }

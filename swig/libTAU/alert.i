@@ -59,6 +59,7 @@ struct alert_category_tag;
     CAST_ALERT_METHOD(communication_syncing_message_alert)
     CAST_ALERT_METHOD(communication_friend_info_alert)
     CAST_ALERT_METHOD(communication_log_alert)
+    CAST_ALERT_METHOD(communication_last_seen_alert)
 
 }
 
