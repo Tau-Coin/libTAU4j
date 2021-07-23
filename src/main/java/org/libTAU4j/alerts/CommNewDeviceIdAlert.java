@@ -1,5 +1,6 @@
 package org.libTAU4j.alerts;
 
+import org.libTAU4j.Vectors;
 import org.libTAU4j.swig.communication_new_device_id_alert;
 
 /**
@@ -14,5 +15,9 @@ public final class CommNewDeviceIdAlert extends AbstractAlert<communication_new_
 
     CommNewDeviceIdAlert(communication_new_device_id_alert alert) {
         super(alert);
+    }
+
+    public byte[] get_device_id() {
+        return Vectors.byte_vector2bytes(alert.get_device_id());
     }
 }

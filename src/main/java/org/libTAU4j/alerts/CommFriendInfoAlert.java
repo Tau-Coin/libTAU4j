@@ -1,5 +1,6 @@
 package org.libTAU4j.alerts;
 
+import org.libTAU4j.Vectors;
 import org.libTAU4j.swig.communication_friend_info_alert;
 
 /**
@@ -14,5 +15,13 @@ public final class CommFriendInfoAlert extends AbstractAlert<communication_frien
 
     CommFriendInfoAlert(communication_friend_info_alert alert) {
         super(alert);
+    }
+
+    public byte[] get_peer() {
+        return Vectors.byte_vector2bytes(alert.get_peer());
+    }
+
+    public byte[] get_friend_info() {
+        return Vectors.byte_vector2bytes(alert.get_friend_info());
     }
 }

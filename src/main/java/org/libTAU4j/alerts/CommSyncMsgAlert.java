@@ -1,5 +1,6 @@
 package org.libTAU4j.alerts;
 
+import org.libTAU4j.Vectors;
 import org.libTAU4j.swig.communication_syncing_message_alert;
 
 /**
@@ -14,5 +15,13 @@ public final class CommSyncMsgAlert extends AbstractAlert<communication_syncing_
 
     CommSyncMsgAlert(communication_syncing_message_alert alert) {
         super(alert);
+    }
+
+    public byte[] get_peer() {
+        return Vectors.byte_vector2bytes(alert.get_peer());
+    }
+
+    public byte[] getSyncing_msg_hash() {
+        return Vectors.byte_vector2bytes(alert.getSyncing_msg_hash().to_bytes());
     }
 }
