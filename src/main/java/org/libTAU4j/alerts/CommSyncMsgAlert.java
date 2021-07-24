@@ -2,6 +2,7 @@ package org.libTAU4j.alerts;
 
 import org.libTAU4j.Vectors;
 import org.libTAU4j.swig.communication_syncing_message_alert;
+import org.libTAU4j.swig.libTAU_jni;
 
 /**
  * This alert is posted by some session wide event. Its main purpose is
@@ -23,5 +24,9 @@ public final class CommSyncMsgAlert extends AbstractAlert<communication_syncing_
 
     public byte[] getSyncing_msg_hash() {
         return Vectors.byte_vector2bytes(alert.getSyncing_msg_hash().to_bytes());
+    }
+
+    public long get_timestamp() {
+        return alert.get_timestamp();
     }
 }

@@ -37,4 +37,8 @@ public final class CommConfirmRootAlert extends AbstractAlert<communication_conf
         return hashList;
     }
 
+    public long get_timestamp() {
+        return alert.get_timestamp();
+    }
+
 }
