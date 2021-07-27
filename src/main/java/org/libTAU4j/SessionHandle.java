@@ -131,30 +131,38 @@ public final class SessionHandle
         h.new_account_seed(Vectors.bytes2byte_array_32(seed));
     }
 
+
+    /**
+     * This is for main loop interval set.
+     */
+    public void setLoopTimeInterval(int milliseconds) {
+		h.set_loop_time_interval(milliseconds);
+    }
+
     /**
      * This is for adding new friend.
      */
-    public void addNewFriend(String pubkey) {
+    public boolean addNewFriend(String pubkey) {
 		//String -> byte_array_32
 		byte[] pk = Hex.decode(pubkey);
-        h.add_new_friend(Vectors.bytes2byte_array_32(pk));
+        return h.add_new_friend(Vectors.bytes2byte_array_32(pk));
     }
 
     /**
      * This is for deleting friend.
      */
-    public void deleteFriend(String pubkey) {
+    public boolean deleteFriend(String pubkey) {
 		//String -> byte_array_32
 		byte[] pk = Hex.decode(pubkey);
-        h.delete_friend(Vectors.bytes2byte_array_32(pk));
+        return h.delete_friend(Vectors.bytes2byte_array_32(pk));
     }
 
     /**
      * This is for updating friend info.
      */
-    public void updateFriendInfo(String pubkey, byte[] info) {
+    public boolean updateFriendInfo(String pubkey, byte[] info) {
 		byte[] pk = Hex.decode(pubkey);
-        h.update_friend_info(Vectors.bytes2byte_array_32(pk), Vectors.bytes2byte_vector(info));
+        return h.update_friend_info(Vectors.bytes2byte_array_32(pk), Vectors.bytes2byte_vector(info));
     }
 
     /**
@@ -191,8 +199,8 @@ public final class SessionHandle
     /**
      * This is for adding new msg.
      */
-    public void addNewMsg(byte[] msg) {
-        h.add_new_message(Vectors.bytes2byte_vector(msg));
+    public boolean addNewMsg(byte[] msg) {
+        return h.add_new_message(Vectors.bytes2byte_vector(msg));
     }
 
     /**

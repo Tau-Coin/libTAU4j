@@ -270,16 +270,24 @@ public class SessionManager {
 		}
 	}
 
-	public void addNewFriend(String pk) {
+	public void setLoopTimeInterval(int milliseconds) {
 		if (session != null) {
-			new SessionHandle(session).addNewFriend(pk);
+			new SessionHandle(session).setLoopTimeInterval(milliseconds);
 		}
 	}
 
-	public void deleteFriend(String pk) {
+	public boolean addNewFriend(String pk) {
 		if (session != null) {
-			new SessionHandle(session).deleteFriend(pk);
+			return new SessionHandle(session).addNewFriend(pk);
 		}
+		return false;
+	}
+
+	public boolean deleteFriend(String pk) {
+		if (session != null) {
+			return new SessionHandle(session).deleteFriend(pk);
+		}
+		return false;
 	}
 
 	public void setChattingFriend(String pk) {
@@ -294,10 +302,11 @@ public class SessionManager {
 		}
 	}
 
-	public void updateFriendInfo(String pk, byte[] info) {
+	public boolean updateFriendInfo(String pk, byte[] info) {
 		if (session != null) {
-			new SessionHandle(session).updateFriendInfo(pk, info);
+			return new SessionHandle(session).updateFriendInfo(pk, info);
 		}
+		return false;
 	}
 
 	public byte[] getFriendInfo(String pk) {
@@ -308,10 +317,11 @@ public class SessionManager {
 		}
 	}
 
-	public void addNewMsg(byte[] msg) {
+	public boolean addNewMsg(byte[] msg) {
 		if (session != null) {
-			new SessionHandle(session).addNewMsg(msg);
+			return new SessionHandle(session).addNewMsg(msg);
 		}
+		return false;
 	}
 	
 	public void setActiveFriends(ArrayList<String> friends) {

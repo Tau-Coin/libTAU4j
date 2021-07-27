@@ -13,15 +13,29 @@ import org.libTAU4j.swig.communication_friend_info_alert;
  */
 public final class CommFriendInfoAlert extends AbstractAlert<communication_friend_info_alert> {
 
+	byte[] peer;
+	byte[] friendInfo;
+	String alertMsg;
+
     CommFriendInfoAlert(communication_friend_info_alert alert) {
         super(alert);
+
+		this.peer = Vectors.byte_vector2bytes(alert.get_peer());
+        this.friendInfo = Vectors.byte_vector2bytes(alert.get_friend_info());
+		this.alertMsg = alert.message();
+
     }
 
     public byte[] get_peer() {
-        return Vectors.byte_vector2bytes(alert.get_peer());
+		return this.peer;
     }
 
     public byte[] get_friend_info() {
-        return Vectors.byte_vector2bytes(alert.get_friend_info());
+        return this.friendInfo;
     }
+
+	public String get_message() {
+		return this.alertMsg;
+	}
+
 }

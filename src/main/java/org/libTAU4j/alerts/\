@@ -30,5 +30,4 @@ public final class CommNewDeviceIdAlert extends AbstractAlert<communication_new_
 	public String get_message() {
 		return this.alertMsg;
 	}
-
 }

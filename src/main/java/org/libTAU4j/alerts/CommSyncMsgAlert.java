@@ -14,19 +14,33 @@ import org.libTAU4j.swig.libTAU_jni;
  */
 public final class CommSyncMsgAlert extends AbstractAlert<communication_syncing_message_alert> {
 
+	byte[] peer;
+	byte[] syncMsgHash;
+	long timestamp;
+	String alertMsg;
+
     CommSyncMsgAlert(communication_syncing_message_alert alert) {
         super(alert);
+		this.peer = Vectors.byte_vector2bytes(alert.get_peer());
+        this.syncMsgHash = Vectors.byte_vector2bytes(alert.getSyncing_msg_hash().to_bytes());
+		this.timestamp = alert.get_timestamp();
+		this.alertMsg = alert.message();
     }
 
     public byte[] get_peer() {
-        return Vectors.byte_vector2bytes(alert.get_peer());
+        return this.peer;
     }
 
     public byte[] getSyncing_msg_hash() {
-        return Vectors.byte_vector2bytes(alert.getSyncing_msg_hash().to_bytes());
+        return this.syncMsgHash;
     }
 
     public long get_timestamp() {
-        return alert.get_timestamp();
+        return this.timestamp;
     }
+
+	public String get_message() {
+		return this.alertMsg;
+	}
+
 }

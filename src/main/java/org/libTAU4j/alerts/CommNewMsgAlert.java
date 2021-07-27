@@ -13,11 +13,23 @@ import org.libTAU4j.swig.communication_new_message_alert;
  */
 public final class CommNewMsgAlert extends AbstractAlert<communication_new_message_alert> {
 
+	byte[] newMsg;
+	String alertMsg;
+
     CommNewMsgAlert(communication_new_message_alert alert) {
         super(alert);
+
+		this.newMsg = Vectors.byte_vector2bytes(alert.get_new_message());
+		this.alertMsg = alert.message();
+
     }
 
     public byte[] get_new_message() {
-        return Vectors.byte_vector2bytes(alert.get_new_message());
+        return this.newMsg;
     }
+
+	public String get_message() {
+		return this.alertMsg;
+	}
+
 }
