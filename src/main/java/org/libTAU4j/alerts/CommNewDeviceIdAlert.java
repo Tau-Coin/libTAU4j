@@ -1,5 +1,6 @@
 package org.libTAU4j.alerts;
 
+import org.libTAU4j.Hex;
 import org.libTAU4j.Vectors;
 import org.libTAU4j.swig.communication_new_device_id_alert;
 
@@ -23,8 +24,8 @@ public final class CommNewDeviceIdAlert extends AbstractAlert<communication_new_
 		this.alertMsg = alert.message();
     }
 
-    public byte[] get_device_id() {
-        return this.deviceId;
+    public String get_device_id() {
+        return Hex.encode(this.deviceId);
     }
 
 	public String get_message() {
