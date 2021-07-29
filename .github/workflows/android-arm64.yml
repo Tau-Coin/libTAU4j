@@ -61,7 +61,7 @@ jobs:
         run: |
           wget -nv -O leveldb.tar.gz https://github.com/google/leveldb/archive/refs/tags/1.23.tar.gz
           tar xzf leveldb.tar.gz
-          cd leveldb
+          cd leveldb-1.23
           vim CMakeLists.txt -> add_compile_options(-fPIC) && option(LEVELDB_BUILD_TESTS "Build LevelDB's unit tests" OFF) option(LEVELDB_BUILD_BENCHMARKS "Build LevelDB's benchmarks" OFF)
           mkdir build
           cd build
@@ -72,7 +72,7 @@ jobs:
         run: |
           wget -nv -O sqlite.tar.gz https://sqlite.org/2021/sqlite-autoconf-3360000.tar.gz
           tar xzf sqlite.tar.gz
-          cd sqlite
+          cd sqlite-autoconf-3360000
           ./configure --prefix=${SQLITE_ROOT} CFLAGS=-fPIC CXXFLAGS=-fPIC --host=arm-linux
           make
           make install
