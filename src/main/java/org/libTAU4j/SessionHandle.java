@@ -295,6 +295,17 @@ public final class SessionHandle
     }
 
     /**
+     * Update listen interfaces and this method will trigger reopening network sockets.
+     *
+     * @param interfaces listen network interfaces.
+     */
+    public void updateListenInterfaces(String interfaces) {
+        SettingsPack sp = settings();
+        sp.listenInterfaces(interfaces);
+        applySettings(sp);
+    }
+
+    /**
      * Adds a port forwarding on UPnP and/or NAT-PMP, using PCP if supported,
      * whichever is enabled. The return value is a handle referring to the
      * port mapping that was just created. Pass it to {@link #deletePortMapping}
