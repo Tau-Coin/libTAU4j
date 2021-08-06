@@ -34,7 +34,7 @@ jobs:
           tar xzf boost.tar.gz
           mv boost_${BOOST_VERSION} boost
           cd boost
-          ./bootstrap.sh --with-toolset=gcc
+          ./bootstrap.sh --with-toolset=clang
           cd ..
       - name: setup ndk
         run: |
@@ -43,6 +43,11 @@ jobs:
           mv android-ndk-${NDK_VERSION} android-ndk
           ${PWD}/android-ndk/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER};
           export ANDROID_TOOLCHAIN="${PWD}/android-toolchain-x86_64-api_22"
+          export CXX="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-clang++"
+          export CC="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-clang"
+          export AR="${ANDROID_TOOLCHAIN}/bin/llvm-ar"
+          export LD="${ANDROID_TOOLCHAIN}/bin/ld"
+          export RANLIB="${ANDROID_TOOLCHAIN}/bin/llvm-ranlib"
       - name: leveldb
         run: |
           wget -nv -O leveldb.tar.gz https://github.com/google/leveldb/archive/refs/tags/1.23.tar.gz
@@ -59,7 +64,7 @@ jobs:
           wget -nv -O sqlite.tar.gz https://sqlite.org/2021/sqlite-autoconf-3360000.tar.gz
           tar xzf sqlite.tar.gz
           cd sqlite
-          ./configure --prefix=${SQLITE_ROOT} CFLAGS=-fPIC CXXFLAGS=-fPIC
+          ./configure --prefix=${SQLITE_ROOT} CFLAGS=-fPIC CXXFLAGS=-fPIC --host=x86_64-linux
           make
           make install
       - name: build
