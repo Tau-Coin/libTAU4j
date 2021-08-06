@@ -30,7 +30,6 @@
 %ignore libTAU::communication_new_device_id_alert::device_id;
 %ignore libTAU::communication_friend_info_alert::peer;
 %ignore libTAU::communication_friend_info_alert::friend_info;
-%ignore libTAU::communication_new_message_alert::msg;
 %ignore libTAU::communication_confirmation_root_alert::peer;
 %ignore libTAU::communication_confirmation_root_alert::time;
 %ignore libTAU::communication_syncing_message_alert::peer;
@@ -300,15 +299,6 @@ struct picker_flags_tag;
     std::uint32_t get_timestamp()
     {
         return $self->time;
-    }
-}
-
-%extend communication_new_message_alert
-{
-    std::vector<std::int8_t> get_new_message()
-    {
-        std::vector<std::uint8_t> msg = $self->msg;
-        return *reinterpret_cast<std::vector<std::int8_t>*>(&msg);
     }
 }
 
