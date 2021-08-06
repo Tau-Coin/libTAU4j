@@ -160,12 +160,12 @@ namespace libTAU {
         $self->set_active_friends(afs);
     }
 
-    bool add_new_message(std::vector<std::int8_t> msg)
+    bool add_new_message(std::vector<std::int8_t> receiver, libTAU::communication::message msg)
     {
-        std::vector<char> message;
-        std::copy(msg.begin(), msg.end(), std::inserter(message, message.begin()));
+        std::vector<char> peer;
+        std::copy(receiver.begin(), receiver.end(), std::inserter(peer, peer.begin()));
 
-        return $self->add_new_message(message);
+        return $self->add_new_message(peer, msg);
     }
 
 }
