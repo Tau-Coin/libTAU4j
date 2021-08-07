@@ -1,6 +1,7 @@
 package org.libTAU4j.alerts;
 
 import org.libTAU4j.Entry;
+import org.libTAU4j.Message;
 import org.libTAU4j.Vectors;
 import org.libTAU4j.swig.communication_new_message_alert;
 
@@ -25,8 +26,8 @@ public final class CommNewMsgAlert extends AbstractAlert<communication_new_messa
 
     }
 
-    public Entry get_new_message() {
-        return this.newMsg;
+    public Message get_new_message() {
+        return new Message(this.newMsg.swig());
     }
 
 	public String get_message() {

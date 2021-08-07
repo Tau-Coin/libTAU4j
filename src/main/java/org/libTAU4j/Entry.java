@@ -90,7 +90,7 @@ public final class Entry {
         for (Object v : list) {
             if (v instanceof String) {
                 d.add(new entry((String) v));
-            } else if (v instanceof Integer) {
+			} else if (v instanceof Integer) {
                 d.add(new entry((Integer) v));
             } else if (v instanceof Entry) {
                 d.add(((Entry) v).swig());
