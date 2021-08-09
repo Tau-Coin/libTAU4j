@@ -35,11 +35,11 @@ public final class Message {
 
     public Message(Map<String, ?> map) {
 
-		if(!map.containsKey("timestamp")){
+		if(!map.containsKey("time")){
 			Date date = new Date();
         	Long time = date.getTime();
 	        time = time / 1000;
-            msgValue.put("timestamp", time);
+            msgValue.put("time", time);
 		}
 
         for (String k : map.keySet()) {
