@@ -47,20 +47,16 @@ public final class Message {
 
             if (v instanceof String) {
                 msgValue.put(k, (String)v);
-				System.out.println("sk: "+ k);
             } else if (v instanceof BigInteger) {
 				BigInteger bv = (BigInteger)v;
 				long lv = bv.longValue();
                 msgValue.put(k, lv);
-				System.out.println("bigk: "+ k);
             } else if (v instanceof Integer) {
                 msgValue.put(k, (Integer)v);
-				System.out.println("ik: "+ k);
             } else if (v instanceof byte[]) {
 				byte_vector vv = Vectors.bytes2byte_vector((byte[])v);
 			    entry e = entry.from_preformatted_bytes(vv);
                 msgValue.put(k, e);
-				System.out.println("bak: "+ k);
             }
         }
 
@@ -76,13 +72,10 @@ public final class Message {
 		// construct msgValue from entry
 		boost_string_entry_map entry_map = e.dict();
 		string_vector entry_keys = entry_map.keys();	
-		System.out.println("++++++++++++++++++++++++");
 		for(int i = 0; i< entry_keys.size(); i++) {
 			String key = entry_keys.get(i);
-			System.out.println("ek: " + key);
 			entry value = entry_map.get(key);
 			entry.data_type entry_type = entry.data_type.swigToEnum(value.type().swigValue());
-			System.out.println("et: " + entry_type);
 			if(entry_type == entry.data_type.int_t) {
 					msgValue.put(key, value.integer());
 			} else if(entry_type == entry.data_type.string_t) {
@@ -95,7 +88,6 @@ public final class Message {
 					msgValue.put(key, Vectors.byte_vector2bytes(bv));
 			}
 		}
-		System.out.println("++++++++++++++++++++++++");
     }
 
 	public message swig() {
