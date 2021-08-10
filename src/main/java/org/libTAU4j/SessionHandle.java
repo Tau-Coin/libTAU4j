@@ -199,9 +199,8 @@ public final class SessionHandle
     /**
      * This is for adding new msg.
      */
-    public boolean addNewMsg(String receiver, Message msg) {
-		byte[] pk = Hex.decode(receiver);
-        return h.add_new_message(Vectors.bytes2byte_vector(pk), msg.swig());
+    public boolean addNewMsg(Message msg) {
+        return h.add_new_message(msg.swig());
     }
 
     /**

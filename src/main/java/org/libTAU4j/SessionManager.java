@@ -317,9 +317,9 @@ public class SessionManager {
 		}
 	}
 
-	public boolean addNewMsg(String receiver, Message msg) {
+	public boolean addNewMsg(Message msg) {
 		if (session != null) {
-			return new SessionHandle(session).addNewMsg(receiver, msg);
+			return new SessionHandle(session).addNewMsg(msg);
 		}
 		return false;
 	}

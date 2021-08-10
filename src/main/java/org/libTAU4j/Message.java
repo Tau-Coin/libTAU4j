@@ -59,6 +59,8 @@ public final class Message {
 		this.receiver = Vectors.byte_vector2bytes(msg.receiver());
 		this.payload = Vectors.byte_vector2bytes(msg.payload());
 		this.msgId = msg.sha256().to_hex();
+		
+		this.msg = msg;
 
 	}
 
@@ -80,6 +82,10 @@ public final class Message {
 
 	public String msgId() {
     	return this.msgId;
+	}
+
+	public message swig() {
+    	return this.msg;
 	}
 
 }
