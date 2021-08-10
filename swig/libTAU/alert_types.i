@@ -254,7 +254,7 @@ struct picker_flags_tag;
 {
     std::vector<std::int8_t> get_device_id()
     {
-        std::vector<std::uint8_t> device_id = $self->device_id;
+        std::vector<char> device_id = $self->device_id;
         return *reinterpret_cast<std::vector<std::int8_t>*>(&device_id);
     }
 }
@@ -263,7 +263,7 @@ struct picker_flags_tag;
 {
     std::vector<std::int8_t> get_peer()
     {
-        std::vector<std::uint8_t> peer = $self->peer;
+        std::vector<char> peer = $self->peer;
         return *reinterpret_cast<std::vector<std::int8_t>*>(&peer);
     }
 
@@ -277,13 +277,13 @@ struct picker_flags_tag;
 {
     std::vector<std::int8_t> get_peer()
     {
-        std::vector<std::uint8_t> peer = $self->peer;
+        std::vector<char> peer = $self->peer;
         return *reinterpret_cast<std::vector<std::int8_t>*>(&peer);
     }
 
     std::vector<std::int8_t> get_friend_info()
     {
-        std::vector<std::uint8_t> info = $self->friend_info;
+        std::vector<char> info = $self->friend_info;
         return *reinterpret_cast<std::vector<std::int8_t>*>(&info);
     }
 }
@@ -292,7 +292,7 @@ struct picker_flags_tag;
 {
     std::vector<std::int8_t> get_peer()
     {
-        std::vector<std::uint8_t> peer = $self->peer;
+        std::vector<char> peer = $self->peer;
         return *reinterpret_cast<std::vector<std::int8_t>*>(&peer);
     }
 
@@ -306,7 +306,7 @@ struct picker_flags_tag;
 {
     std::vector<std::int8_t> get_peer()
     {
-        std::vector<std::uint8_t> peer = $self->peer;
+        std::vector<char> peer = $self->peer;
         return *reinterpret_cast<std::vector<std::int8_t>*>(&peer);
     }
 

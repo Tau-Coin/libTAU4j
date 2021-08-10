@@ -203,7 +203,6 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %template(byte_vector) std::vector<std::int8_t>;
 %template(bool_vector) std::vector<bool>;
 %template(char_vector) std::vector<char>;
-%template(unsigned_char_vector) std::vector<unsigned char>;
 %template(int_byte_pair_vector) std::vector<std::pair<int, std::int8_t>>;
 %template(string_int_pair_vector) std::vector<std::pair<std::string, int>>;
 %template(string_string_pair_vector) std::vector<std::pair<std::string, std::string>>;
@@ -280,6 +279,7 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %include "boost/system/error_code.i"
 
 %include "libTAU/span.i"
+%include "libTAU/bytes.i"
 %include "libTAU/flags.i"
 %include "libTAU/address.i"
 %include "libTAU/socket.i"
