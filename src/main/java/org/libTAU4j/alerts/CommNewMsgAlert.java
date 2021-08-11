@@ -16,18 +16,17 @@ import org.libTAU4j.swig.communication_new_message_alert;
  */
 public final class CommNewMsgAlert extends AbstractAlert<communication_new_message_alert> {
 
-	message newMsg;
+	Message newMsg;
 	String alertMsg;
 
     CommNewMsgAlert(communication_new_message_alert alert) {
         super(alert);
-		this.newMsg = alert.getMsg();
+		this.newMsg = new Message(alert.getMsg());
 		this.alertMsg = alert.message();
-
     }
 
     public Message get_new_message() {
-        return new Message(this.newMsg);
+        return this.newMsg;
     }
 
 	public String get_message() {
