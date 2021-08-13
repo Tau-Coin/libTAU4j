@@ -176,9 +176,9 @@ struct picker_flags_tag;
         return *reinterpret_cast<std::array<std::int8_t, 64>*>(&arr);
     }
 
-    int64_t get_seq()
+    int64_t get_timestamp()
     {
-        return int64_t($self->seq);
+        return int64_t($self->ts);
     }
 
     std::vector<std::int8_t> get_salt()
@@ -208,9 +208,9 @@ struct picker_flags_tag;
         return std::vector<std::int8_t>(s.begin(), s.end());
     }
 
-    int64_t get_seq()
+    int64_t get_timestamp()
     {
-        return int64_t($self->seq);
+        return int64_t($self->ts);
     }
 }
 

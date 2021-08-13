@@ -1,6 +1,7 @@
 #ifndef LIBTORRENT_HPP
 #define LIBTORRENT_HPP
 
+#include <ctime>
 #include <boost/version.hpp>
 #include <openssl/opensslv.h>
 
@@ -265,7 +266,7 @@ void set_piece_hashes_ex(libTAU::create_torrent& t, std::string const& p
         , listener, std::placeholders::_1), ec);
 }
 
-void dht_put_item_cb(libTAU::entry& e, std::array<char, 64>& sig, std::int64_t& seq,
+void dht_put_item_cb(libTAU::entry& e, std::array<char, 64>& sig, std::int64_t& ts,
     std::string salt, libTAU::dht::public_key pk, libTAU::dht::secret_key sk,
     libTAU::entry data)
 {
@@ -275,8 +276,8 @@ void dht_put_item_cb(libTAU::entry& e, std::array<char, 64>& sig, std::int64_t& 
     std::vector<char> buf;
     bencode(std::back_inserter(buf), e);
     signature sign;
-    ++seq;
-    sign = sign_mutable_item(buf, salt, sequence_number(seq), pk, sk);
+    ts = static_cast<std::int64_t>(std::time(0));
+    sign = sign_mutable_item(buf, salt, timestamp(ts), pk, sk);
     sig = sign.bytes;
 }
 
