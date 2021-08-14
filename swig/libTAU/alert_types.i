@@ -267,7 +267,7 @@ struct picker_flags_tag;
         return *reinterpret_cast<std::vector<std::int8_t>*>(&peer);
     }
 
-    std::uint32_t get_timestamp()
+    std::int64_t get_timestamp()
     {
         return $self->time;
     }
@@ -296,7 +296,7 @@ struct picker_flags_tag;
         return *reinterpret_cast<std::vector<std::int8_t>*>(&peer);
     }
 
-    std::uint32_t get_timestamp()
+    std::int64_t get_timestamp()
     {
         return $self->time;
     }
@@ -310,7 +310,7 @@ struct picker_flags_tag;
         return *reinterpret_cast<std::vector<std::int8_t>*>(&peer);
     }
 
-    std::uint32_t get_last_seen()
+    std::int64_t get_last_seen()
     {
         return $self->last_seen;
     }

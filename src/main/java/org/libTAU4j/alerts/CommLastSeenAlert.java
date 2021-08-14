@@ -4,6 +4,8 @@ import org.libTAU4j.Vectors;
 import org.libTAU4j.swig.communication_last_seen_alert;
 import org.libTAU4j.swig.libTAU_jni;
 
+import java.math.BigInteger;
+
 public class CommLastSeenAlert extends AbstractAlert<communication_last_seen_alert> {
 
 	byte[] peer;

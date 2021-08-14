@@ -4,6 +4,8 @@ import org.libTAU4j.Vectors;
 import org.libTAU4j.swig.communication_syncing_message_alert;
 import org.libTAU4j.swig.libTAU_jni;
 
+import java.math.BigInteger;
+
 /**
  * This alert is posted by some session wide event. Its main purpose is
  * trouble shooting and debugging. It's not enabled by the default alert
