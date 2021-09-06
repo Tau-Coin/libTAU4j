@@ -15,7 +15,13 @@ public final class SessionStats {
     private static final int DOWNLOAD_PAYLOAD = 3;
     private static final int DOWNLOAD_PROTOCOL = 4;
     private static final int DOWNLOAD_IP_PROTOCOL = 5;
-    private static final int NUM_AVERAGES = 6;
+    private static final int DHT_TOTAL_DOWNLOAD = 6;
+    private static final int DHT_TOTAL_UPLOAD = 7;
+    private static final int DHT_MESSAGES_IN = 8;
+    private static final int DHT_MESSAGES_OUT = 9;
+    private static final int DHT_MESSAGES_IN_DROPPED = 10;
+    private static final int DHT_MESSAGES_OUT_DROPPED = 11;
+    private static final int NUM_AVERAGES = 12;
 
     private final Average[] stat;
 
@@ -30,31 +36,92 @@ public final class SessionStats {
     }
 
     public long totalDownload() {
-        return stat[DOWNLOAD_PAYLOAD].total() +
+        long totalDownloadIUD = stat[DOWNLOAD_PAYLOAD].total() +
                 stat[DOWNLOAD_PROTOCOL].total() +
-                stat[DOWNLOAD_IP_PROTOCOL].total();
+                stat[DOWNLOAD_IP_PROTOCOL].total() +
+                stat[DHT_TOTAL_DOWNLOAD].total();
+
+        long totalDownloadLL = stat[DHT_MESSAGES_IN].total() * 20; 
+
+        return totalDownloadIUD + totalDownloadLL;
     }
 
     public long totalUpload() {
-        return stat[UPLOAD_PAYLOAD].total() +
+        long totalUploadIUD = stat[UPLOAD_PAYLOAD].total() +
                 stat[UPLOAD_PROTOCOL].total() +
-                stat[UPLOAD_IP_PROTOCOL].total();
+                stat[UPLOAD_IP_PROTOCOL].total() +
+                stat[DHT_TOTAL_UPLOAD].total();
+
+        long totalUploadLL = stat[DHT_MESSAGES_OUT].total() * 30; 
+
+        return totalUploadIUD + totalUploadLL;
     }
 
     public long downloadRate() {
         return stat[DOWNLOAD_PAYLOAD].rate() +
                 stat[DOWNLOAD_PROTOCOL].rate() +
-                stat[DOWNLOAD_IP_PROTOCOL].rate();
+                stat[DOWNLOAD_IP_PROTOCOL].rate() +
+                stat[DHT_TOTAL_DOWNLOAD].rate();
     }
 
     public long uploadRate() {
         return stat[UPLOAD_PAYLOAD].rate() +
                 stat[UPLOAD_PROTOCOL].rate() +
-                stat[UPLOAD_IP_PROTOCOL].rate();
+                stat[UPLOAD_IP_PROTOCOL].rate() +
+                stat[DHT_TOTAL_UPLOAD].rate();
     }
 
+    // dht
     public long dhtNodes() {
         return dhtNodes;
+    }
+
+    public long dhtTotalDownload() {
+        return stat[DHT_TOTAL_DOWNLOAD].total();
+    }
+
+    public long dhtTotalDownloadRate() {
+        return stat[DHT_TOTAL_DOWNLOAD].rate();
+    }
+
+    public long dhtTotalUpload() {
+        return stat[DHT_TOTAL_UPLOAD].total();
+    }
+
+    public long dhtTotalUploadRate() {
+        return stat[DHT_TOTAL_UPLOAD].rate();
+    }
+
+    public long dhtMessagesIn() {
+        return stat[DHT_MESSAGES_IN].total();
+    }
+
+    public long dhtMessagesInRate() {
+        return stat[DHT_MESSAGES_IN].rate();
+    }
+
+    public long dhtMessagesOut() {
+        return stat[DHT_MESSAGES_OUT].total();
+    }
+
+    public long dhtMessagesOutRate() {
+        return stat[DHT_MESSAGES_OUT].rate();
+    }
+
+    public long dhtMessagesInDropped() {
+        return stat[DHT_MESSAGES_IN_DROPPED].total();
+    }
+
+    public long dhtMessagesInDroppedRate() {
+        return stat[DHT_MESSAGES_IN_DROPPED].rate();
+    }
+
+    public long dhtMessagesOutDropped() {
+        return stat[DHT_MESSAGES_OUT_DROPPED].total();
+    }
+
+    public long dhtMessagesOutDroppedRate() {
+        return stat[DHT_MESSAGES_OUT_DROPPED].rate();
     }
 
     void update(SessionStatsAlert alert) {
@@ -67,12 +134,42 @@ public final class SessionStats {
         long protocol = received - payload;
         long ip = alert.value(StatsMetric.NET_RECV_IP_OVERHEAD_BYTES_COUNTER_INDEX);
 
+        // add dht total download
+        long dht_total_download = alert.value(StatsMetric.DHT_TOTAL_DOWNLOAD_COUNTER_INDEX);
+        long dht_total_upload = alert.value(StatsMetric.DHT_TOTAL_UPLOAD_COUNTER_INDEX);
+
+        // add dht messages num
+        long dht_messages_in = alert.value(StatsMetric.DHT_MESSAGES_IN_INDEX);
+        long dht_messages_out = alert.value(StatsMetric.DHT_MESSAGES_OUT_INDEX);
+
+        long dht_messages_in_dropped = alert.value(StatsMetric.DHT_MESSAGES_IN_DROPPED_INDEX);
+        long dht_messages_out_dropped = alert.value(StatsMetric.DHT_MESSAGES_OUT_DROPPED_INDEX);
+
         payload -= stat[DOWNLOAD_PAYLOAD].total();
         protocol -= stat[DOWNLOAD_PROTOCOL].total();
         ip -= stat[DOWNLOAD_IP_PROTOCOL].total();
+
+        // dht
+        dht_total_download -= stat[DHT_TOTAL_DOWNLOAD].total();
+        dht_total_upload -= stat[DHT_TOTAL_UPLOAD].total();
+
+        dht_messages_in -= stat[DHT_MESSAGES_IN].total();
+        dht_messages_out -= stat[DHT_MESSAGES_OUT].total();
+
+        dht_messages_in_dropped -= stat[DHT_MESSAGES_IN_DROPPED].total();
+        dht_messages_out_dropped -= stat[DHT_MESSAGES_OUT_DROPPED].total();
+
         stat[DOWNLOAD_PAYLOAD].add(payload);
         stat[DOWNLOAD_PROTOCOL].add(protocol);
         stat[DOWNLOAD_IP_PROTOCOL].add(ip);
+
+        stat[DHT_TOTAL_DOWNLOAD].add(dht_total_download);
+        stat[DHT_TOTAL_UPLOAD].add(dht_total_upload);
+
+        stat[DHT_MESSAGES_IN].add(dht_messages_in);
+        stat[DHT_MESSAGES_OUT].add(dht_messages_out);
+        stat[DHT_MESSAGES_IN_DROPPED].add(dht_messages_in_dropped);
+        stat[DHT_MESSAGES_OUT_DROPPED].add(dht_messages_out_dropped);
 
         long sent = alert.value(StatsMetric.NET_SENT_BYTES_COUNTER_INDEX);
         payload = alert.value(StatsMetric.NET_SENT_PAYLOAD_BYTES_COUNTER_INDEX);

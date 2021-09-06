@@ -237,13 +237,6 @@ struct add_files_listener
     }
 };
 
-void add_files_ex(libTAU::file_storage& fs, std::string const& file
-    , add_files_listener* listener, libTAU::create_flags_t flags)
-{
-    add_files(fs, file, std::bind(&add_files_listener::pred
-        , listener, std::placeholders::_1), flags);
-}
-
 struct set_piece_hashes_listener
 {
 
@@ -258,13 +251,6 @@ struct set_piece_hashes_listener
         progress(static_cast<int>(i));
     }
 };
-
-void set_piece_hashes_ex(libTAU::create_torrent& t, std::string const& p
-    , set_piece_hashes_listener* listener, libTAU::error_code& ec)
-{
-    set_piece_hashes(t, p, std::bind(&set_piece_hashes_listener::progress_index
-        , listener, std::placeholders::_1), ec);
-}
 
 void dht_put_item_cb(libTAU::entry& e, std::array<char, 64>& sig, std::int64_t& ts,
     std::string salt, libTAU::dht::public_key pk, libTAU::dht::secret_key sk,

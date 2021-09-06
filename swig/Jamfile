@@ -45,7 +45,6 @@ rule libTAU_linking ( properties * )
     result += <deprecated-functions>off ;
     result += <logging>on ;
     result += <crypto>openssl ;
-    result += <webtorrent>off ;
     result += <optimization>speed ;
     result += <cxxstd>17 ;
 
