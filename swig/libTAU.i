@@ -61,7 +61,6 @@
 #include "libTAU/peer_request.hpp"
 #include "libTAU/bdecode.hpp"
 #include "libTAU/torrent_info.hpp"
-#include "libTAU/torrent_flags.hpp"
 #include "libTAU/add_torrent_params.hpp"
 #include "libTAU/close_reason.hpp"
 #include "libTAU/peer_info.hpp"
@@ -87,10 +86,7 @@
 #include "libTAU/file_storage.hpp"
 #include "libTAU/session_stats.hpp"
 #include "libTAU/version.hpp"
-#include "libTAU/magnet_uri.hpp"
 #include "libTAU/fingerprint.hpp"
-#include "libTAU/read_resume_data.hpp"
-#include "libTAU/write_resume_data.hpp"
 
 #include <libTAU/hex.hpp>
 #include <libTAU/bencode.hpp>
@@ -295,7 +291,6 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %include "libTAU/peer_request.i"
 %include "libTAU/bdecode.i"
 %include "libTAU/torrent_info.i"
-%include "libTAU/torrent_flags.i"
 %include "libTAU/add_torrent_params.i"
 %include "libTAU/close_reason.i"
 %include "libTAU/peer_info.i"
@@ -322,10 +317,7 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %include "libTAU/file_storage.i"
 %include "libTAU/session_stats.i"
 %include "libTAU/version.i"
-%include "libTAU/magnet_uri.i"
 %include "libTAU/fingerprint.i"
-%include "libTAU/read_resume_data.i"
-%include "libTAU/write_resume_data.i"
 
 // for libTAU.hpp
 %ignore set_piece_hashes_listener::progress_index;
