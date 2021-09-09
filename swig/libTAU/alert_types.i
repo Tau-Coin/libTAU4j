@@ -49,9 +49,6 @@
 
 namespace libTAU {
 
-struct picker_flags_tag;
-%template(picker_flags_t) flags::bitfield_flag<std::uint32_t, picker_flags_tag>;
-
 %extend dht_announce_alert {
 
     address get_ip() {

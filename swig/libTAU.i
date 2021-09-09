@@ -69,7 +69,6 @@
 #include "libTAU/torrent_handle.hpp"
 #include "libTAU/performance_counters.hpp"
 #include "libTAU/portmap.hpp"
-#include "libTAU/piece_block.hpp"
 #include "libTAU/socket_type.hpp"
 #include "libTAU/entry.hpp"
 #include "libTAU/tracker_event.hpp"
@@ -207,7 +206,6 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %template(announce_endpoint_vector) std::vector<libTAU::announce_endpoint>;
 %template(announce_entry_vector) std::vector<libTAU::announce_entry>;
 %template(file_slice_vector) std::vector<libTAU::file_slice>;
-%template(piece_block_vector) std::vector<libTAU::piece_block>;
 %template(torrent_status_vector) std::vector<libTAU::torrent_status>;
 %template(dht_lookup_vector) std::vector<libTAU::dht_lookup>;
 %template(dht_routing_bucket_vector) std::vector<libTAU::dht_routing_bucket>;
@@ -299,7 +297,6 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %include "libTAU/torrent_handle.i"
 %include "libTAU/performance_counters.i"
 %include "libTAU/portmap.i"
-%include "libTAU/piece_block.i"
 %include "libTAU/socket_type.i"
 %include "libTAU/entry.i"
 %include "libTAU/tracker_event.i"
