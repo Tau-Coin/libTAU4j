@@ -32,9 +32,6 @@ struct add_piece_flags_tag;
 struct deadline_flags_tag;
 %template(deadline_flags_t) flags::bitfield_flag<std::uint8_t, deadline_flags_tag>;
 
-struct file_progress_flags_tag;
-%template(file_progress_flags_t) flags::bitfield_flag<std::uint8_t, file_progress_flags_tag>;
-
 struct pause_flags_tag;
 %template(pause_flags_t) flags::bitfield_flag<std::uint8_t, pause_flags_tag>;
 
