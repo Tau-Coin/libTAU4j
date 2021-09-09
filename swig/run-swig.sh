@@ -17,7 +17,6 @@ function fixCode() {
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/mmap.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
@@ -30,7 +29,6 @@ function fixCode() {
 
       sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
-      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
       sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
 
@@ -57,7 +55,6 @@ function fixCode() {
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/mmap.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
@@ -70,7 +67,6 @@ function fixCode() {
 
       sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
-      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
       sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i  's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
 
@@ -102,7 +98,6 @@ function refixCode() {
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/mmap.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
@@ -115,7 +110,6 @@ function refixCode() {
 
       sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
-      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
       sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
 
@@ -142,7 +136,6 @@ function refixCode() {
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/mmap.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
@@ -155,7 +148,6 @@ function refixCode() {
 
       sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
-      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
       sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
 
