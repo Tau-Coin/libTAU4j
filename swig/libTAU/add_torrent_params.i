@@ -8,7 +8,6 @@
 %ignore libTAU::add_torrent_params::have_pieces;
 %ignore libTAU::add_torrent_params::verified_pieces;
 %ignore libTAU::add_torrent_params::extensions;
-%ignore libTAU::add_torrent_params::ti;
 
 %include "libTAU/add_torrent_params.hpp"
 
@@ -16,16 +15,6 @@ namespace libTAU {
 
 %extend add_torrent_params
 {
-    libTAU::torrent_info const* ti_ptr()
-    {
-        return $self->ti.get();
-    }
-
-    void set_ti(libTAU::torrent_info const& ti)
-    {
-        $self->ti = std::make_shared<libTAU::torrent_info>(ti);
-    }
-
     std::vector<std::int8_t> get_file_priorities()
     {
         auto* v = &$self->file_priorities;
