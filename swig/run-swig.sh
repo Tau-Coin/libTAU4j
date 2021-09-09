@@ -32,7 +32,6 @@ function fixCode() {
       sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
       sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
       sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
-      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
       sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
 
       sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
@@ -43,7 +42,6 @@ function fixCode() {
       sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/flags.hpp
       sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
       sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bitfield.hpp
-      sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
 
       sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
@@ -52,7 +50,6 @@ function fixCode() {
       sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
 
       sed -i '' 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
-      sed -i '' 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
 
       sed -i '' 's/) & TORRENT_COUNTER_NOEXCEPT;/)   TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libTAU/performance_counters.hpp
     else
@@ -75,7 +72,6 @@ function fixCode() {
       sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
       sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
       sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
-      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
       sed -i  's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
 
       sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
@@ -86,7 +82,6 @@ function fixCode() {
       sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/flags.hpp
       sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
       sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bitfield.hpp
-      sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
 
       sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
@@ -95,7 +90,6 @@ function fixCode() {
       sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
 
       sed -i 's/(time_point32::min)();/time_point32::min();/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
-      sed -i 's/userdata = client_data_t{});/userdata);/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
       sed -i 's/) & TORRENT_COUNTER_NOEXCEPT;/)   TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libTAU/performance_counters.hpp
     fi
 }
@@ -123,7 +117,6 @@ function refixCode() {
       sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
       sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
       sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
-      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
       sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
 
       sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
@@ -134,7 +127,6 @@ function refixCode() {
       sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/flags.hpp
       sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
       sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bitfield.hpp
-      sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
 
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
@@ -143,7 +135,6 @@ function refixCode() {
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
 
       sed -i '' 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
-      sed -i '' 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp     
       sed -i '' 's/)   TORRENT_COUNTER_NOEXCEPT;/) \& TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libTAU/performance_counters.hpp 
     else
       sed -i 's/ \/\/deleted temporarily because it is defined twice/constexpr alert_category_t all = alert_category_t::all();/g' ${LIBTORRENT_ROOT}/include/libTAU/alert.hpp
@@ -166,7 +157,6 @@ function refixCode() {
       sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
       sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/torrent_peer.hpp
       sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
-      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
       sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
 
       sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
@@ -177,7 +167,6 @@ function refixCode() {
       sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/flags.hpp
       sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
       sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bitfield.hpp
-      sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp
 
       sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
@@ -186,7 +175,6 @@ function refixCode() {
       sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
 
       sed -i 's/time_point32::min();/(time_point32::min)();/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
-      sed -i 's/userdata);/userdata = client_data_t{});/g' ${LIBTORRENT_ROOT}/include/libTAU/torrent_handle.hpp      
       sed -i 's/)   TORRENT_COUNTER_NOEXCEPT;/) \& TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libTAU/performance_counters.hpp
     fi
 }

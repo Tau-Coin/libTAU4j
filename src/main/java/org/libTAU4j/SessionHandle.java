@@ -18,7 +18,6 @@ import org.libTAU4j.swig.reopen_network_flags_t;
 import org.libTAU4j.swig.save_state_flags_t;
 import org.libTAU4j.swig.session_flags_t;
 import org.libTAU4j.swig.session_handle;
-import org.libTAU4j.swig.status_flags_t;
 import org.libTAU4j.swig.vector_byte_array_32;
 
 import java.util.ArrayList;

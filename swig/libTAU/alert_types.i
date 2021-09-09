@@ -1,6 +1,3 @@
-%ignore libTAU::read_piece_alert::read_piece_alert;
-%ignore libTAU::read_piece_alert::buffer;
-%ignore libTAU::peer_log_alert::event_type;
 %ignore libTAU::dht_pkt_alert::pkt_buf;
 %ignore libTAU::session_stats_alert::counters;
 %ignore libTAU::dht_lookup::type;
@@ -11,7 +8,6 @@
 %ignore libTAU::listen_failed_alert::address;
 %ignore libTAU::listen_succeeded_alert::address;
 %ignore libTAU::incoming_connection_alert::endpoint;
-%ignore libTAU::peer_alert::endpoint;
 %ignore libTAU::dht_direct_response_alert::endpoint;
 %ignore libTAU::dht_outgoing_get_peers_alert::endpoint;
 %ignore libTAU::dht_pkt_alert::node;
@@ -78,13 +74,6 @@ namespace libTAU {
 }
 
 %extend incoming_connection_alert {
-
-    tcp::endpoint get_endpoint() {
-        return $self->endpoint;
-    }
-}
-
-%extend peer_alert {
 
     tcp::endpoint get_endpoint() {
         return $self->endpoint;
@@ -214,12 +203,6 @@ namespace libTAU {
 %extend session_stats_alert {
     long long get_value(int index) {
         return $self->counters()[index];
-    }
-}
-
-%extend peer_log_alert {
-    std::string get_event_type() {
-        return std::string($self->event_type);
     }
 }
 

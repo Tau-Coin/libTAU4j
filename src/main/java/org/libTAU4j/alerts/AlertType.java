@@ -23,7 +23,6 @@ public enum AlertType {
     DHT_GET_PEERS(dht_get_peers_alert.alert_type),
     EXTERNAL_IP(external_ip_alert.alert_type),
     LISTEN_SUCCEEDED(listen_succeeded_alert.alert_type),
-    STATE_UPDATE(state_update_alert.alert_type),
     SES_STOP_OVER(session_stop_over_alert.alert_type),
     SESSION_STATS(session_stats_alert.alert_type),
     LISTEN_FAILED(listen_failed_alert.alert_type),

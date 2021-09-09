@@ -697,7 +697,6 @@ public class SessionManager {
 
     private static boolean isSpecialType(int type) {
         return type == AlertType.SESSION_STATS.swig() ||
-                type == AlertType.STATE_UPDATE.swig() ||
                 type == AlertType.SESSION_STATS_HEADER.swig();
     }
 
