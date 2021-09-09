@@ -65,8 +65,6 @@
 #include "libTAU/close_reason.hpp"
 #include "libTAU/peer_info.hpp"
 #include "libTAU/pex_flags.hpp"
-#include "libTAU/torrent_status.hpp"
-#include "libTAU/torrent_handle.hpp"
 #include "libTAU/performance_counters.hpp"
 #include "libTAU/portmap.hpp"
 #include "libTAU/socket_type.hpp"
@@ -94,7 +92,6 @@ namespace lt = libTAU;
 
 using piece_index_t = libTAU::piece_index_t;
 using file_index_t = libTAU::file_index_t;
-using queue_position_t = libTAU::queue_position_t;
 
 #include "libTAU.hpp"
 
@@ -178,7 +175,6 @@ TYPE_INTEGRAL_CONVERSION_EX(name, underlying_type, underlying_type, java_type)
 
 TYPE_INTEGRAL_CONVERSION(piece_index_t, std::int32_t, int)
 TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
-TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 
 // template definitions
 %template(int_byte_pair) std::pair<int, std::int8_t>;
@@ -206,13 +202,10 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %template(announce_endpoint_vector) std::vector<libTAU::announce_endpoint>;
 %template(announce_entry_vector) std::vector<libTAU::announce_entry>;
 %template(file_slice_vector) std::vector<libTAU::file_slice>;
-%template(torrent_status_vector) std::vector<libTAU::torrent_status>;
 %template(dht_lookup_vector) std::vector<libTAU::dht_lookup>;
 %template(dht_routing_bucket_vector) std::vector<libTAU::dht_routing_bucket>;
 %template(entry_vector) std::vector<libTAU::entry>;
-%template(partial_piece_info_vector) std::vector<libTAU::partial_piece_info>;
 %template(peer_info_vector) std::vector<libTAU::peer_info>;
-%template(torrent_handle_vector) std::vector<libTAU::torrent_handle>;
 %template(alert_ptr_vector) std::vector<libTAU::alert*>;
 %template(stats_metric_vector) std::vector<libTAU::stats_metric>;
 %template(ip_interface_vector) std::vector<ip_interface>;
@@ -293,8 +286,6 @@ TYPE_INTEGRAL_CONVERSION(queue_position_t, int, int)
 %include "libTAU/close_reason.i"
 %include "libTAU/peer_info.i"
 %include "libTAU/pex_flags.i"
-%include "libTAU/torrent_status.i"
-%include "libTAU/torrent_handle.i"
 %include "libTAU/performance_counters.i"
 %include "libTAU/portmap.i"
 %include "libTAU/socket_type.i"
