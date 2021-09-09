@@ -14,9 +14,7 @@
 %ignore libTAU::torrent_handle::set_ssl_certificate_buffer;
 %ignore libTAU::torrent_handle::queue_position;
 %ignore libTAU::torrent_handle::queue_position_set;
-%ignore libTAU::torrent_handle::piece_priority;
 %ignore libTAU::torrent_handle::prioritize_pieces;
-%ignore libTAU::torrent_handle::get_piece_priorities;
 %ignore libTAU::torrent_handle::file_priority;
 %ignore libTAU::torrent_handle::prioritize_files;
 %ignore libTAU::torrent_handle::get_file_priorities;
@@ -87,36 +85,6 @@ struct status_flags_tag;
     std::int8_t piece_priority_ex(piece_index_t index)
     {
         return std::int8_t(static_cast<std::uint8_t>($self->piece_priority(index)));
-    }
-
-    void piece_priority_ex(piece_index_t index, std::int8_t priority)
-    {
-        $self->piece_priority(index, libTAU::download_priority_t{std::uint8_t(priority)});
-    }
-
-    void prioritize_pieces_ex(std::vector<std::int8_t> const& pieces)
-    {
-        std::vector<libTAU::download_priority_t> v(pieces.size());
-        for (std::size_t i = 0; i < v.size(); i++)
-            v[i] = libTAU::download_priority_t{std::uint8_t(pieces[i])};
-        $self->prioritize_pieces(v);
-    }
-
-    void prioritize_pieces_ex(std::vector<std::pair<int, std::int8_t>> const& pieces)
-    {
-        std::vector<std::pair<piece_index_t, libTAU::download_priority_t>> v(pieces.size());
-        for (std::size_t i = 0; i < v.size(); i++)
-            v[i] = std::pair<piece_index_t, libTAU::download_priority_t>(piece_index_t{pieces[i].first}, libTAU::download_priority_t{std::uint8_t(pieces[i].second)});
-        $self->prioritize_pieces(v);
-    }
-
-    std::vector<std::int8_t> get_piece_priorities_ex() const
-    {
-        std::vector<libTAU::download_priority_t> v = $self->get_piece_priorities();
-        std::vector<std::int8_t> r(v.size());
-        for (std::size_t i = 0; i < v.size(); i++)
-            r[i] = std::int8_t(static_cast<std::uint8_t>(v[i]));
-        return r;
     }
 
     std::int8_t file_priority_ex(file_index_t index)
