@@ -21,7 +21,6 @@ function fixCode() {
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/hasher.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/entry.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/upnp.hpp
@@ -43,7 +42,6 @@ function fixCode() {
 
       sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
-      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
       sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/sha1_hash.hpp
       sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
 
@@ -59,7 +57,6 @@ function fixCode() {
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/hasher.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/entry.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/upnp.hpp
@@ -81,7 +78,6 @@ function fixCode() {
 
       sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
-      sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
       sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/sha1_hash.hpp
       sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
 
@@ -102,7 +98,6 @@ function refixCode() {
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/hasher.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/entry.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/upnp.hpp
@@ -124,7 +119,6 @@ function refixCode() {
 
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
-      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/sha1_hash.hpp
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
 
@@ -140,7 +134,6 @@ function refixCode() {
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/hasher.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/entry.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/upnp.hpp
@@ -162,7 +155,6 @@ function refixCode() {
 
       sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
-      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/add_torrent_params.hpp
       sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/sha1_hash.hpp
       sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
 
