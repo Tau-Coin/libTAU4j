@@ -14,10 +14,8 @@ function fixCode() {
       # FreeBSD's sed is weird, it needs that extra '' parameter there for some reason
       sed -i '' 's/constexpr alert_category_t all = alert_category_t::all();/ \/\/deleted temporarily because it is defined twice/g' ${LIBTORRENT_ROOT}/include/libTAU/alert.hpp
       # The line above will be reverted to normal when we build by the checkout, if not commented/deleted swig breaks
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
-      sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/mmap.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
@@ -26,7 +24,6 @@ function fixCode() {
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/upnp.hpp
       sed -i '' 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
 
-      sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
       sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i '' 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
@@ -40,7 +37,6 @@ function fixCode() {
       sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
       sed -i ''  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bitfield.hpp
 
-      sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/sha1_hash.hpp
       sed -i '' 's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
@@ -50,10 +46,8 @@ function fixCode() {
       sed -i '' 's/) & TORRENT_COUNTER_NOEXCEPT;/)   TORRENT_COUNTER_NOEXCEPT;/g' ${LIBTORRENT_ROOT}/include/libTAU/performance_counters.hpp
     else
       sed -i 's/constexpr alert_category_t all = alert_category_t::all();/ \/\/deleted temporarily because it is defined twice/g' ${LIBTORRENT_ROOT}/include/libTAU/alert.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
-      sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/mmap.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
@@ -62,7 +56,6 @@ function fixCode() {
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/upnp.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
 
-      sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
       sed -i 's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i  's/) & = default;/)   = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
@@ -76,7 +69,6 @@ function fixCode() {
       sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
       sed -i  's/) & noexcept = default;/)   noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bitfield.hpp
 
-      sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/sha1_hash.hpp
       sed -i  's/) & noexcept;/)   noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
@@ -91,10 +83,8 @@ function refixCode() {
     if [ "$(uname)" == "Darwin" ]; then  
     sed -i '' 's/ \/\/deleted temporarily because it is defined twice/constexpr alert_category_t all = alert_category_t::all();/g' ${LIBTORRENT_ROOT}/include/libTAU/alert.hpp
  
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
-      sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/mmap.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
@@ -103,7 +93,6 @@ function refixCode() {
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/upnp.hpp
       sed -i '' 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
 
-      sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
       sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i '' 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
@@ -117,7 +106,6 @@ function refixCode() {
       sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
       sed -i ''  's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bitfield.hpp
 
-      sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/sha1_hash.hpp
       sed -i '' 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp
@@ -127,10 +115,8 @@ function refixCode() {
     else
       sed -i 's/ \/\/deleted temporarily because it is defined twice/constexpr alert_category_t all = alert_category_t::all();/g' ${LIBTORRENT_ROOT}/include/libTAU/alert.hpp
 
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
-      sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/mmap.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
@@ -139,7 +125,6 @@ function refixCode() {
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/upnp.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/announce_entry.hpp
 
-      sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/stack_allocator.hpp
       sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i 's/)   = default;/) \& = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
@@ -153,7 +138,6 @@ function refixCode() {
       sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_handle.hpp
       sed -i   's/)   noexcept = default;/) \& noexcept = default;/g' ${LIBTORRENT_ROOT}/include/libTAU/bitfield.hpp
 
-      sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/file_storage.hpp
       sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
       sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/sha1_hash.hpp
       sed -i 's/)   noexcept;/) \& noexcept;/g' ${LIBTORRENT_ROOT}/include/libTAU/disk_buffer_holder.hpp

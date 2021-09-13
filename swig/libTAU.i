@@ -52,12 +52,10 @@
 #include "libTAU/client_data.hpp"
 #include "libTAU/sha1_hash.hpp"
 #include "libTAU/info_hash.hpp"
-#include "libTAU/storage_defs.hpp"
 #include "libTAU/bitfield.hpp"
 #include "libTAU/operations.hpp"
 #include "libTAU/error_code.hpp"
 #include "libTAU/announce_entry.hpp"
-#include "libTAU/file_storage.hpp"
 #include "libTAU/peer_request.hpp"
 #include "libTAU/bdecode.hpp"
 #include "libTAU/close_reason.hpp"
@@ -78,7 +76,6 @@
 #include "libTAU/session_params.hpp"
 #include "libTAU/session_handle.hpp"
 #include "libTAU/session.hpp"
-#include "libTAU/file_storage.hpp"
 #include "libTAU/session_stats.hpp"
 #include "libTAU/version.hpp"
 #include "libTAU/fingerprint.hpp"
@@ -199,7 +196,6 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 %template(udp_endpoint_vector) std::vector<libTAU::udp::endpoint>;
 %template(announce_endpoint_vector) std::vector<libTAU::announce_endpoint>;
 %template(announce_entry_vector) std::vector<libTAU::announce_entry>;
-%template(file_slice_vector) std::vector<libTAU::file_slice>;
 %template(dht_lookup_vector) std::vector<libTAU::dht_lookup>;
 %template(dht_routing_bucket_vector) std::vector<libTAU::dht_routing_bucket>;
 %template(entry_vector) std::vector<libTAU::entry>;
@@ -271,12 +267,10 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 %include "libTAU/client_data.i"
 %include "libTAU/sha1_hash.i"
 %include "libTAU/info_hash.i"
-%include "libTAU/storage_defs.i"
 %include "libTAU/bitfield.i"
 %include "libTAU/operations.i"
 %include "libTAU/error_code.i"
 %include "libTAU/announce_entry.i"
-%include "libTAU/file_storage.i"
 %include "libTAU/peer_request.i"
 %include "libTAU/bdecode.i"
 %include "libTAU/close_reason.i"
@@ -298,7 +292,6 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 %include "libTAU/session_params.i"
 %include "libTAU/session_handle.i"
 %include "libTAU/session.i"
-%include "libTAU/file_storage.i"
 %include "libTAU/session_stats.i"
 %include "libTAU/version.i"
 %include "libTAU/fingerprint.i"
