@@ -252,6 +252,10 @@ public class SessionManager {
         return stats.dhtNodes();
     }
 
+	public long invokedRequests() {
+		return stats.invokedRequests();
+	}
+
     public boolean isFirewalled() {
         return firewalled;
     }

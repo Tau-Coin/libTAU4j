@@ -28,6 +28,8 @@ public final class SessionStats {
     private long lastTickTime;
     private long dhtNodes;
 
+	private long invokedRequests;
+
     SessionStats() {
         this.stat = new Average[NUM_AVERAGES];
         for (int i = 0; i < this.stat.length; i++) {
@@ -75,6 +77,10 @@ public final class SessionStats {
     public long dhtNodes() {
         return dhtNodes;
     }
+
+	public long invokedRequests() {
+		return invokedRequests;
+	}
 
     public long dhtTotalDownload() {
         return stat[DHT_TOTAL_DOWNLOAD].total();
@@ -185,6 +191,7 @@ public final class SessionStats {
 
         tick(tickIntervalMs);
         dhtNodes = alert.value(StatsMetric.DHT_NODES_GAUGE_INDEX);
+		invokedRequests = alert.value(StatsMetric.DHT_ALLOCATED_OBSERVERS_INDEX);
     }
 
     void clear() {
@@ -192,6 +199,7 @@ public final class SessionStats {
             stat[i].clear();
         }
         dhtNodes = 0;
+		invokedRequests = 0;
     }
 
     // should be called once every second

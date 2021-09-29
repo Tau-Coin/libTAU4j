@@ -272,7 +272,7 @@ public final class SessionHandle
      * @param node
      */
     public void addDhtNode(Pair<String, Integer> node) {
-        h.add_dht_node(node.to_string_int_pair());
+        // h.add_dht_node(node.to_string_int_pair());
     }
 
     /**

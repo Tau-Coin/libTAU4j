@@ -48,6 +48,7 @@
 #include "libTAU/address.hpp"
 #include "libTAU/socket.hpp"
 #include "libTAU/kademlia/dht_state.hpp"
+#include "libTAU/kademlia/node_entry.hpp"
 #include "libTAU/communication/message.hpp"
 #include "libTAU/client_data.hpp"
 #include "libTAU/sha1_hash.hpp"
