@@ -27,7 +27,7 @@ public final class StatsMetric {
     public static final String DHT_MESSAGES_OUT_NAME = "dht.dht_messages_out";
     public static final String DHT_MESSAGES_IN_DROPPED_NAME = "dht.dht_messages_in_dropped";
     public static final String DHT_MESSAGES_OUT_DROPPED_NAME = "dht.dht_messages_out_dropped";
-	public static final String DHT_ALLOCATED_OBSERVERS_NAME = "dht.dht_allocated_observers";
+	public static final String DHT_INVOKED_REQUESTS_NAME = "dht.dht_invoked_requests";
     
     public static final int NET_SENT_PAYLOAD_BYTES_COUNTER_INDEX = LibTorrent.findMetricIdx(NET_SENT_PAYLOAD_BYTES_COUNTER_NAME);
     public static final int NET_SENT_BYTES_COUNTER_INDEX = LibTorrent.findMetricIdx(NET_SENT_BYTES_COUNTER_NAME);
@@ -45,7 +45,7 @@ public final class StatsMetric {
     public static final int DHT_MESSAGES_OUT_INDEX = LibTorrent.findMetricIdx(DHT_MESSAGES_OUT_NAME);
     public static final int DHT_MESSAGES_IN_DROPPED_INDEX = LibTorrent.findMetricIdx(DHT_MESSAGES_IN_DROPPED_NAME);
     public static final int DHT_MESSAGES_OUT_DROPPED_INDEX = LibTorrent.findMetricIdx(DHT_MESSAGES_OUT_DROPPED_NAME);
-	public static final int DHT_ALLOCATED_OBSERVERS_INDEX = LibTorrent.findMetricIdx(DHT_ALLOCATED_OBSERVERS_NAME);
+	public static final int DHT_INVOKED_REQUESTS_INDEX = LibTorrent.findMetricIdx(DHT_INVOKED_REQUESTS_NAME);
 
     public static final int TYPE_COUNTER = metric_type_t.counter.swigValue();
     public static final int TYPE_GAUGE = metric_type_t.gauge.swigValue();

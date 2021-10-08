@@ -191,7 +191,7 @@ public final class SessionStats {
 
         tick(tickIntervalMs);
         dhtNodes = alert.value(StatsMetric.DHT_NODES_GAUGE_INDEX);
-		invokedRequests = alert.value(StatsMetric.DHT_ALLOCATED_OBSERVERS_INDEX);
+		invokedRequests = alert.value(StatsMetric.DHT_INVOKED_REQUESTS_INDEX);
     }
 
     void clear() {
