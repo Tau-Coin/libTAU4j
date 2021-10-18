@@ -26,7 +26,6 @@
 %ignore libTAU::settings_pack::deprecated_use_disk_cache_pool;
 %ignore libTAU::settings_pack::deprecated_cache_buffer_chunk_size;
 %ignore libTAU::settings_pack::deprecated_lock_files;
-%ignore libTAU::settings_pack::deprecated_ssl_listen;
 %ignore libTAU::settings_pack::deprecated_force_proxy;
 %ignore libTAU::settings_pack::deprecated_aio_max;
 %ignore libTAU::settings_pack::deprecated_disable_os_cache_for_aligned_files;

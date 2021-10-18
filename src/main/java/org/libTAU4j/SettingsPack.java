@@ -577,24 +577,6 @@ public final class SettingsPack
     }
 
     /**
-     * This is the STUN server used by WebTorrent to enable ICE NAT
-     * traversal for WebRTC. It must have the format ``hostname:port``.
-     */
-    public String getWebtorrentStunServer() {
-        return h.get_str(string_types.webtorrent_stun_server.swigValue());
-    }
-
-    /**
-     * This is the STUN server used by WebTorrent to enable ICE NAT
-     * traversal for WebRTC. It must have the format ``hostname:port``.
-     *
-     * @param value the STUN server endpoint
-     */
-    public void setWebtorrentStunServer(String value) {
-        h.set_str(string_types.webtorrent_stun_server.swigValue(), value);
-    }
-
-    /**
      *
      */
     public String listenInterfaces() {

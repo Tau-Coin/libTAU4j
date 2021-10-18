@@ -374,10 +374,6 @@ public final class SessionHandle
         return h.listen_port();
     }
 
-    public int getSslListenPort() {
-        return h.ssl_listen_port();
-    }
-
     /**
      * will tell you whether or not the session has
      * successfully opened a listening port. If it hasn't, this function will
