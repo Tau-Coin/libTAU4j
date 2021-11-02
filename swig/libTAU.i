@@ -48,8 +48,12 @@
 #include "libTAU/address.hpp"
 #include "libTAU/socket.hpp"
 #include "libTAU/kademlia/dht_state.hpp"
-#include "libTAU/kademlia/node_entry.hpp"
+#include "libTAU/kademlia/types.hpp"
 #include "libTAU/communication/message.hpp"
+#include "libTAU/blockchain/account.hpp"
+#include "libTAU/blockchain/vote.hpp"
+#include "libTAU/blockchain/transaction.hpp"
+#include "libTAU/blockchain/block.hpp"
 #include "libTAU/client_data.hpp"
 #include "libTAU/sha1_hash.hpp"
 #include "libTAU/info_hash.hpp"
@@ -188,7 +192,6 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 %template(int64_vector) std::vector<long long>;
 %template(byte_vector) std::vector<std::int8_t>;
 %template(bool_vector) std::vector<bool>;
-%template(char_vector) std::vector<char>;
 %template(int_byte_pair_vector) std::vector<std::pair<int, std::int8_t>>;
 %template(string_int_pair_vector) std::vector<std::pair<std::string, int>>;
 %template(string_string_pair_vector) std::vector<std::pair<std::string, std::string>>;
@@ -265,6 +268,7 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 %include "libTAU/address.i"
 %include "libTAU/socket.i"
 %include "libTAU/kademlia/dht_state.i"
+%include "libTAU/kademlia/types.i"
 %include "libTAU/client_data.i"
 %include "libTAU/sha1_hash.i"
 %include "libTAU/info_hash.i"
@@ -289,6 +293,10 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 %include "libTAU/peer_class_type_filter.i"
 %include "libTAU/ip_filter.i"
 %include "libTAU/communication/message.i"
+%include "libTAU/blockchain/account.i"
+%include "libTAU/blockchain/vote.i"
+%include "libTAU/blockchain/transaction.i"
+%include "libTAU/blockchain/block.i"
 %include "libTAU/session_types.i"
 %include "libTAU/session_params.i"
 %include "libTAU/session_handle.i"

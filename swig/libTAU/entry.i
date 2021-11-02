@@ -2,7 +2,6 @@ namespace libTAU {
 
 class entry {
 public:
-    //typedef std::map<std::string, libTAU::entry> dictionary_type;
     typedef boost::container::map<std::string, entry> dictionary_type;
     typedef std::string string_type;
     typedef std::vector<libTAU::entry> list_type;
@@ -22,7 +21,6 @@ public:
     data_type type() const;
 
     entry(dictionary_type);
-    //entry(span<char const>);
     entry(string_type);
     entry(list_type);
     entry(integer_type);
@@ -37,8 +35,6 @@ public:
     const string_type& string() const;
     list_type& list();
     dictionary_type& dict();
-
-    //entry* find_key(string_view key);
 
     std::string to_string() const;
 
