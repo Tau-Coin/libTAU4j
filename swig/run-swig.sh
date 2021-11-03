@@ -49,6 +49,7 @@ function fixCode() {
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
+      sed -i 's/) &/)  /g' ${LIBTORRENT_ROOT}/include/libTAU/kademlia/types.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
       sed -i 's/) &;/)  ;/g' ${LIBTORRENT_ROOT}/include/libTAU/hasher.hpp
@@ -118,6 +119,7 @@ function refixCode() {
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/hasher512.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/aux_/announce_entry.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session.hpp
+      sed -i 's/)  /) \&/g' ${LIBTORRENT_ROOT}/include/libTAU/kademlia/types.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/bdecode.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/session_params.hpp
       sed -i 's/)  ;/) \&;/g' ${LIBTORRENT_ROOT}/include/libTAU/hasher.hpp
