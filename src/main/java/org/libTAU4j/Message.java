@@ -49,9 +49,6 @@ public final class Message {
 		this.msg = new message(timestamp, bv_sender, bv_receiver, bv_payload);
 
 		this.msgId = this.msg.sha256().to_hex();
-		System.out.println("+++++++++++++++++++++");
-		System.out.println(this.timestamp);
-		System.out.println("+++++++++++++++++++++");
 	}
 
     public Message(message msg) {
