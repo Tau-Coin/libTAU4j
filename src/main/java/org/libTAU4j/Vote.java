@@ -19,6 +19,7 @@ public final class Vote {
 
 	private final sha256_hash block_hash;
 	private final long block_number;
+	private final long count;
 
     private final vote vt;
 
@@ -35,18 +36,21 @@ public final class Vote {
 		this.vt = vt;
 		this.block_hash = vt.block_hash();
 		this.block_number = vt.block_number();
+		this.count = vt.count();
 	}
 
     public Vote(Entry e) {
 		this.vt = new vote(e.swig());
 		this.block_hash = vt.block_hash();
 		this.block_number = vt.block_number();
+		this.count = vt.count();
 	}
 
     public Vote(String s) {
 		this.vt = new vote(s);
 		this.block_hash = vt.block_hash();
 		this.block_number = vt.block_number();
+		this.count = vt.count();
 	}
 
   	public long getBlockHash() {
@@ -55,6 +59,10 @@ public final class Vote {
 
   	public long getBlockNumber() {
     	return this.block_number;
+  	}
+
+  	public long getVoteCount() {
+    	return this.count;
   	}
 
 	public vote swig() {

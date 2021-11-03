@@ -11,6 +11,8 @@ SWIG=`pwd`
 SRC="${HOME}/data/libTAU-android-x86-build"
 BOOST_ROOT="${SRC}/boost"
 LIBTORRENT_ROOT="${SRC}/libTAU"
+LEVELDB_ROOT="${SRC}/leveldb"
+SQLITE_ROOT="${SRC}/sqlite"
 OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
 OPENSSL_ROOT="${SRC}/openssl"
 OPENSSL_NO_OPTS="no-afalgeng no-async no-autoalginit no-autoerrinit no-capieng no-cms no-comp no-deprecated no-dgram no-dso no-dtls no-dynamic-engine no-egd no-engine no-err no-filenames no-gost no-hw no-makedepend no-multiblock no-nextprotoneg no-posix-io no-psk no-rdrand no-sctp no-shared no-sock no-static-engine no-stdio no-threads no-ui-console no-zlib no-zlib-dynamic -fno-strict-aliasing -fvisibility=hidden -Os"

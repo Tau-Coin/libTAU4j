@@ -213,6 +213,8 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 %template(sha256_hash_vector_vector) std::vector<std::vector<libTAU::digest32<256>>>;
 %template(sha256_hash_udp_endpoint_pair_vector) std::vector<std::pair<libTAU::digest32<256>, libTAU::udp::endpoint>>;
 %template(address_sha256_hash_pair_vector) std::vector<std::pair<libTAU::address, libTAU::digest32<256>>>;
+%template(block_vector) std::vector<libTAU::blockchain::block>;
+%template(block_vote_vector) std::vector<libTAU::blockchain::vote>;
 
 %template(byte_array_32) std::array<std::int8_t, 32>;
 %template(byte_array_64) std::array<std::int8_t, 64>;
@@ -223,6 +225,7 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 %template(string_string_map) std::map<std::string, std::string>;
 %template(int_bitfield_map) std::map<int, libTAU::bitfield>;
 %template(string_entry_map) std::map<std::string, libTAU::entry>;
+%template(pubkey_account_map) std::map<libTAU::dht::public_key, libTAU::blockchain::account>;
 
 %template(boost_string_entry_map) boost::container::map<std::string, libTAU::entry>;
 

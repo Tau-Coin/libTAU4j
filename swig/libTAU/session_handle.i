@@ -14,6 +14,12 @@
 %ignore libTAU::session_handle::delete_friend(std::array<char, 32> pubkey);
 %ignore libTAU::session_handle::set_chatting_friend(std::array<char, 32> pubkey);
 %ignore libTAU::session_handle::set_active_friends(std::vector<std::array<char, 32>> friends);
+%ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::map<dht::public_key, blockchain::account>& accounts);
+%ignore libTAU::session_handle::follow_chain(std::vector<char> chain_id);
+%ignore libTAU::session_handle::unfollow_chain(std::vector<char> chain_id);
+%ignore libTAU::session_handle::get_account_info(std::vector<char> chain_id, dht::public_key pub_key);
+%ignore libTAU::session_handle::get_top_tip_block(std::vector<char> chain_id, int num);
+%ignore libTAU::session_handle::get_median_tx_free(std::vector<char> chain_id);
 %ignore libTAU::session_handle::set_load_function;
 %ignore libTAU::session_handle::set_alert_notify;
 %ignore libTAU::session_handle::native_handle;
@@ -165,6 +171,49 @@ namespace libTAU {
         return $self->add_new_message(msg);
     }
     */
+
+    bool create_new_community(std::vector<std::int8_t> chain_id, const std::map<dht::public_key, blockchain::account>& accounts)
+    {   
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        return $self->create_new_community(id, accounts);
+    }
+
+    bool follow_chain(std::vector<std::int8_t> chain_id)
+    {   
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        return $self->follow_chain(id);
+    }
+
+    bool unfollow_chain(std::vector<std::int8_t> chain_id)
+    {   
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        return $self->unfollow_chain(id);
+    }
+
+    blockchain::account session_handle::get_account_info(std::vector<std::int8_t> chain_id, dht::public_key pub_key)
+    {
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        return $self->get_account_info(id, pub_key);
+    }
+
+    std::vector<blockchain::block> session_handle::get_top_tip_block(std::vector<std::int8_t> chain_id, int num)
+    {
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        return $self->get_top_tip_block(id, num);
+    }
+
+    std::int64_t session_handle::get_median_tx_free(std::vector<std::int8_t> chain_id)
+    {
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        return $self->get_median_tx_free(id);
+    }
+
 }
 
 }

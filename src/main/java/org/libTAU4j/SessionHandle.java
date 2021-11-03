@@ -210,6 +210,59 @@ public final class SessionHandle
     }
 
     /**
+     * This is for create new community
+     */
+    public boolean createNewCommunity(String chanid) {
+		byte[] id = Hex.decode(chainid);
+        //h.create_new_community(Vectors.bytes2byte_vector(id), accounts);
+    }
+
+    /**
+     * This is for follow chain
+     */
+    public boolean followChain(String chanid) {
+		byte[] id = Hex.decode(chainid);
+        return h.follow_chain(Vectors.bytes2byte_vector(id));
+    }
+
+    /**
+     * This is for unfollow chain
+     */
+    public boolean unfollowChain(String chanid) {
+		byte[] id = Hex.decode(chainid);
+        return h.unfollow_chain(Vectors.bytes2byte_vector(id));
+    }
+
+    /**
+     * This is for get_account_info
+     */
+    public Account getAccountInfo(String chanid, String pubkey) {
+		byte[] id = Hex.decode(chainid);
+		//key -> dht pubkey
+		public_key key = new public_key(pubkey);
+        return new Account(h.get_account_info(Vectors.bytes2byte_vector(id), key));
+    }
+
+	
+    /**
+     * This is for get_top_tip_block
+     */
+    public List<Block> getTopTipBlock(String chanid, int num) {
+		byte[] id = Hex.decode(chainid);
+        block_vector bv = h.get_top_tip_block(Vectors.bytes2byte_vector(id), num);
+		for(int i = 0; i < bv.size(); i++){
+		}
+    }
+
+    /**
+     * This is for get_median_tx_free
+     */
+    public long getMedianTxFee(String chanid) {
+		byte[] id = Hex.decode(chainid);
+        return h.get_median_tx_free(Vectors.bytes2byte_vector(id));
+    }
+
+    /**
      * Delete the files belonging to the torrent from disk,
      * including the part-file, if there is one.
      */
