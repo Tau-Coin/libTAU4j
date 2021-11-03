@@ -120,11 +120,6 @@ public class alert {
     return (cPtr == 0) ? null : new incoming_connection_alert(cPtr, false);
   }
 
-  public static state_update_alert cast_to_state_update_alert(alert a) {
-    long cPtr = libTAU_jni.alert_cast_to_state_update_alert(alert.getCPtr(a), a);
-    return (cPtr == 0) ? null : new state_update_alert(cPtr, false);
-  }
-
   public static session_stats_alert cast_to_session_stats_alert(alert a) {
     long cPtr = libTAU_jni.alert_cast_to_session_stats_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new session_stats_alert(cPtr, false);
@@ -160,11 +155,6 @@ public class alert {
     return (cPtr == 0) ? null : new log_alert(cPtr, false);
   }
 
-  public static peer_log_alert cast_to_peer_log_alert(alert a) {
-    long cPtr = libTAU_jni.alert_cast_to_peer_log_alert(alert.getCPtr(a), a);
-    return (cPtr == 0) ? null : new peer_log_alert(cPtr, false);
-  }
-
   public static dht_stats_alert cast_to_dht_stats_alert(alert a) {
     long cPtr = libTAU_jni.alert_cast_to_dht_stats_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new dht_stats_alert(cPtr, false);
@@ -188,11 +178,6 @@ public class alert {
   public static dht_direct_response_alert cast_to_dht_direct_response_alert(alert a) {
     long cPtr = libTAU_jni.alert_cast_to_dht_direct_response_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new dht_direct_response_alert(cPtr, false);
-  }
-
-  public static picker_log_alert cast_to_picker_log_alert(alert a) {
-    long cPtr = libTAU_jni.alert_cast_to_picker_log_alert(alert.getCPtr(a), a);
-    return (cPtr == 0) ? null : new picker_log_alert(cPtr, false);
   }
 
   public static session_error_alert cast_to_session_error_alert(alert a) {
@@ -258,6 +243,41 @@ public class alert {
   public static communication_last_seen_alert cast_to_communication_last_seen_alert(alert a) {
     long cPtr = libTAU_jni.alert_cast_to_communication_last_seen_alert(alert.getCPtr(a), a);
     return (cPtr == 0) ? null : new communication_last_seen_alert(cPtr, false);
+  }
+
+  public static blockchain_log_alert cast_to_blockchain_log_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_blockchain_log_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new blockchain_log_alert(cPtr, false);
+  }
+
+  public static blockchain_new_tip_block_alert cast_to_blockchain_new_tip_block_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_blockchain_new_tip_block_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new blockchain_new_tip_block_alert(cPtr, false);
+  }
+
+  public static blockchain_new_tail_block_alert cast_to_blockchain_new_tail_block_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_blockchain_new_tail_block_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new blockchain_new_tail_block_alert(cPtr, false);
+  }
+
+  public static blockchain_rollback_block_alert cast_to_blockchain_rollback_block_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_blockchain_rollback_block_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new blockchain_rollback_block_alert(cPtr, false);
+  }
+
+  public static blockchain_fork_point_block_alert cast_to_blockchain_fork_point_block_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_blockchain_fork_point_block_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new blockchain_fork_point_block_alert(cPtr, false);
+  }
+
+  public static blockchain_top_three_votes_alert cast_to_blockchain_top_three_votes_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_blockchain_top_three_votes_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new blockchain_top_three_votes_alert(cPtr, false);
+  }
+
+  public static blockchain_new_transaction_alert cast_to_blockchain_new_transaction_alert(alert a) {
+    long cPtr = libTAU_jni.alert_cast_to_blockchain_new_transaction_alert(alert.getCPtr(a), a);
+    return (cPtr == 0) ? null : new blockchain_new_transaction_alert(cPtr, false);
   }
 
   public final static alert_category_t error_notification = new alert_category_t(libTAU_jni.alert_error_notification_get(), false);

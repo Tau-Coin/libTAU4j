@@ -260,6 +260,48 @@ public final class Alerts {
                 return new CommLastSeenAlert(cast_to_communication_last_seen_alert(a));
             }
         };
+        arr[38] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new BlockChainLogAlert(cast_to_blockchain_log_alert(a));
+            }
+        };
+        arr[39] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new BlockChainNewTipBlockAlert(cast_to_blockchain_new_tip_block_alert(a));
+            }
+        };
+        arr[40] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new BlockChainNewTailBlockAlert(cast_to_blockchain_new_tail_block_alert(a));
+            }
+        };
+        arr[41] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new BlockChainRollbackBlockAlert(cast_to_blockchain_rollback_block_alert(a));
+            }
+        };
+        arr[42] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new BlockChainForkPointBlockAlert(cast_to_blockchain_fork_point_block_alert(a));
+            }
+        };
+        arr[43] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new BlockChainTopThreeVotesAlert(cast_to_blockchain_top_three_votes_alert(a));
+            }
+        };
+        arr[44] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new BlockChainNewTransactionAlert(cast_to_blockchain_new_transaction_alert(a));
+            }
+        };
 
         return arr;
     }

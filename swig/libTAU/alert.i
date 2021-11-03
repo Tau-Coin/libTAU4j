@@ -57,6 +57,13 @@ struct alert_category_tag;
     CAST_ALERT_METHOD(communication_friend_info_alert)
     CAST_ALERT_METHOD(communication_log_alert)
     CAST_ALERT_METHOD(communication_last_seen_alert)
+    CAST_ALERT_METHOD(blockchain_log_alert)
+    CAST_ALERT_METHOD(blockchain_new_tip_block_alert)
+    CAST_ALERT_METHOD(blockchain_new_tail_block_alert)
+    CAST_ALERT_METHOD(blockchain_rollback_block_alert)
+    CAST_ALERT_METHOD(blockchain_fork_point_block_alert)
+    CAST_ALERT_METHOD(blockchain_top_three_votes_alert)
+    CAST_ALERT_METHOD(blockchain_new_transaction_alert)
 
 }
 
