@@ -214,6 +214,14 @@ public final class SessionHandle
     }
 
     /**
+     * This is for create chain id
+     */
+    public byte[] createChainID(String communityName) {
+		byte_vector id = h.create_chain_id(communityName);
+		return Vectors.byte_vector2bytes(id);
+    }
+
+    /**
      * This is for create new community
      */
     public boolean createNewCommunity(String chainID, Map<String, Account> accounts) {

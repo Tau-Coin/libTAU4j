@@ -336,6 +336,19 @@ public class SessionManager {
 	}
 	
     /**
+     * This is for create chain id
+     */
+    public byte[] createChainID(String communityName) {
+		if (session != null) {
+			return new SessionHandle(session).createChainID(communityName);
+		}
+		return null;
+    }
+
+    /**
+     * This is for follow chain
+     */
+    /**
      * This is for create new community
      */
     public boolean createNewCommunity(String chainID, Map<String, Account> accounts) {
