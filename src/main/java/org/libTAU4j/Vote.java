@@ -9,6 +9,7 @@ package org.libTAU4j;
 
 import org.libTAU4j.Entry;
 import org.libTAU4j.swig.vote;
+import org.libTAU4j.swig.sha256_hash;
 
 /**
  * Account in libTAU
@@ -29,7 +30,7 @@ public final class Vote {
 		this.block_number = block_number;
 		
 		this.vt = new vote(block_hash, block_number);
-
+		this.count = this.vt.count();
 	}
 
     public Vote(vote vt) {
@@ -53,7 +54,7 @@ public final class Vote {
 		this.count = vt.count();
 	}
 
-  	public long getBlockHash() {
+  	public sha256_hash getBlockHash() {
     	return this.block_hash;
   	}
 

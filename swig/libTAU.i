@@ -50,6 +50,7 @@
 #include "libTAU/kademlia/dht_state.hpp"
 #include "libTAU/kademlia/types.hpp"
 #include "libTAU/communication/message.hpp"
+#include "libTAU/blockchain/chain_url.hpp"
 #include "libTAU/blockchain/account.hpp"
 #include "libTAU/blockchain/vote.hpp"
 #include "libTAU/blockchain/transaction.hpp"
@@ -142,6 +143,7 @@ SWIGEXPORT jlong JNICALL Java_org_libTAU4j_swig_libTAU_1jni_directBufferCapacity
 %include <std_pair.i>
 %include <std_vector.i>
 %include <std_map.i>
+%include <std_set.i>
 %include <std_array.i>
 %include <std_bitset.i>
 
@@ -225,6 +227,7 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 %template(string_string_map) std::map<std::string, std::string>;
 %template(int_bitfield_map) std::map<int, libTAU::bitfield>;
 %template(string_entry_map) std::map<std::string, libTAU::entry>;
+%template(pubkey_set) std::set<libTAU::dht::public_key>;
 %template(pubkey_account_map) std::map<libTAU::dht::public_key, libTAU::blockchain::account>;
 
 %template(boost_string_entry_map) boost::container::map<std::string, libTAU::entry>;
@@ -296,6 +299,7 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 %include "libTAU/peer_class_type_filter.i"
 %include "libTAU/ip_filter.i"
 %include "libTAU/communication/message.i"
+%include "libTAU/blockchain/chain_url.i"
 %include "libTAU/blockchain/account.i"
 %include "libTAU/blockchain/vote.i"
 %include "libTAU/blockchain/transaction.i"

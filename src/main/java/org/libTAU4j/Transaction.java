@@ -8,7 +8,9 @@
 package org.libTAU4j;
 
 import org.libTAU4j.swig.byte_vector;
+import org.libTAU4j.swig.public_key;
 import org.libTAU4j.swig.transaction;
+import org.libTAU4j.swig.tx_version;
 
 /**
  * The Entry class represents one node in a bencoded hierarchy. It works as a
@@ -61,8 +63,8 @@ public final class Transaction {
 		this.chain_id = Vectors.byte_vector2bytes(tx.chain_id());
 		this.version = tx.version().swigValue();
 		this.timestamp = tx.timestamp();
-		this.sender = Vectors.byte_vector2bytes(tx.sender().get_bytes());
-		this.receiver = Vectors.byte_vector2bytes(tx.receiver().get_bytes());
+		this.sender = Vectors.byte_vector2bytes(tx.sender().to_bytes());
+		this.receiver = Vectors.byte_vector2bytes(tx.receiver().to_bytes());
 		this.nonce = tx.nonce();
 		this.amount = tx.amount();
 		this.fee = tx.fee();
@@ -76,7 +78,7 @@ public final class Transaction {
     	return this.chain_id;
   	}
 
-  	public byte[] getVersion() {
+  	public int getVersion() {
     	return this.version;
   	}
 

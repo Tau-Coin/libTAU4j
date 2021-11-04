@@ -5,7 +5,7 @@ import org.libTAU4j.swig.blockchain_rollback_block_alert;
 
 public class BlockChainRollbackBlockAlert extends AbstractAlert<blockchain_rollback_block_alert> {
 
-	Block  bk;
+	Block  blk;
     String alertMsg;
 
     BlockChainRollbackBlockAlert(blockchain_rollback_block_alert alert) {

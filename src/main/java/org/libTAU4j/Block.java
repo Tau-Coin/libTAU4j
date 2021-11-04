@@ -9,6 +9,9 @@ package org.libTAU4j;
 
 import org.libTAU4j.swig.byte_vector;
 import org.libTAU4j.swig.block;
+import org.libTAU4j.swig.block_version;
+import org.libTAU4j.swig.public_key;
+import org.libTAU4j.swig.sha256_hash;
 
 /**
  * The Entry class represents one node in a bencoded hierarchy. It works as a
@@ -42,7 +45,7 @@ public final class Block {
     public Block(byte[] chain_id, int version, long timestamp, long block_number,
 			byte[] previous_block_hash, long base_target, long cumulative_difficulty,
 			byte[] generation_signature, Transaction tx, 
-			byte[] miner, long miner_balance, long mine_nonce,
+			byte[] miner, long miner_balance, long miner_nonce,
 			long sender_balance, long sender_nonce, 
 			long receiver_balance, long receiver_nonce) {
 
@@ -64,7 +67,7 @@ public final class Block {
 		this.receiver_nonce = receiver_nonce;
 
 		byte_vector bv_chain_id = Vectors.bytes2byte_vector(chain_id);
-		tx_version  bv = block_version.swigToEnum(version);
+		block_version  bv = block_version.swigToEnum(version);
 		sha256_hash sh_pbh = new sha256_hash(Vectors.bytes2byte_vector(previous_block_hash));
 		sha256_hash sh_sign = new sha256_hash(Vectors.bytes2byte_vector(generation_signature));
 		public_key  pk_miner = new public_key(Vectors.bytes2byte_array_32(miner));
@@ -76,18 +79,18 @@ public final class Block {
 					  sender_balance, sender_nonce, receiver_balance, receiver_nonce);
 	}
 
-    public Block(Block bk) {
+    public Block(block bk) {
 
 		this.chain_id = Vectors.byte_vector2bytes(bk.chain_id());
 		this.version = bk.version().swigValue();
 		this.timestamp = bk.timestamp();
 		this.block_number = bk.block_number();
-		this.previous_block_hash = sha256_hash.byte_vector2bytes(bk.previous_block_hash().to_bytes());
+		this.previous_block_hash = Vectors.byte_vector2bytes(bk.previous_block_hash().to_bytes());
 		this.base_target = bk.base_target();
 		this.cumulative_difficulty = bk.cumulative_difficulty();
-		this.generation_signature = sha256_hash.byte_vector2bytes(bk.generation_signature().to_bytes());
+		this.generation_signature = Vectors.byte_vector2bytes(bk.generation_signature().to_bytes());
 		this.tx = new Transaction(bk.tx());
-		this.miner = Vectors.byte_vector2bytes(bk.miner().get_bytes());
+		this.miner = Vectors.byte_vector2bytes(bk.miner().to_bytes());
 		this.miner_balance = bk.miner_balance();
 		this.miner_nonce = bk.miner_nonce();
 		this.sender_balance = bk.sender_balance();

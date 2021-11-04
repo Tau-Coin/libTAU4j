@@ -9,10 +9,13 @@ package org.libTAU4j;
 
 import org.libTAU4j.alerts.SessionStatsAlert;
 import org.libTAU4j.swig.error_code;
+import org.libTAU4j.swig.block_vector;
 import org.libTAU4j.swig.byte_vector;
 import org.libTAU4j.swig.int_vector;
 import org.libTAU4j.swig.libTAU_errors;
 import org.libTAU4j.swig.portmap_protocol;
+import org.libTAU4j.swig.public_key;
+import org.libTAU4j.swig.pubkey_account_map;
 import org.libTAU4j.swig.remove_flags_t;
 import org.libTAU4j.swig.reopen_network_flags_t;
 import org.libTAU4j.swig.save_state_flags_t;
@@ -21,7 +24,8 @@ import org.libTAU4j.swig.session_handle;
 import org.libTAU4j.swig.vector_byte_array_32;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The session holds all state that spans multiple torrents. Among other
@@ -212,32 +216,38 @@ public final class SessionHandle
     /**
      * This is for create new community
      */
-    public boolean createNewCommunity(String chanid) {
-		byte[] id = Hex.decode(chainid);
-        //h.create_new_community(Vectors.bytes2byte_vector(id), accounts);
+    public boolean createNewCommunity(String chainID, Map<String, Account> accounts) {
+		byte[] id = Hex.decode(chainID);
+		//map string, account -> public_key, account
+		pubkey_account_map pam = new pubkey_account_map();
+		for(String pk : accounts.keySet()) {
+			public_key key = new public_key(pk);
+			pam.put(key, accounts.get(pk).swig());
+		}
+        return h.create_new_community(Vectors.bytes2byte_vector(id), pam);
     }
 
     /**
      * This is for follow chain
      */
-    public boolean followChain(String chanid) {
-		byte[] id = Hex.decode(chainid);
-        return h.follow_chain(Vectors.bytes2byte_vector(id));
+    public boolean followChain(String chainID, Set<String> peers) {
+		ChainURL cul = new ChainURL(chainID, peers);
+        return h.follow_chain(cul.swig());
     }
 
     /**
      * This is for unfollow chain
      */
-    public boolean unfollowChain(String chanid) {
-		byte[] id = Hex.decode(chainid);
+    public boolean unfollowChain(String chainID) {
+		byte[] id = Hex.decode(chainID);
         return h.unfollow_chain(Vectors.bytes2byte_vector(id));
     }
 
     /**
      * This is for get_account_info
      */
-    public Account getAccountInfo(String chanid, String pubkey) {
-		byte[] id = Hex.decode(chainid);
+    public Account getAccountInfo(String chainID, String pubkey) {
+		byte[] id = Hex.decode(chainID);
 		//key -> dht pubkey
 		public_key key = new public_key(pubkey);
         return new Account(h.get_account_info(Vectors.bytes2byte_vector(id), key));
@@ -247,18 +257,21 @@ public final class SessionHandle
     /**
      * This is for get_top_tip_block
      */
-    public List<Block> getTopTipBlock(String chanid, int num) {
-		byte[] id = Hex.decode(chainid);
+    public ArrayList<Block> getTopTipBlock(String chainID, int num) {
+		byte[] id = Hex.decode(chainID);
         block_vector bv = h.get_top_tip_block(Vectors.bytes2byte_vector(id), num);
+		ArrayList<Block> blks = new ArrayList<Block>();
 		for(int i = 0; i < bv.size(); i++){
+			blks.add(new Block(bv.get(i)));
 		}
+		return blks;
     }
 
     /**
      * This is for get_median_tx_free
      */
-    public long getMedianTxFee(String chanid) {
-		byte[] id = Hex.decode(chainid);
+    public long getMedianTxFee(String chainID) {
+		byte[] id = Hex.decode(chainID);
         return h.get_median_tx_free(Vectors.bytes2byte_vector(id));
     }
 

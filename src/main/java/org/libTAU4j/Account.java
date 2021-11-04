@@ -28,8 +28,9 @@ public final class Account {
 		this.balance = balance;
 		this.nonce = nonce;
 		this.block_number = block_number;
-		
+
 		this.act = new account(balance, nonce, block_number);
+		this.effective_power = this.act.effective_power();
 
 	}
 
