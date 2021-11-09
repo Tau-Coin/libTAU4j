@@ -15,6 +15,7 @@ import org.libTAU4j.swig.int_vector;
 import org.libTAU4j.swig.libTAU_errors;
 import org.libTAU4j.swig.portmap_protocol;
 import org.libTAU4j.swig.public_key;
+import org.libTAU4j.swig.pubkey_vector;
 import org.libTAU4j.swig.pubkey_account_map;
 import org.libTAU4j.swig.remove_flags_t;
 import org.libTAU4j.swig.reopen_network_flags_t;
@@ -146,34 +147,36 @@ public final class SessionHandle
      * This is for adding new friend.
      */
     public boolean addNewFriend(String pubkey) {
-		//String -> byte_array_32
-		byte[] pk = Hex.decode(pubkey);
-        return h.add_new_friend(Vectors.bytes2byte_array_32(pk));
+		//key -> dht pubkey
+        public_key key = new public_key(pubkey);
+        return h.add_new_friend(key);
     }
 
     /**
      * This is for deleting friend.
      */
     public boolean deleteFriend(String pubkey) {
-		//String -> byte_array_32
-		byte[] pk = Hex.decode(pubkey);
-        return h.delete_friend(Vectors.bytes2byte_array_32(pk));
+		//key -> dht pubkey
+        public_key key = new public_key(pubkey);
+        return h.delete_friend(key);
     }
 
     /**
      * This is for updating friend info.
      */
     public boolean updateFriendInfo(String pubkey, byte[] info) {
-		byte[] pk = Hex.decode(pubkey);
-        return h.update_friend_info(Vectors.bytes2byte_array_32(pk), Vectors.bytes2byte_vector(info));
+		//key -> dht pubkey
+        public_key key = new public_key(pubkey);
+        return h.update_friend_info(key, Vectors.bytes2byte_vector(info));
     }
 
     /**
      * This is for getting friend info.
      */
     public byte[] getFriendInfo(String pubkey) {
-		byte[] pk = Hex.decode(pubkey);
-        byte_vector info = h.get_friend_info(Vectors.bytes2byte_array_32(pk));
+		//key -> dht pubkey
+        public_key key = new public_key(pubkey);
+        byte_vector info = h.get_friend_info(key);
 		return Vectors.byte_vector2bytes(info);
     }
 
@@ -182,10 +185,10 @@ public final class SessionHandle
      */
     public void setActiveFriends(ArrayList<String> pubkeys) {
 
-		vector_byte_array_32 pks = new vector_byte_array_32();
+		pubkey_vector pks = new pubkey_vector();
 
 		for(int i= 0; i< pubkeys.size(); i++){
-			pks.add(Vectors.bytes2byte_array_32(Hex.decode(pubkeys.get(i))));
+			pks.add(new public_key(pubkeys.get(i)));
 		}
 
         h.set_active_friends(pks);
@@ -195,8 +198,8 @@ public final class SessionHandle
      * This is for setting chatting friend.
      */
     public void setChattingFriend(String pubkey) {
-		byte[] pk = Hex.decode(pubkey);
-        h.set_chatting_friend(Vectors.bytes2byte_array_32(pk));
+		public_key key = new public_key(pubkey);
+        h.set_chatting_friend(key);
     }
 
     /**
@@ -224,21 +227,20 @@ public final class SessionHandle
     /**
      * This is for create new community
      */
-    public boolean createNewCommunity(String chainID, Map<String, Account> accounts) {
-		byte[] id = Hex.decode(chainID);
+    public boolean createNewCommunity(byte[] chainID, Map<String, Account> accounts) {
 		//map string, account -> public_key, account
 		pubkey_account_map pam = new pubkey_account_map();
 		for(String pk : accounts.keySet()) {
 			public_key key = new public_key(pk);
 			pam.put(key, accounts.get(pk).swig());
 		}
-        return h.create_new_community(Vectors.bytes2byte_vector(id), pam);
+        return h.create_new_community(Vectors.bytes2byte_vector(chainID), pam);
     }
 
     /**
      * This is for follow chain
      */
-    public boolean followChain(String chainID, Set<String> peers) {
+    public boolean followChain(byte[] chainID, Set<String> peers) {
 		ChainURL cul = new ChainURL(chainID, peers);
         return h.follow_chain(cul.swig());
     }
@@ -246,28 +248,32 @@ public final class SessionHandle
     /**
      * This is for unfollow chain
      */
-    public boolean unfollowChain(String chainID) {
-		byte[] id = Hex.decode(chainID);
-        return h.unfollow_chain(Vectors.bytes2byte_vector(id));
+    public boolean unfollowChain(byte[] chainID) {
+        return h.unfollow_chain(Vectors.bytes2byte_vector(chainID));
+    }
+
+    /**
+     * This is for submit transaction
+     */
+    public boolean submitTransaction(Transaction tx) {
+		return h.submit_transaction(tx.swig());
     }
 
     /**
      * This is for get_account_info
      */
-    public Account getAccountInfo(String chainID, String pubkey) {
-		byte[] id = Hex.decode(chainID);
+    public Account getAccountInfo(byte[] chainID, String pubkey) {
 		//key -> dht pubkey
 		public_key key = new public_key(pubkey);
-        return new Account(h.get_account_info(Vectors.bytes2byte_vector(id), key));
+        return new Account(h.get_account_info(Vectors.bytes2byte_vector(chainID), key));
     }
 
 	
     /**
      * This is for get_top_tip_block
      */
-    public ArrayList<Block> getTopTipBlock(String chainID, int num) {
-		byte[] id = Hex.decode(chainID);
-        block_vector bv = h.get_top_tip_block(Vectors.bytes2byte_vector(id), num);
+    public ArrayList<Block> getTopTipBlock(byte[] chainID, int num) {
+        block_vector bv = h.get_top_tip_block(Vectors.bytes2byte_vector(chainID), num);
 		ArrayList<Block> blks = new ArrayList<Block>();
 		for(int i = 0; i < bv.size(); i++){
 			blks.add(new Block(bv.get(i)));
@@ -278,9 +284,8 @@ public final class SessionHandle
     /**
      * This is for get_median_tx_free
      */
-    public long getMedianTxFee(String chainID) {
-		byte[] id = Hex.decode(chainID);
-        return h.get_median_tx_free(Vectors.bytes2byte_vector(id));
+    public long getMedianTxFee(byte[] chainID) {
+        return h.get_median_tx_free(Vectors.bytes2byte_vector(chainID));
     }
 
     /**

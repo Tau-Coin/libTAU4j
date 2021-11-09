@@ -10,6 +10,7 @@ package org.libTAU4j;
 import org.libTAU4j.swig.boost_string_entry_map;
 import org.libTAU4j.swig.byte_vector;
 import org.libTAU4j.swig.entry;
+import org.libTAU4j.swig.public_key;
 import org.libTAU4j.swig.string_vector;
 import org.libTAU4j.swig.message;
 
@@ -43,10 +44,10 @@ public final class Message {
 		this.receiver = receiver;
 		this.payload = payload;
 
-		byte_vector bv_sender = Vectors.bytes2byte_vector(sender);
-		byte_vector bv_receiver = Vectors.bytes2byte_vector(receiver);
+		public_key spk = new public_key(Vectors.bytes2byte_array_32(sender));
+		public_key rpk = new public_key(Vectors.bytes2byte_array_32(receiver));
 		byte_vector bv_payload = Vectors.bytes2byte_vector(payload);
-		this.msg = new message(timestamp, bv_sender, bv_receiver, bv_payload);
+		this.msg = new message(timestamp, spk, rpk, bv_payload);
 
 		this.msgId = this.msg.sha256().to_hex();
 	}
@@ -54,8 +55,8 @@ public final class Message {
     public Message(message msg) {
 
 		this.timestamp = msg.timestamp();
-		this.sender = Vectors.byte_vector2bytes(msg.sender());
-		this.receiver = Vectors.byte_vector2bytes(msg.receiver());
+		this.sender = Vectors.byte_vector2bytes(msg.sender().to_bytes());
+		this.receiver = Vectors.byte_vector2bytes(msg.receiver().to_bytes());
 		this.payload = Vectors.byte_vector2bytes(msg.payload());
 		this.msgId = msg.sha256().to_hex();
 		

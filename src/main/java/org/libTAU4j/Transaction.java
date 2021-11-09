@@ -9,6 +9,8 @@ package org.libTAU4j;
 
 import org.libTAU4j.swig.byte_vector;
 import org.libTAU4j.swig.public_key;
+import org.libTAU4j.swig.secret_key;
+import org.libTAU4j.swig.sha256_hash;
 import org.libTAU4j.swig.transaction;
 import org.libTAU4j.swig.tx_version;
 
@@ -31,6 +33,7 @@ public final class Transaction {
 	private final long amount;
 	private final long fee;
 	private final byte[] payload;
+	private final sha256_hash txid;
 
     private final transaction tx;
 
@@ -56,6 +59,8 @@ public final class Transaction {
 		byte_vector bv_payload = Vectors.bytes2byte_vector(payload);
 		this.tx = new transaction(bv_chain_id, tv, timestamp,
 					   pk_sender, pk_receiver, nonce, amount, fee, bv_payload);
+
+		this.txid = this.tx.sha256();
 	}
 
     public Transaction(transaction tx) {
@@ -69,9 +74,15 @@ public final class Transaction {
 		this.amount = tx.amount();
 		this.fee = tx.fee();
 		this.payload = Vectors.byte_vector2bytes(tx.payload());
-		
 		this.tx = tx;
+		this.txid = tx.sha256();
 
+	}
+
+	public void sign(String publicKey, String secretKey) {
+		public_key pk = new public_key(publicKey);
+		secret_key sk = new secret_key(secretKey);
+		this.tx.sign(pk, sk);
 	}
 
   	public byte[] getChainID() {
@@ -108,6 +119,14 @@ public final class Transaction {
 
   	public byte[] getPayload() {
     	return this.payload;
+  	}
+
+  	public sha256_hash getTxID() {
+    	return this.txid;
+  	}
+
+  	public boolean verifySignature() {
+    	return this.tx.verify_signature();
   	}
 
 	public transaction swig() {

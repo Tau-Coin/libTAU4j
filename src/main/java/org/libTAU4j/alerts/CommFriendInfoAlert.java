@@ -20,7 +20,7 @@ public final class CommFriendInfoAlert extends AbstractAlert<communication_frien
     CommFriendInfoAlert(communication_friend_info_alert alert) {
         super(alert);
 
-		this.peer = Vectors.byte_vector2bytes(alert.get_peer());
+		this.peer = Vectors.byte_vector2bytes(alert.getPeer().to_bytes());
         this.friendInfo = Vectors.byte_vector2bytes(alert.get_friend_info());
 		this.alertMsg = alert.message();
 

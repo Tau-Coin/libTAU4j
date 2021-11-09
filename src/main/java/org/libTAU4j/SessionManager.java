@@ -351,7 +351,7 @@ public class SessionManager {
     /**
      * This is for create new community
      */
-    public boolean createNewCommunity(String chainID, Map<String, Account> accounts) {
+    public boolean createNewCommunity(byte[] chainID, Map<String, Account> accounts) {
 		if (session != null) {
 			return new SessionHandle(session).createNewCommunity(chainID, accounts);
 		}
@@ -361,7 +361,7 @@ public class SessionManager {
     /**
      * This is for follow chain
      */
-    public boolean followChain(String chainID, Set<String> peers) {
+    public boolean followChain(byte[] chainID, Set<String> peers) {
 		if (session != null) {
 			return new SessionHandle(session).followChain(chainID, peers);
 		}
@@ -371,7 +371,7 @@ public class SessionManager {
     /**
      * This is for unfollow chain
      */
-    public boolean unfollowChain(String chainID) {
+    public boolean unfollowChain(byte[] chainID) {
 		if (session != null) {
 			return new SessionHandle(session).unfollowChain(chainID);
 		}
@@ -379,9 +379,19 @@ public class SessionManager {
     }
 
     /**
+     * This is for submit transaction
+     */
+    public boolean submitTransaction(Transaction tx) {
+		if (session != null) {
+			return new SessionHandle(session).submitTransaction(tx);
+		}
+		return false;
+    }
+
+    /**
      * This is for get_account_info
      */
-    public Account getAccountInfo(String chainID, String pubkey) {
+    public Account getAccountInfo(byte[] chainID, String pubkey) {
 		if (session != null) {
 			return new SessionHandle(session).getAccountInfo(chainID, pubkey);
 		}
@@ -391,7 +401,7 @@ public class SessionManager {
     /**
      * This is for get_top_tip_block
      */
-    public ArrayList<Block> getTopTipBlock(String chainID, int num) {
+    public ArrayList<Block> getTopTipBlock(byte[] chainID, int num) {
 		if (session != null) {
 			return new SessionHandle(session).getTopTipBlock(chainID, num);
 		}
@@ -401,7 +411,7 @@ public class SessionManager {
     /**
      * This is for get_median_tx_free
      */
-    public long getMedianTxFee(String chainID) {
+    public long getMedianTxFee(byte[] chainID) {
 		if (session != null) {
 			return new SessionHandle(session).getMedianTxFee(chainID);
 		}

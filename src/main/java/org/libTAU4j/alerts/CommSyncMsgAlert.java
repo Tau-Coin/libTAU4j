@@ -23,7 +23,7 @@ public final class CommSyncMsgAlert extends AbstractAlert<communication_syncing_
 
     CommSyncMsgAlert(communication_syncing_message_alert alert) {
         super(alert);
-		this.peer = Vectors.byte_vector2bytes(alert.get_peer());
+		this.peer = Vectors.byte_vector2bytes(alert.getPeer().to_bytes());
         this.syncMsgHash = Vectors.byte_vector2bytes(alert.getSyncing_msg_hash().to_bytes());
 		this.timestamp = alert.get_timestamp();
 		this.alertMsg = alert.message();

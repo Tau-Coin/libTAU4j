@@ -25,28 +25,26 @@ import java.util.Set;
  */
 public final class ChainURL {
 
-	private final String chainID;
+	private final byte[] chainID;
 	private final Set<String> peers;
 
     private final chain_url cul;
 
-    public ChainURL(String chainID, Set<String> peers) {
+    public ChainURL(byte[] chainID, Set<String> peers) {
 
 		this.chainID = chainID;
 		this.peers = peers;
 	
-		byte[] id = Hex.decode(chainID);
 		pubkey_set ps = new pubkey_set();
 		for(String p: peers){
 			ps.add(new public_key(p));
 		}
-		this.cul = new chain_url(Vectors.bytes2byte_vector(id), ps);
+		this.cul = new chain_url(Vectors.bytes2byte_vector(chainID), ps);
 	}
 
     public ChainURL(chain_url cul) {
 		this.cul = cul;
-		byte[] id = Vectors.byte_vector2bytes(cul.chain_id());
-		this.chainID = Hex.encode(id);
+		this.chainID = Vectors.byte_vector2bytes(cul.chain_id());
 		this.peers = new HashSet();
 		pubkey_set ps = cul.peers();		
 		Iterator<public_key> it = ps.iterator();
@@ -57,7 +55,7 @@ public final class ChainURL {
 		}
 	}
 
-  	public String getChainID() {
+  	public byte[] getChainID() {
     	return this.chainID;
   	}
 
