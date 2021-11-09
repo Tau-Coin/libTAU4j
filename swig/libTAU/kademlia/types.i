@@ -17,9 +17,8 @@ namespace libTAU {
             bool operator>=(const public_key &rhs) const;
 
             %extend {
-		        public_key(const std::array<std::int8_t, 32> & b) {
-                    std::string str_key(b.begin(), b.end());
-                    libTAU::dht::public_key(str_key.c_str());
+                public_key(const std::array<std::int8_t, 32> & b) {
+                    return new libTAU::dht::public_key((char *)b.data());
                 }
 
                 std::vector<std::int8_t> to_bytes() {
@@ -37,9 +36,8 @@ namespace libTAU {
 		    explicit secret_key(char const* b);
 		    bool operator==(secret_key const& rhs) const;
             %extend {
-		        explicit secret_key(const std::array<std::int8_t, 64> & b) {
-                    std::string str_key(b.begin(), b.end());
-                    libTAU::dht::secret_key(str_key.c_str());
+		        secret_key(const std::array<std::int8_t, 64> & b) {
+                    return new libTAU::dht::secret_key((char *)b.data());
                 }
             }
         };
@@ -51,8 +49,7 @@ namespace libTAU {
 		    bool operator==(signature const& rhs) const;
             %extend {
 		        explicit signature(const std::array<std::int8_t, 64> & s) {
-                    std::string str_sign(s.begin(), s.end());
-                    libTAU::dht::signature(str_sign.c_str());
+                    return new libTAU::dht::signature((char *)s.data());
                 }
             }
         };

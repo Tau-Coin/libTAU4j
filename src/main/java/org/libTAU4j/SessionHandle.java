@@ -23,6 +23,7 @@ import org.libTAU4j.swig.save_state_flags_t;
 import org.libTAU4j.swig.session_flags_t;
 import org.libTAU4j.swig.session_handle;
 import org.libTAU4j.swig.vector_byte_array_32;
+import org.libTAU4j.swig.byte_array_32;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -148,7 +149,9 @@ public final class SessionHandle
      */
     public boolean addNewFriend(String pubkey) {
 		//key -> dht pubkey
-        public_key key = new public_key(pubkey);
+		byte[] pk = Hex.decode(pubkey);
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+        public_key key = new public_key(bpk);
         return h.add_new_friend(key);
     }
 
@@ -157,7 +160,9 @@ public final class SessionHandle
      */
     public boolean deleteFriend(String pubkey) {
 		//key -> dht pubkey
-        public_key key = new public_key(pubkey);
+		byte[] pk = Hex.decode(pubkey);
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+        public_key key = new public_key(bpk);
         return h.delete_friend(key);
     }
 
@@ -166,7 +171,9 @@ public final class SessionHandle
      */
     public boolean updateFriendInfo(String pubkey, byte[] info) {
 		//key -> dht pubkey
-        public_key key = new public_key(pubkey);
+		byte[] pk = Hex.decode(pubkey);
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+        public_key key = new public_key(bpk);
         return h.update_friend_info(key, Vectors.bytes2byte_vector(info));
     }
 
@@ -175,7 +182,9 @@ public final class SessionHandle
      */
     public byte[] getFriendInfo(String pubkey) {
 		//key -> dht pubkey
-        public_key key = new public_key(pubkey);
+		byte[] pk = Hex.decode(pubkey);
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+        public_key key = new public_key(bpk);
         byte_vector info = h.get_friend_info(key);
 		return Vectors.byte_vector2bytes(info);
     }
@@ -188,7 +197,10 @@ public final class SessionHandle
 		pubkey_vector pks = new pubkey_vector();
 
 		for(int i= 0; i< pubkeys.size(); i++){
-			pks.add(new public_key(pubkeys.get(i)));
+			byte[] pk = Hex.decode(pubkeys.get(i));
+			byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+        	public_key key = new public_key(bpk);
+			pks.add(key);
 		}
 
         h.set_active_friends(pks);
@@ -198,7 +210,9 @@ public final class SessionHandle
      * This is for setting chatting friend.
      */
     public void setChattingFriend(String pubkey) {
-		public_key key = new public_key(pubkey);
+		byte[] pk = Hex.decode(pubkey);
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+        public_key key = new public_key(bpk);
         h.set_chatting_friend(key);
     }
 
@@ -230,9 +244,11 @@ public final class SessionHandle
     public boolean createNewCommunity(byte[] chainID, Map<String, Account> accounts) {
 		//map string, account -> public_key, account
 		pubkey_account_map pam = new pubkey_account_map();
-		for(String pk : accounts.keySet()) {
-			public_key key = new public_key(pk);
-			pam.put(key, accounts.get(pk).swig());
+		for(String pubkey : accounts.keySet()) {
+			byte[] pk = Hex.decode(pubkey);
+		    byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+        	public_key key = new public_key(bpk);
+			pam.put(key, accounts.get(pubkey).swig());
 		}
         return h.create_new_community(Vectors.bytes2byte_vector(chainID), pam);
     }
@@ -264,7 +280,9 @@ public final class SessionHandle
      */
     public Account getAccountInfo(byte[] chainID, String pubkey) {
 		//key -> dht pubkey
-		public_key key = new public_key(pubkey);
+		byte[] pk = Hex.decode(pubkey);
+	    byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+       	public_key key = new public_key(bpk);
         return new Account(h.get_account_info(Vectors.bytes2byte_vector(chainID), key));
     }
 

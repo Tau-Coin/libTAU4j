@@ -8,6 +8,8 @@
 package org.libTAU4j;
 
 import org.libTAU4j.swig.byte_vector;
+import org.libTAU4j.swig.byte_array_32;
+import org.libTAU4j.swig.byte_array_64;
 import org.libTAU4j.swig.public_key;
 import org.libTAU4j.swig.secret_key;
 import org.libTAU4j.swig.sha256_hash;
@@ -80,9 +82,15 @@ public final class Transaction {
 	}
 
 	public void sign(String publicKey, String secretKey) {
-		public_key pk = new public_key(publicKey);
-		secret_key sk = new secret_key(secretKey);
-		this.tx.sign(pk, sk);
+		byte[] pk = Hex.decode(publicKey);
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+        public_key key1 = new public_key(bpk);
+
+		byte[] sk = Hex.decode(secretKey);
+		byte_array_64 bsk = Vectors.bytes2byte_array_64(sk);
+		secret_key key2 = new secret_key(bsk);
+
+		this.tx.sign(key1, key2);
 	}
 
   	public byte[] getChainID() {

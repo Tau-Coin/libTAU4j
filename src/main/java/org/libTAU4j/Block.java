@@ -162,6 +162,10 @@ public final class Block {
     	return this.receiver_nonce;
   	}
 
+  	public Transaction getTx() {
+    	return this.tx;
+  	}
+
 	public block swig() {
     	return this.bk;
 	}

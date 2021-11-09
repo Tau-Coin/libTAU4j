@@ -2,7 +2,6 @@ package org.libTAU4j.alerts;
 
 import org.libTAU4j.Vectors;
 import org.libTAU4j.swig.communication_confirmation_root_alert;
-import org.libTAU4j.swig.public_key;
 import org.libTAU4j.swig.sha256_hash_vector;
 
 import java.util.ArrayList;
