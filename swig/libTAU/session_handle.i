@@ -8,12 +8,7 @@
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>, std::string);
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>);
 %ignore libTAU::session_handle::new_account_seed(std::array<char, 32> seed);
-%ignore libTAU::session_handle::add_new_friend(std::array<char, 32> pubkey);
-%ignore libTAU::session_handle::update_friend_info(std::array<char, 32> pubkey, std::vector<char> friend_info);
-%ignore libTAU::session_handle::get_friend_info(std::array<char, 32> pubkey);
-%ignore libTAU::session_handle::delete_friend(std::array<char, 32> pubkey);
-%ignore libTAU::session_handle::set_chatting_friend(std::array<char, 32> pubkey);
-%ignore libTAU::session_handle::set_active_friends(std::vector<std::array<char, 32>> friends);
+%ignore libTAU::session_handle::update_friend_info(dht::public_key& pubkey, std::vector<char> friend_info);
 %ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::map<dht::public_key, blockchain::account>& accounts);
 %ignore libTAU::session_handle::unfollow_chain(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_account_info(std::vector<char> chain_id, dht::public_key pub_key);
@@ -101,75 +96,18 @@ namespace libTAU {
         $self->set_loop_time_interval(milliseconds);
     }
 
-    bool add_new_friend(std::array<std::int8_t, 32>& pubkey)
-    {
-        std::array<char, 32> pk;
-        std::copy_n(pubkey.begin(), 32, pk.begin());
-
-        return $self->add_new_friend(pk);
-    }
-
-    bool delete_friend(std::array<std::int8_t, 32>& pubkey)
-    {
-        std::array<char, 32> pk;
-        std::copy_n(pubkey.begin(), 32, pk.begin());
-
-        return $self->delete_friend(pk);
-    }
-
-    void set_chatting_friend(std::array<std::int8_t, 32>& pubkey)
-    {
-        std::array<char, 32> pk;
-        std::copy_n(pubkey.begin(), 32, pk.begin());
-
-        $self->set_chatting_friend(pk);
-    }
-
-    std::vector<std::int8_t> get_friend_info(std::array<std::int8_t, 32> pubkey)
-    {
-        std::array<char, 32> pk;
-        std::copy_n(pubkey.begin(), 32, pk.begin());
-
-        std::vector<char> friend_info = $self->get_friend_info(pk);
-
-        std::vector<std::int8_t> info; 
-        std::copy(friend_info.begin(), friend_info.end(), std::inserter(info, info.begin()));
-        return info;
-    }
-
     void unset_chatting_friend()
     {
         $self->unset_chatting_friend();
     }
 
-    bool update_friend_info(std::array<std::int8_t, 32> pubkey, std::vector<std::int8_t> friend_info)
+    bool update_friend_info(dht::public_key & pubkey, std::vector<std::int8_t> friend_info)
     {
-        std::array<char, 32> pk;
-        std::copy_n(pubkey.begin(), 32, pk.begin());
-
         std::vector<char> info;
         std::copy(friend_info.begin(), friend_info.end(), std::inserter(info, info.begin()));
 
-        return $self->update_friend_info(pk, info);
+        return $self->update_friend_info(pubkey, info);
     }
-
-    void set_active_friends(std::vector<std::array<std::int8_t, 32>> active_friends)
-    {
-        std::vector<std::array<char, 32>> afs;
-		std::array<char, 32> pk;
-		for(auto af = active_friends.begin() ; af != active_friends.end(); af++) {
-        	std::copy_n((*af).begin(), 32, pk.begin());
-			afs.push_back(pk);
-		}
-        $self->set_active_friends(afs);
-    }
-
-    /*
-    bool add_new_message(libTAU::communication::message msg)
-    {
-        return $self->add_new_message(msg);
-    }
-    */
 
     bool create_new_community(std::vector<std::int8_t> chain_id, const std::map<dht::public_key, blockchain::account>& accounts)
     {   
