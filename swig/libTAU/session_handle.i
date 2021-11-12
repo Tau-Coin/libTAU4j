@@ -9,6 +9,7 @@
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>);
 %ignore libTAU::session_handle::new_account_seed(std::array<char, 32> seed);
 %ignore libTAU::session_handle::update_friend_info(dht::public_key& pubkey, std::vector<char> friend_info);
+%ignore libTAU::session_handle::create_chain_id(std::vector<char> community_name);
 %ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::map<dht::public_key, blockchain::account>& accounts);
 %ignore libTAU::session_handle::unfollow_chain(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_account_info(std::vector<char> chain_id, dht::public_key pub_key);
@@ -31,6 +32,7 @@
 %ignore libTAU::session_handle::tcp_peer_class_id;
 %ignore libTAU::session_handle::local_peer_class_id;
 %ignore libTAU::session_handle::create_peer_class;
+%ignore libTAU::session_handle::get_friend_info;
 
 %include "libTAU/session_handle.hpp"
 
@@ -109,6 +111,28 @@ namespace libTAU {
         return $self->update_friend_info(pubkey, info);
     }
 
+    std::vector<std::int8_t> get_friend_info_java(dht::public_key & pubkey)
+    {   
+        std::vector<char> info = $self->get_friend_info(pubkey);
+        std::vector<std::int8_t> friend_info;
+        std::copy(info.begin(), info.end(), std::inserter(friend_info, friend_info.begin()));
+
+        return friend_info;
+    }
+
+    std::vector<std::int8_t> create_chain_id(std::vector<std::int8_t> community_name)
+    {   
+        std::vector<char> name;
+        std::copy(community_name.begin(), community_name.end(), std::inserter(name, name.begin()));
+
+        std::vector<char> id = $self->create_chain_id(name);
+        
+        std::vector<std::int8_t> chain_id;
+        std::copy(id.begin(), id.end(), std::inserter(chain_id, chain_id.begin()));
+
+        return chain_id;
+    }
+
     bool create_new_community(std::vector<std::int8_t> chain_id, const std::map<dht::public_key, blockchain::account>& accounts)
     {   
         std::vector<char> id;
@@ -130,11 +154,12 @@ namespace libTAU {
         return $self->get_account_info(id, pub_key);
     }
 
-    std::vector<blockchain::block> session_handle::get_top_tip_block(std::vector<std::int8_t> chain_id, int num)
+    std::vector<libTAU::blockchain::block> session_handle::get_top_tip_block(std::vector<std::int8_t> chain_id, int num)
     {
         std::vector<char> id;
         std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
-        return $self->get_top_tip_block(id, num);
+        std::vector<libTAU::blockchain::block> blks = $self->get_top_tip_block(id, num);
+        return blks;
     }
 
     std::int64_t session_handle::get_median_tx_free(std::vector<std::int8_t> chain_id)

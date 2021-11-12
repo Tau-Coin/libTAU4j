@@ -185,7 +185,7 @@ public final class SessionHandle
 		byte[] pk = Hex.decode(pubkey);
 		byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
         public_key key = new public_key(bpk);
-        byte_vector info = h.get_friend_info(key);
+        byte_vector info = h.get_friend_info_java(key);
 		return Vectors.byte_vector2bytes(info);
     }
 
@@ -234,7 +234,8 @@ public final class SessionHandle
      * This is for create chain id
      */
     public byte[] createChainID(String communityName) {
-		byte_vector id = h.create_chain_id(communityName);
+		byte[] name = communityName.getBytes();
+		byte_vector id = h.create_chain_id(Vectors.bytes2byte_vector(name));
 		return Vectors.byte_vector2bytes(id);
     }
 
@@ -245,6 +246,7 @@ public final class SessionHandle
 		//map string, account -> public_key, account
 		pubkey_account_map pam = new pubkey_account_map();
 		for(String pubkey : accounts.keySet()) {
+			System.out.println(pubkey);
 			byte[] pk = Hex.decode(pubkey);
 		    byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
         	public_key key = new public_key(bpk);
