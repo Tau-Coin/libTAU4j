@@ -464,16 +464,6 @@ public final class SessionHandle
     }
 
     /**
-     * returns the port we ended up listening on. Since you
-     * just pass a port-range to the constructor and to ``listen_on()``, to
-     * know which port it ended up using, you have to ask the session using
-     * this function.
-     */
-    public int getListenPort() {
-        return h.listen_port();
-    }
-
-    /**
      * will tell you whether or not the session has
      * successfully opened a listening port. If it hasn't, this function will
      * return false, and then you can use ``listen_on()`` to make another

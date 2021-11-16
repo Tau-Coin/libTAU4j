@@ -53,7 +53,7 @@ jobs:
           wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
           tar xzf openssl.tar.gz
           cd openssl-${OPENSSL_VERSION}
-          ./Configure linux-aarch64 ${OPENSSL_NO_OPTS} -fPIC --prefix=${PWD}/../openssl
+          ./Configure linux-generic32 ${OPENSSL_NO_OPTS} -fPIC --prefix=${PWD}/../openssl
           make &> /dev/null
           make install_sw &> /dev/null
           cd ..
@@ -78,4 +78,4 @@ jobs:
           make install
       - name: build
         run: |
-          ../../build-android-arm64.sh
+          ../../build-android-arm32.sh
