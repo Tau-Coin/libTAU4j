@@ -37,7 +37,8 @@ public final class ChainURL {
 	
 		pubkey_set ps = new pubkey_set();
 		for(String p: peers){
-			ps.add(new public_key(p));
+			byte[] peer = Hex.decode(p);
+			ps.add(new public_key(Vectors.bytes2byte_array_32(peer)));
 		}
 		this.cul = new chain_url(Vectors.bytes2byte_vector(chainID), ps);
 	}
