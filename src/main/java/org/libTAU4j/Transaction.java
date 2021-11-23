@@ -137,6 +137,10 @@ public final class Transaction {
     	return this.tx.verify_signature();
   	}
 
+	public long Size(){
+		return 68 + chain_id.length + sender.length + receiver.length + payload.length;
+	}
+
 	public transaction swig() {
     	return this.tx;
 	}

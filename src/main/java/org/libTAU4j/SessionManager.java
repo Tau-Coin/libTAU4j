@@ -418,6 +418,16 @@ public class SessionManager {
 		return -1;
     }
 
+    /**
+     * This is for get session time
+     */
+    public long getSessionTime() {
+		if (session != null) {
+			return new SessionHandle(session).getSessionTime();
+		}
+		return -1;
+    }
+
     //--------------------------------------------------
     // Settings methods
     //--------------------------------------------------

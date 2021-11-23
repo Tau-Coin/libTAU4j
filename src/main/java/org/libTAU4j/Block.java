@@ -13,6 +13,8 @@ import org.libTAU4j.swig.block_version;
 import org.libTAU4j.swig.public_key;
 import org.libTAU4j.swig.sha256_hash;
 
+import java.math.BigInteger;
+
 /**
  * The Entry class represents one node in a bencoded hierarchy. It works as a
  * variant type, it can be either a list, a dictionary, an integer
@@ -28,8 +30,8 @@ public final class Block {
 	private final long timestamp;
 	private final long block_number;
 	private final byte[] previous_block_hash;
-	private final long base_target;
-	private final long cumulative_difficulty;
+	private final BigInteger base_target;
+	private final BigInteger cumulative_difficulty;
 	private final byte[] generation_signature;
 	private final Transaction tx;
 	private final byte[] miner;
@@ -40,10 +42,11 @@ public final class Block {
 	private final long receiver_balance;
 	private final long receiver_nonce;
 
-    private final block bk;
+    private final block blk;
+    private final String blk_hash; //hex string
 
     public Block(byte[] chain_id, int version, long timestamp, long block_number,
-			byte[] previous_block_hash, long base_target, long cumulative_difficulty,
+			byte[] previous_block_hash, BigInteger base_target, BigInteger cumulative_difficulty,
 			byte[] generation_signature, Transaction tx, 
 			byte[] miner, long miner_balance, long miner_nonce,
 			long sender_balance, long sender_nonce, 
@@ -72,33 +75,40 @@ public final class Block {
 		sha256_hash sh_sign = new sha256_hash(Vectors.bytes2byte_vector(generation_signature));
 		public_key  pk_miner = new public_key(Vectors.bytes2byte_array_32(miner));
 
-		this.bk = new block(bv_chain_id, bv, timestamp, block_number,
+		this.blk = new block(bv_chain_id, bv, timestamp, block_number,
 					  sh_pbh, base_target, cumulative_difficulty,
 					  sh_sign, tx.swig(), 
 					  pk_miner, miner_balance, miner_nonce,
 					  sender_balance, sender_nonce, receiver_balance, receiver_nonce);
+
+		this.blk_hash = this.blk.sha256().to_hex();
 	}
 
-    public Block(block bk) {
+    public Block(block blk) {
 
-		this.chain_id = Vectors.byte_vector2bytes(bk.chain_id());
-		this.version = bk.version().swigValue();
-		this.timestamp = bk.timestamp();
-		this.block_number = bk.block_number();
-		this.previous_block_hash = Vectors.byte_vector2bytes(bk.previous_block_hash().to_bytes());
-		this.base_target = bk.base_target();
-		this.cumulative_difficulty = bk.cumulative_difficulty();
-		this.generation_signature = Vectors.byte_vector2bytes(bk.generation_signature().to_bytes());
-		this.tx = new Transaction(bk.tx());
-		this.miner = Vectors.byte_vector2bytes(bk.miner().to_bytes());
-		this.miner_balance = bk.miner_balance();
-		this.miner_nonce = bk.miner_nonce();
-		this.sender_balance = bk.sender_balance();
-		this.sender_nonce = bk.sender_nonce();
-		this.receiver_balance = bk.receiver_balance();
-		this.receiver_nonce = bk.receiver_nonce();
+		this.chain_id = Vectors.byte_vector2bytes(blk.chain_id());
+		this.version = blk.version().swigValue();
+		this.timestamp = blk.timestamp();
+		this.block_number = blk.block_number();
+		this.previous_block_hash = Vectors.byte_vector2bytes(blk.previous_block_hash().to_bytes());
+		this.base_target = blk.base_target();
+		this.cumulative_difficulty = blk.cumulative_difficulty();
+		this.generation_signature = Vectors.byte_vector2bytes(blk.generation_signature().to_bytes());
+		if(blk.tx() != null) {
+			this.tx = new Transaction(blk.tx());
+		} else {
+			this.tx = null;
+		}
+		this.miner = Vectors.byte_vector2bytes(blk.miner().to_bytes());
+		this.miner_balance = blk.miner_balance();
+		this.miner_nonce = blk.miner_nonce();
+		this.sender_balance = blk.sender_balance();
+		this.sender_nonce = blk.sender_nonce();
+		this.receiver_balance = blk.receiver_balance();
+		this.receiver_nonce = blk.receiver_nonce();
 		
-		this.bk = bk;
+		this.blk = blk;
+		this.blk_hash = blk.sha256().to_hex();
 
 	}
 
@@ -122,11 +132,11 @@ public final class Block {
     	return this.previous_block_hash;
   	}
 
-  	public long getBaseTarget() {
+  	public BigInteger getBaseTarget() {
     	return this.base_target;
   	}
 
-  	public long getCumulativeDifficulty() {
+  	public BigInteger getCumulativeDifficulty() {
     	return this.cumulative_difficulty;
   	}
 
@@ -166,8 +176,18 @@ public final class Block {
     	return this.tx;
   	}
 
+	public String Hash() {
+    	return this.blk_hash;
+	}
+
+	public long Size() {
+    	return 84 + chain_id.length + tx.Size() 
+			      + previous_block_hash.length + generation_signature.length 
+				  + miner.length;
+	}
+
 	public block swig() {
-    	return this.bk;
+    	return this.blk;
 	}
 
 }

@@ -309,6 +309,13 @@ public final class SessionHandle
     }
 
     /**
+     * This is for get_session_time
+     */
+    public long getSessionTime() {
+        return h.get_session_time();
+    }
+
+    /**
      * Delete the files belonging to the torrent from disk,
      * including the part-file, if there is one.
      */
