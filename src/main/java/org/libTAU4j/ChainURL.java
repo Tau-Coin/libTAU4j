@@ -114,8 +114,8 @@ public final class ChainURL {
 
     public static String chainURLBytesToString(byte[] chain_url) {
 		String URL_PREFIX = "tauchain:?";
-		String KEY_PEER = "bs";
-		String KEY_CHAIN_ID = "dn";
+		String KEY_PEER = "bs=";
+		String KEY_CHAIN_ID = "&dn=";
 
 		String str_asc_url = "";
 		String str_url = "";
@@ -130,45 +130,58 @@ public final class ChainURL {
 		str_url = URL_PREFIX;
 		
         // bs=pk1&bs=pk2&dn=chainID
-        index = str_asc_url.indexOf('&');
-        while (index != -1) {
-            // bs=pk1
-            String kv = str_asc_url.substring(0, index);
-            int i = kv.indexOf('=');
-            String k = kv.substring(0, i); 
-            String v = kv.substring(i + 1); 
-            if (k.equals(KEY_PEER)) {
-				str_url = str_url + KEY_PEER + "=";
-				//string -> hex
-				byte[] tag_key = null;
-        		try {
-					tag_key =  v.getBytes("US-ASCII");
-        		} catch (UnsupportedEncodingException e) {
-            		throw new RuntimeException(e);
-				}
-				str_url += Hex.encode(tag_key);
-            }
-
-            str_asc_url = str_asc_url.substring(index + 1); 
-
-            index = str_asc_url.indexOf('&');
-			str_url += "&";
-        }
-
-        String kv = str_asc_url;
-        int i = kv.indexOf('=');
-        String k = kv.substring(0, i); 
-        String v = kv.substring(i + 1);	
-	
-		byte[] id = null;
+		byte[] key_peer_byte_1 = new byte[3];
+		byte[] key_peer_byte_2 = new byte[4];
+		byte[] addr_byte = new byte[32];
+		
+		System.arraycopy(chain_url, URL_PREFIX.length(), key_peer_byte_1, 0, 3);
+		String key_peer_str = "";
         try {
-			id = v.getBytes("US-ASCII");
+			key_peer_str =  new String(key_peer_byte_1, "US-ASCII");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
 		}
+		int bs_count = 0;
+		int pointer = 0;
+        while ((key_peer_str.equals(KEY_PEER))||(key_peer_str.equals("&bs="))) {
+			if(bs_count == 0) {
+				pointer = URL_PREFIX.length() + 3;
+				str_url = str_url + KEY_PEER;
+				System.arraycopy(chain_url, pointer, addr_byte, 0, 32);
+			} else {
+				pointer = URL_PREFIX.length() + 3 + (bs_count + 1)*4 + bs_count * 32;
+				str_url = str_url + "&" + KEY_PEER;
+				System.arraycopy(chain_url, pointer, addr_byte, 0, 32);
+			}
+			str_url += Hex.encode(addr_byte);
+			bs_count++;
+			pointer = URL_PREFIX.length() + 3 + bs_count * 36;
+			System.arraycopy(chain_url, pointer, key_peer_byte_2, 0, 4);
+        	try {
+				key_peer_str =  new String(key_peer_byte_2, "US-ASCII");
+        	} catch (UnsupportedEncodingException e) {
+            	throw new RuntimeException(e);
+			}
+        }
 
-        if (k.equals(KEY_CHAIN_ID)) {
-			str_url += KEY_CHAIN_ID + "=" + chainIDBytesToString(id);
+		if(bs_count > 0) { 
+			pointer = URL_PREFIX.length() + 3 + (bs_count - 1)* 4 + bs_count * 32;
+		} else {
+			pointer = URL_PREFIX.length();
+		}
+		System.arraycopy(chain_url, pointer, key_peer_byte_2, 0, 4);
+       	try {
+			key_peer_str =  new String(key_peer_byte_2, "US-ASCII");
+       	} catch (UnsupportedEncodingException e) {
+           	throw new RuntimeException(e);
+		}
+	
+		pointer += 4;
+		int id_size = chain_url.length - pointer;
+		byte[] id_bytes = new byte[id_size];
+		System.arraycopy(chain_url, pointer, id_bytes, 0, id_size);
+        if (key_peer_str.equals(KEY_CHAIN_ID)) {
+			str_url += KEY_CHAIN_ID + chainIDBytesToString(id_bytes);
         }
 	
         return str_url;
@@ -191,35 +204,44 @@ public final class ChainURL {
 		}
 		
         // bs=pk1&bs=pk2&dn=chainID
+		// tauchain:?&dn=6b2fad7f7e8e2571TauTest
         index = chain_url.indexOf('&');
-        while (index != -1) {
+        while (index != -1 && index != 0) {
             // bs=pk1
             String kv = chain_url.substring(0, index);
             int i = kv.indexOf('=');
-            String k = kv.substring(0, i); 
-            String v = kv.substring(i + 1); 
-            if (k.equals(KEY_PEER)) {
+           	String k = kv.substring(0, i); 
+           	String v = kv.substring(i + 1); 
+           	if (k.equals(KEY_PEER)) {
 				String tag_key= KEY_PEER + "=";
-        		try {
+       			try {
 					byte_array.add(tag_key.getBytes("US-ASCII"));
-        		} catch (UnsupportedEncodingException e) {
-            		throw new RuntimeException(e);
+       			} catch (UnsupportedEncodingException e) {
+           			throw new RuntimeException(e);
 				}
 				byte_array.add(Hex.decode(v));
-            }
-
+           	}
             chain_url = chain_url.substring(index + 1); 
-
             index = chain_url.indexOf('&');
 			byte[] tag_7 = null;
         	try {
 				tag_7 =  "&".getBytes("US-ASCII");
         	} catch (UnsupportedEncodingException e) {
-            	throw new RuntimeException(e);
+           		throw new RuntimeException(e);
 			}
 			byte_array.add(tag_7);
         }
 
+		if(index == 0) { 
+            chain_url = chain_url.substring(index + 1); 
+			byte[] tag_7 = null;
+        	try {
+				tag_7 =  "&".getBytes("US-ASCII");
+        	} catch (UnsupportedEncodingException e) {
+           		throw new RuntimeException(e);
+			}
+			byte_array.add(tag_7);
+		}
         String kv = chain_url;
         int i = kv.indexOf('=');
         String k = kv.substring(0, i); 
@@ -237,7 +259,6 @@ public final class ChainURL {
         if (k.equals(KEY_CHAIN_ID)) {
 			byte_array.add(chainIDStringToBytes(v));
         }
-
 
 		//total size
 		int byte_url_size = 0;
@@ -259,5 +280,48 @@ public final class ChainURL {
 		}
 
         return byte_url;
+    }
+
+    public static ChainURL chainURLStringToChainURL(String chain_url) {
+
+		String URL_PREFIX = "tauchain:?";
+		String KEY_PEER = "bs";
+		String KEY_CHAIN_ID = "dn";
+
+		Set<String> peers = new HashSet();
+
+		int index = chain_url.indexOf(URL_PREFIX);
+        chain_url = chain_url.substring(index + URL_PREFIX.length());
+		
+        // bs=pk1&bs=pk2&dn=chainID
+		// tauchain:?&dn=6b2fad7f7e8e2571TauTest
+        index = chain_url.indexOf('&');
+        while (index != -1 && index != 0) {
+            // bs=pk1
+            String kv = chain_url.substring(0, index);
+            int i = kv.indexOf('=');
+           	String k = kv.substring(0, i); 
+           	String v = kv.substring(i + 1); 
+           	if (k.equals(KEY_PEER)) {
+				peers.add(v);
+           	}
+            chain_url = chain_url.substring(index + 1); 
+            index = chain_url.indexOf('&');
+        }
+
+		if(index == 0) { 
+            chain_url = chain_url.substring(index + 1); 
+		}
+        String kv = chain_url;
+        int i = kv.indexOf('=');
+        String k = kv.substring(0, i); 
+        String v = kv.substring(i + 1);	
+	
+		byte[] chain_id = null;
+        if (k.equals(KEY_CHAIN_ID)) {
+			chain_id = chainIDStringToBytes(v);
+        }
+
+        return new ChainURL(chain_id, peers);
     }
 }
