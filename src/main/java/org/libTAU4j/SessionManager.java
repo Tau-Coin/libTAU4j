@@ -269,6 +269,18 @@ public class SessionManager {
         return new ArrayList<>(listenEndpoints.values());
     }
 
+	
+    /**
+     * Update listen interfaces and this method will trigger reopening network sockets.
+     *
+     * @param interfaces listen network interfaces.
+     */
+    public void updateListenInterfaces(String interfaces) {
+		if (session != null) {
+			new SessionHandle(session).updateListenInterfaces(interfaces);
+		}
+    }
+
 	public void updateAccountSeed(byte[] seed) {
 		if (session != null) {
 			new SessionHandle(session).updateAccountSeed(seed);
