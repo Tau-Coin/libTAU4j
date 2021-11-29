@@ -269,7 +269,7 @@ public final class Alerts {
         arr[39] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new BlockChainNewTipBlockAlert(cast_to_blockchain_new_head_block_alert(a));
+                return new BlockChainNewHeadBlockAlert(cast_to_blockchain_new_head_block_alert(a));
             }
         };
         arr[40] = new CastLambda() {
