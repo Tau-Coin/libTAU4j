@@ -269,7 +269,7 @@ public final class Alerts {
         arr[39] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new BlockChainNewTipBlockAlert(cast_to_blockchain_new_tip_block_alert(a));
+                return new BlockChainNewTipBlockAlert(cast_to_blockchain_new_head_block_alert(a));
             }
         };
         arr[40] = new CastLambda() {
@@ -281,22 +281,28 @@ public final class Alerts {
         arr[41] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new BlockChainRollbackBlockAlert(cast_to_blockchain_rollback_block_alert(a));
+                return new BlockChainNewConsensusPointBlockAlert(cast_to_blockchain_new_consensus_point_block_alert(a));
             }
         };
         arr[42] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new BlockChainForkPointBlockAlert(cast_to_blockchain_fork_point_block_alert(a));
+                return new BlockChainRollbackBlockAlert(cast_to_blockchain_rollback_block_alert(a));
             }
         };
         arr[43] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
-                return new BlockChainTopThreeVotesAlert(cast_to_blockchain_top_three_votes_alert(a));
+                return new BlockChainForkPointBlockAlert(cast_to_blockchain_fork_point_block_alert(a));
             }
         };
         arr[44] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new BlockChainTopThreeVotesAlert(cast_to_blockchain_top_three_votes_alert(a));
+            }
+        };
+        arr[45] = new CastLambda() {
             @Override
             public Alert cast(alert a) {
                 return new BlockChainNewTransactionAlert(cast_to_blockchain_new_transaction_alert(a));

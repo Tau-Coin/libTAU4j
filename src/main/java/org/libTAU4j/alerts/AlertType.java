@@ -39,8 +39,9 @@ public enum AlertType {
     COMM_LOG(communication_log_alert.alert_type),
     COMM_LAST_SEEN(communication_last_seen_alert.alert_type),
     BLOCK_CHAIN_LOG(blockchain_log_alert.alert_type),
-    BLOCK_CHAIN_TIP_BLOCK(blockchain_new_tip_block_alert.alert_type),
+    BLOCK_CHAIN_HEAD_BLOCK(blockchain_new_head_block_alert.alert_type),
     BLOCK_CHAIN_TAIL_BLOCK(blockchain_new_tail_block_alert.alert_type),
+    BLOCK_CHAIN_CONSENSUS_POINT_BLOCK(blockchain_new_consensus_point_block_alert.alert_type),
     BLOCK_CHAIN_ROLLBACK_BLOCK(blockchain_rollback_block_alert.alert_type),
     BLOCK_CHAIN_FORK_POINT(blockchain_fork_point_block_alert.alert_type),
     BLOCK_CHAIN_TOP_THREE_VOTES(blockchain_top_three_votes_alert.alert_type),
@@ -116,12 +117,13 @@ public enum AlertType {
         arr[36] = COMM_LOG;
         arr[37] = COMM_LAST_SEEN;
         arr[38] = BLOCK_CHAIN_LOG;
-        arr[39] = BLOCK_CHAIN_TIP_BLOCK;
+        arr[39] = BLOCK_CHAIN_HEAD_BLOCK;
         arr[40] = BLOCK_CHAIN_TAIL_BLOCK;
-        arr[41] = BLOCK_CHAIN_ROLLBACK_BLOCK;
-        arr[42] = BLOCK_CHAIN_FORK_POINT;
-        arr[43] = BLOCK_CHAIN_TOP_THREE_VOTES;
-        arr[44] = BLOCK_CHAIN_NEW_TX;
+        arr[41] = BLOCK_CHAIN_CONSENSUS_POINT_BLOCK;
+        arr[42] = BLOCK_CHAIN_ROLLBACK_BLOCK;
+        arr[43] = BLOCK_CHAIN_FORK_POINT;
+        arr[44] = BLOCK_CHAIN_TOP_THREE_VOTES;
+        arr[45] = BLOCK_CHAIN_NEW_TX;
 
         return arr;
     }

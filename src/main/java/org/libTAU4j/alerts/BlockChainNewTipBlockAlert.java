@@ -1,14 +1,14 @@
 package org.libTAU4j.alerts;
 
 import org.libTAU4j.Block;
-import org.libTAU4j.swig.blockchain_new_tip_block_alert;
+import org.libTAU4j.swig.blockchain_new_head_block_alert;
 
-public class BlockChainNewTipBlockAlert extends AbstractAlert<blockchain_new_tip_block_alert> {
+public class BlockChainNewTipBlockAlert extends AbstractAlert<blockchain_new_head_block_alert> {
 
 	Block  blk;
     String alertMsg;
 
-    BlockChainNewTipBlockAlert(blockchain_new_tip_block_alert alert) {
+    BlockChainNewTipBlockAlert(blockchain_new_head_block_alert alert) {
         super(alert);
 		this.blk = new Block(alert.getBlk());
 		this.alertMsg = alert.message();
