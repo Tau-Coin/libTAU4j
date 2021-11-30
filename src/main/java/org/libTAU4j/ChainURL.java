@@ -34,6 +34,8 @@ public final class ChainURL {
     private final chain_url cul;
     private final byte[] url;
 
+    private static final String tau_chain = "TAUCOIN1";
+
     public ChainURL(byte[] chainID, Set<String> peers) {
 
 		this.chainID = chainID;
@@ -79,6 +81,11 @@ public final class ChainURL {
 	}
 
     public static String chainIDBytesToString(byte[] chain_id) {
+
+		if(chain_id.length <= 8) {
+			return tau_chain;
+		}
+
 		byte[] hexBytes = new byte[8];
 		byte[] utfBytes = new byte[chain_id.length - 8];
 
@@ -97,6 +104,17 @@ public final class ChainURL {
     }
 	
     public static byte[] chainIDStringToBytes(String chain_id) {
+
+		if(chain_id == tau_chain) {
+			byte[] UTFBytes = null;
+        	try {
+				UTFBytes =  chain_id.substring(0, chain_id.length()).getBytes("UTF-8");
+        	} catch (UnsupportedEncodingException e) {
+            	throw new RuntimeException(e);
+			}
+			return UTFBytes;
+		}
+
 		byte[] hexBytes =  Hex.decode(chain_id.substring(0, 16));
 		byte[] UTFBytes = null;
         try {
@@ -119,6 +137,7 @@ public final class ChainURL {
 
 		String str_asc_url = "";
 		String str_url = "";
+
         try {
 			str_asc_url =  new String(chain_url, "US-ASCII");
         } catch (UnsupportedEncodingException e) {
@@ -149,13 +168,13 @@ public final class ChainURL {
 				str_url = str_url + KEY_PEER;
 				System.arraycopy(chain_url, pointer, addr_byte, 0, 32);
 			} else {
-				pointer = URL_PREFIX.length() + 3 + (bs_count + 1)*4 + bs_count * 32;
+				pointer = URL_PREFIX.length() + 35 + bs_count*4 + (bs_count-1)*32;
 				str_url = str_url + "&" + KEY_PEER;
 				System.arraycopy(chain_url, pointer, addr_byte, 0, 32);
 			}
 			str_url += Hex.encode(addr_byte);
 			bs_count++;
-			pointer = URL_PREFIX.length() + 3 + bs_count * 36;
+			pointer = URL_PREFIX.length() + 35 + (bs_count-1) * 36;
 			System.arraycopy(chain_url, pointer, key_peer_byte_2, 0, 4);
         	try {
 				key_peer_str =  new String(key_peer_byte_2, "US-ASCII");

@@ -431,6 +431,26 @@ public class SessionManager {
     }
 
     /**
+     * This is for get block by number
+     */
+    public Block getBlockByNumber(byte[] chainID, long blockNumber) {
+		if (session != null) {
+			return new SessionHandle(session).getBlockByNumber(chainID, blockNumber);
+		}
+		return null;
+    }
+
+    /**
+     * This is for get block by hash
+     */
+    public Block getBlockByHash(byte[] chainID, String blockHash) {
+		if (session != null) {
+			return new SessionHandle(session).getBlockByHash(chainID, blockHash);
+		}
+		return null;
+    }
+
+    /**
      * This is for get session time
      */
     public long getSessionTime() {

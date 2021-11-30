@@ -19,6 +19,7 @@ import org.libTAU4j.swig.pubkey_vector;
 import org.libTAU4j.swig.pubkey_account_map;
 import org.libTAU4j.swig.remove_flags_t;
 import org.libTAU4j.swig.reopen_network_flags_t;
+import org.libTAU4j.swig.sha256_hash;
 import org.libTAU4j.swig.save_state_flags_t;
 import org.libTAU4j.swig.session_flags_t;
 import org.libTAU4j.swig.session_handle;
@@ -246,7 +247,6 @@ public final class SessionHandle
 		//map string, account -> public_key, account
 		pubkey_account_map pam = new pubkey_account_map();
 		for(String pubkey : accounts.keySet()) {
-			System.out.println(pubkey);
 			byte[] pk = Hex.decode(pubkey);
 		    byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
         	public_key key = new public_key(bpk);
@@ -306,6 +306,20 @@ public final class SessionHandle
      */
     public long getMedianTxFee(byte[] chainID) {
         return h.get_median_tx_free(Vectors.bytes2byte_vector(chainID));
+    }
+
+    /**
+     * This is for get block by number
+     */
+    public Block getBlockByNumber(byte[] chainID, long blockNumber) {
+        return new Block(h.get_block_by_number(Vectors.bytes2byte_vector(chainID), blockNumber));
+    }
+
+    /**
+     * This is for get block by hash
+     */
+    public Block getBlockByHash(byte[] chainID, String blockHash) {
+        return new Block(h.get_block_by_hash(Vectors.bytes2byte_vector(chainID), sha256_hash.from_hex(blockHash)));
     }
 
     /**
