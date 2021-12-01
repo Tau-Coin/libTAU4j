@@ -93,6 +93,16 @@ public final class Transaction {
 		this.tx.sign(key1, key2);
 	}
 
+	public void sign(byte[] publicKey, byte[] secretKey) {
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(publicKey);
+        public_key key1 = new public_key(bpk);
+
+		byte_array_64 bsk = Vectors.bytes2byte_array_64(secretKey);
+		secret_key key2 = new secret_key(bsk);
+
+		this.tx.sign(key1, key2);
+	}
+
   	public byte[] getChainID() {
     	return this.chain_id;
   	}

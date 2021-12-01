@@ -357,4 +357,19 @@ public final class ChainURL {
 
         return new ChainURL(chain_id, peers);
     }
+	
+	public static byte[] getTAUChainIdBytes(){
+		return tau_chain;
+	}
+
+	public static String getTAUChainIdString(){
+		String TAUStr = "";
+       	try {
+			TAUStr = new String(tau_chain, "US-ASCII");
+       	} catch (UnsupportedEncodingException e) {
+           	throw new RuntimeException(e);
+		}
+		return TAUStr;
+	}
+
 }
