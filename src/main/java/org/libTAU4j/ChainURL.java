@@ -10,6 +10,7 @@ package org.libTAU4j;
 import org.libTAU4j.Hex;
 import org.libTAU4j.Vectors;
 
+import org.libTAU4j.swig.libTAU;
 import org.libTAU4j.swig.pubkey_set;
 import org.libTAU4j.swig.public_key;
 import org.libTAU4j.swig.chain_url;
@@ -34,7 +35,7 @@ public final class ChainURL {
     private final chain_url cul;
     private final byte[] url;
 
-    private static final String tau_chain = "TAUCOIN1";
+    private static final byte[] tau_chain = Vectors.byte_vector2bytes(libTAU.getTAU_CHAIN_ID());
 
     public ChainURL(byte[] chainID, Set<String> peers) {
 
@@ -83,7 +84,13 @@ public final class ChainURL {
     public static String chainIDBytesToString(byte[] chain_id) {
 
 		if(chain_id.length <= 8) {
-			return tau_chain;
+			String TAUStr = "";
+        	try {
+				TAUStr = new String(tau_chain, "US-ASCII");
+        	} catch (UnsupportedEncodingException e) {
+            	throw new RuntimeException(e);
+			}
+			return TAUStr;
 		}
 
 		byte[] hexBytes = new byte[8];
@@ -105,7 +112,14 @@ public final class ChainURL {
 	
     public static byte[] chainIDStringToBytes(String chain_id) {
 
-		if(chain_id == tau_chain) {
+		String TAUStr = "";
+       	try {
+			TAUStr = new String(tau_chain, "US-ASCII");
+       	} catch (UnsupportedEncodingException e) {
+           	throw new RuntimeException(e);
+		}
+
+		if(chain_id == TAUStr) {
 			byte[] UTFBytes = null;
         	try {
 				UTFBytes =  chain_id.substring(0, chain_id.length()).getBytes("UTF-8");
