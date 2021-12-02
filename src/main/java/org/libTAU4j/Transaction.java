@@ -76,9 +76,17 @@ public final class Transaction {
 		this.amount = tx.amount();
 		this.fee = tx.fee();
 		this.payload = Vectors.byte_vector2bytes(tx.payload());
-		this.tx = tx;
-		this.txid = tx.sha256();
 
+		byte_vector bv_chain_id = Vectors.bytes2byte_vector(this.chain_id);
+		tx_version  tv = tx_version.swigToEnum(this.version);
+		public_key  pk_sender = new public_key(Vectors.bytes2byte_array_32(this.sender));
+		public_key  pk_receiver = new public_key(Vectors.bytes2byte_array_32(this.receiver));
+		byte_vector bv_payload = Vectors.bytes2byte_vector(this.payload);
+
+		this.tx = new transaction(bv_chain_id, tv, this.timestamp,
+					   pk_sender, pk_receiver, this.nonce, this.amount, this.fee, bv_payload);
+
+		this.txid = new sha256_hash(tx.sha256());
 	}
 
 	public void sign(String publicKey, String secretKey) {
