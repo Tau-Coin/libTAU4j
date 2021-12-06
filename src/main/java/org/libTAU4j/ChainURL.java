@@ -119,7 +119,7 @@ public final class ChainURL {
            	throw new RuntimeException(e);
 		}
 
-		if(chain_id == TAUStr) {
+		if(chain_id.equals(TAUStr)) {
 			byte[] UTFBytes = null;
         	try {
 				UTFBytes =  chain_id.substring(0, chain_id.length()).getBytes("UTF-8");
