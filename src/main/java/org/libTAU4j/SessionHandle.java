@@ -424,6 +424,17 @@ public final class SessionHandle
         applySettings(sp);
     }
 
+	/**
+	 * Update bootstrap time interval.
+	 *
+	 * @param interval the unit is seconds
+	 */
+	public void updateBootstrapIntervel(int interval) {
+		SettingsPack sp = settings();
+		sp.setBootstrapInterval(interval);
+		applySettings(sp);
+	}
+
     /**
      * Adds a port forwarding on UPnP and/or NAT-PMP, using PCP if supported,
      * whichever is enabled. The return value is a handle referring to the

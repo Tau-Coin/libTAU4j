@@ -592,6 +592,11 @@ public final class SettingsPack
         return this;
     }
 
+	public SettingsPack setBootstrapInterval(int value) {
+		h.set_int(settings_pack.int_types.dht_bootstrap_interval.swigValue(), value);
+		return this;
+	}
+
     /**
      * @return the current value
      * @see #stopTrackerTimeout(int)
