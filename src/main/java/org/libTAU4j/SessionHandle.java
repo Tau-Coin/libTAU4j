@@ -208,6 +208,16 @@ public final class SessionHandle
     }
 
     /**
+     * This is for friend info request.
+     */
+    public void requestFriendInfo(String pubkey) {
+		byte[] pk = Hex.decode(pubkey);
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+        public_key key = new public_key(bpk);
+        h.request_friend_info(key);
+    }
+
+    /**
      * This is for setting chatting friend.
      */
     public void setChattingFriend(String pubkey) {

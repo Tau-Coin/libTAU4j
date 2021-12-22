@@ -281,6 +281,17 @@ public class SessionManager {
 		}
     }
 
+	/**
+	 * Update bootstrap time interval.
+	 *
+	 * @param interval the unit is seconds
+	 */
+	public void updateBootstrapIntervel(int interval) {
+		if (session != null) {
+			new SessionHandle(session).updateBootstrapIntervel(interval);
+		}
+	}
+
 	public void updateAccountSeed(byte[] seed) {
 		if (session != null) {
 			new SessionHandle(session).updateAccountSeed(seed);
@@ -331,6 +342,12 @@ public class SessionManager {
 			return new SessionHandle(session).getFriendInfo(pk);
 		} else {
 			return null;
+		}
+	}
+
+	public void requestFriendInfo(String pk) {
+		if (session != null) {
+			new SessionHandle(session).requestFriendInfo(pk);
 		}
 	}
 
