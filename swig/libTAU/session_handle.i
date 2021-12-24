@@ -7,7 +7,6 @@
 %ignore libTAU::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::int64_t&, std::string const&)>);
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>, std::string);
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>);
-%ignore libTAU::session_handle::new_account_seed(std::array<char, 32> seed);
 %ignore libTAU::session_handle::update_friend_info(dht::public_key& pubkey, std::vector<char> friend_info);
 %ignore libTAU::session_handle::create_chain_id(std::vector<char> community_name);
 %ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::map<dht::public_key, blockchain::account>& accounts);
@@ -85,14 +84,6 @@ namespace libTAU {
     void delete_port_mapping_ex(int handle)
     {
         $self->delete_port_mapping(libTAU::port_mapping_t{handle});
-    }
-
-    void new_account_seed(std::array<std::int8_t, 32>& seed)
-    {
-        std::array<char, 32> char_seed;
-        std::copy_n(seed.begin(), 32, char_seed.begin());
-
-        return $self->new_account_seed(char_seed);
     }
 
     void set_loop_time_interval(int milliseconds)

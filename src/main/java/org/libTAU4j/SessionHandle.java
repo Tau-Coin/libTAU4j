@@ -130,15 +130,6 @@ public final class SessionHandle
     }
 
     /**
-     * This is for changing account.
-     */
-    public void updateAccountSeed(byte[] seed) {
-		//byte -> byte_array_32
-        h.new_account_seed(Vectors.bytes2byte_array_32(seed));
-    }
-
-
-    /**
      * This is for main loop interval set.
      */
     public void setLoopTimeInterval(int milliseconds) {
@@ -444,6 +435,16 @@ public final class SessionHandle
 		sp.setBootstrapInterval(interval);
 		applySettings(sp);
 	}
+
+    /**
+     * This is for changing account.
+     */
+    public void updateAccountSeed(byte[] seed) {
+		//byte -> byte_array_32
+		SettingsPack sp = settings();
+		sp.setAccoutSeed(Hex.encode(seed));
+		applySettings(sp);
+    }
 
     /**
      * Adds a port forwarding on UPnP and/or NAT-PMP, using PCP if supported,

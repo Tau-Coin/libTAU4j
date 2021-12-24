@@ -597,6 +597,11 @@ public final class SettingsPack
 		return this;
 	}
 
+	public SettingsPack setAccoutSeed(String value) {
+		h.set_str(settings_pack.string_types.account_seed.swigValue(), value);
+		return this;
+	}
+
     /**
      * @return the current value
      * @see #stopTrackerTimeout(int)
