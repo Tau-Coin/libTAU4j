@@ -436,6 +436,12 @@ public final class SessionHandle
 		applySettings(sp);
 	}
 
+	public void setNonReferrable(boolean value) {
+		SettingsPack sp = settings();
+		sp.setNonReferrable(value);
+		applySettings(sp);
+	}
+
     /**
      * This is for changing account.
      */
