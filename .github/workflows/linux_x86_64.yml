@@ -7,6 +7,10 @@ on:
   pull_request:
     branches:
       - master
+swig
+  VERSION:"4.0.2"
+  WEB:www.swig.org
+  deps:pcre-config sudo apt-get install libpcre3 libpcre3-dev
 
 env:
   BOOST_DOT_VERSION: "1.76.0"

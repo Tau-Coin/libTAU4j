@@ -12,6 +12,7 @@ env:
   BOOST_DOT_VERSION: "1.76.0"
   BOOST_VERSION: "1_76_0"
   OPENSSL_VERSION: "1.1.1k"
+  NDK_VERSION: "r22b"
   CXX: clang++-7, aarch64-linux-android-clang++
   CC: clang-7, aarch64-linux-android-clang
 
@@ -66,6 +67,17 @@ jobs:
           mkdir build
           cd build
           cmake -D CMAKE_INSTALL_PREFIX=${PWD}/../../leveldb  ../
+          make
+          make install
+      - name: snappy
+        run: |
+          wget -nv -O snappy.tar.gz https://github.com/google/snappy/archive/refs/tags/1.1.8.tar.gz
+          tar xzf 1.1.8.tar.gz
+          cd snappy-1.1.8
+          vim CMakeLists.txt -> add_compile_options(-fPIC) && option(SNAPPY_BUILD_TESTS "Build Snappy's own tests" OFF)
+          mkdir build
+          cd build
+          cmake -D CMAKE_INSTALL_PREFIX=${PWD}/../../snappy  ../
           make
           make install
       - name: sqlite
