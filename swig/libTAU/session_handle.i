@@ -16,6 +16,7 @@
 %ignore libTAU::session_handle::get_median_tx_free(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_block_by_number(std::vector<char> chain_id, std::int64_t block_number);
 %ignore libTAU::session_handle::get_block_by_hash(std::vector<char> chain_id, sha256_hash block_hash);
+%ignore libTAU::session_handle::request_chain_state(std::vector<char> chain_id);
 %ignore libTAU::session_handle::set_load_function;
 %ignore libTAU::session_handle::set_alert_notify;
 %ignore libTAU::session_handle::native_handle;
@@ -176,6 +177,12 @@ namespace libTAU {
         return $self->get_block_by_hash(id, block_hash);
     }
 
-}
+    void session_handle::request_chain_state(std::vector<std::int8_t> chain_id)
+    {
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        return $self->request_chain_state(id);
+    }
 
+}
 }

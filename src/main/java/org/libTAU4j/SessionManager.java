@@ -468,6 +468,15 @@ public class SessionManager {
     }
 
     /**
+     * This is for request chain state
+     */
+    public void requestChainState(byte[] chainID) {
+		if (session != null) {
+			new SessionHandle(session).requestChainState(chainID);
+		}
+    }
+
+    /**
      * This is for get session time
      */
     public long getSessionTime() {

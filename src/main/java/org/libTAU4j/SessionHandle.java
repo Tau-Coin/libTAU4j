@@ -324,6 +324,13 @@ public final class SessionHandle
     }
 
     /**
+     * This is for request chain state
+     */
+    public void requestChainState(byte[] chainID) {
+         h.request_chain_state(Vectors.bytes2byte_vector(chainID));
+    }
+
+    /**
      * This is for get_session_time
      */
     public long getSessionTime() {
