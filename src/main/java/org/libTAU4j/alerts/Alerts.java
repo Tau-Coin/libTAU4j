@@ -316,6 +316,13 @@ public final class Alerts {
             }
         };
 
+        arr[47] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new BlockChainSyncingBlockAlert(cast_to_blockchain_syncing_block_alert(a));
+            }
+        };
+
         return arr;
     }
 

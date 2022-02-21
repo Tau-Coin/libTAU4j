@@ -47,6 +47,7 @@ public enum AlertType {
     BLOCK_CHAIN_TOP_THREE_VOTES(blockchain_top_three_votes_alert.alert_type),
     BLOCK_CHAIN_NEW_TX(blockchain_new_transaction_alert.alert_type),
     BLOCK_CHAIN_STATE(blockchain_state_alert.alert_type),
+    BLOCK_CHAIN_SYNCING_BLOCK(blockchain_syncing_block_alert.alert_type),
     DHT_PKT(dht_pkt_alert.alert_type),
     SESSION_ERROR(session_error_alert.alert_type),
     SESSION_STATS_HEADER(session_stats_header_alert.alert_type),
@@ -126,6 +127,7 @@ public enum AlertType {
         arr[44] = BLOCK_CHAIN_TOP_THREE_VOTES;
         arr[45] = BLOCK_CHAIN_NEW_TX;
         arr[46] = BLOCK_CHAIN_STATE;
+        arr[46] = BLOCK_CHAIN_SYNCING_BLOCK;
 
         return arr;
     }
