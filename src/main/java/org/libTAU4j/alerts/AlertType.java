@@ -127,7 +127,7 @@ public enum AlertType {
         arr[44] = BLOCK_CHAIN_TOP_THREE_VOTES;
         arr[45] = BLOCK_CHAIN_NEW_TX;
         arr[46] = BLOCK_CHAIN_STATE;
-        arr[46] = BLOCK_CHAIN_SYNCING_BLOCK;
+        arr[47] = BLOCK_CHAIN_SYNCING_BLOCK;
 
         return arr;
     }
