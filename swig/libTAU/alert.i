@@ -67,6 +67,7 @@ struct alert_category_tag;
     CAST_ALERT_METHOD(blockchain_new_transaction_alert)
     CAST_ALERT_METHOD(blockchain_state_alert)
     CAST_ALERT_METHOD(blockchain_syncing_block_alert)
+    CAST_ALERT_METHOD(blockchain_syncing_head_block_alert)
 
 }
 

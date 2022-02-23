@@ -3,15 +3,15 @@ package org.libTAU4j.alerts;
 import org.libTAU4j.Block;
 import org.libTAU4j.Hex;
 import org.libTAU4j.Vectors;
-import org.libTAU4j.swig.blockchain_syncing_block_alert;
+import org.libTAU4j.swig.blockchain_syncing_head_block_alert;
 
-public class BlockChainSyncingBlockAlert extends AbstractAlert<blockchain_syncing_block_alert> {
+public class BlockChainSyncingHeadBlockAlert extends AbstractAlert<blockchain_syncing_head_block_alert> {
 
 	Block  blk;
 	String peer;
     String alertMsg;
 
-    BlockChainSyncingBlockAlert(blockchain_syncing_block_alert alert) {
+    BlockChainSyncingHeadBlockAlert(blockchain_syncing_head_block_alert alert) {
         super(alert);
 		this.blk = new Block(alert.getBlk());
         byte[] key = Vectors.byte_vector2bytes(alert.getPeer().to_bytes());

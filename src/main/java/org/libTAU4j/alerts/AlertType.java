@@ -48,6 +48,7 @@ public enum AlertType {
     BLOCK_CHAIN_NEW_TX(blockchain_new_transaction_alert.alert_type),
     BLOCK_CHAIN_STATE(blockchain_state_alert.alert_type),
     BLOCK_CHAIN_SYNCING_BLOCK(blockchain_syncing_block_alert.alert_type),
+    BLOCK_CHAIN_SYNCING_HEAD_BLOCK(blockchain_syncing_head_block_alert.alert_type),
     DHT_PKT(dht_pkt_alert.alert_type),
     SESSION_ERROR(session_error_alert.alert_type),
     SESSION_STATS_HEADER(session_stats_header_alert.alert_type),
@@ -128,6 +129,7 @@ public enum AlertType {
         arr[45] = BLOCK_CHAIN_NEW_TX;
         arr[46] = BLOCK_CHAIN_STATE;
         arr[47] = BLOCK_CHAIN_SYNCING_BLOCK;
+        arr[48] = BLOCK_CHAIN_SYNCING_HEAD_BLOCK;
 
         return arr;
     }
