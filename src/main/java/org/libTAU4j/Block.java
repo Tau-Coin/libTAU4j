@@ -37,10 +37,13 @@ public final class Block {
 	private final byte[] miner;
 	private final long miner_balance;
 	private final long miner_nonce;
+	private final long miner_note_timestamp;
 	private final long sender_balance;
 	private final long sender_nonce;
+	private final long sender_note_timestamp;
 	private final long receiver_balance;
 	private final long receiver_nonce;
+	private final long receiver_note_timestamp;
 
     private final block blk;
     private final String blk_hash; //hex string
@@ -48,9 +51,9 @@ public final class Block {
     public Block(byte[] chain_id, int version, long timestamp, long block_number,
 			byte[] previous_block_hash, BigInteger base_target, BigInteger cumulative_difficulty,
 			byte[] generation_signature, Transaction tx, 
-			byte[] miner, long miner_balance, long miner_nonce,
-			long sender_balance, long sender_nonce, 
-			long receiver_balance, long receiver_nonce) {
+			byte[] miner, long miner_balance, long miner_nonce, long miner_note_timestamp,
+			long sender_balance, long sender_nonce,  long sender_note_timestamp,
+			long receiver_balance, long receiver_nonce, long receiver_note_timestamp) {
 
 		this.chain_id = chain_id;
 		this.version = version;
@@ -63,11 +66,14 @@ public final class Block {
 		this.tx = tx;
 		this.miner = miner;
 		this.miner_balance = miner_balance;
+		this.miner_note_timestamp = miner_note_timestamp;
 		this.miner_nonce = miner_nonce;
 		this.sender_balance = sender_balance;
 		this.sender_nonce = sender_nonce;
+		this.sender_note_timestamp = sender_note_timestamp;
 		this.receiver_balance = receiver_balance;
 		this.receiver_nonce = receiver_nonce;
+		this.receiver_note_timestamp = receiver_note_timestamp;
 
 		byte_vector bv_chain_id = Vectors.bytes2byte_vector(chain_id);
 		block_version  bv = block_version.swigToEnum(version);
@@ -78,8 +84,9 @@ public final class Block {
 		this.blk = new block(bv_chain_id, bv, timestamp, block_number,
 					  sh_pbh, base_target, cumulative_difficulty,
 					  sh_sign, tx.swig(), 
-					  pk_miner, miner_balance, miner_nonce,
-					  sender_balance, sender_nonce, receiver_balance, receiver_nonce);
+					  pk_miner, miner_balance, miner_nonce, miner_note_timestamp,
+					  sender_balance, sender_nonce, sender_note_timestamp,
+                      receiver_balance, receiver_nonce, receiver_note_timestamp);
 
 		this.blk_hash = this.blk.sha256().to_hex();
 	}
@@ -102,10 +109,13 @@ public final class Block {
 		this.miner = Vectors.byte_vector2bytes(blk.miner().to_bytes());
 		this.miner_balance = blk.miner_balance();
 		this.miner_nonce = blk.miner_nonce();
+		this.miner_note_timestamp = blk.miner_note_timestamp();
 		this.sender_balance = blk.sender_balance();
 		this.sender_nonce = blk.sender_nonce();
+		this.sender_note_timestamp = blk.sender_note_timestamp();
 		this.receiver_balance = blk.receiver_balance();
 		this.receiver_nonce = blk.receiver_nonce();
+		this.receiver_note_timestamp = blk.receiver_note_timestamp();
 		
 		this.blk = blk;
 		this.blk_hash = blk.sha256().to_hex();
@@ -156,6 +166,10 @@ public final class Block {
     	return this.miner_nonce;
   	}
 
+  	public long getMinerNoteTimestamp() {
+    	return this.miner_note_timestamp;
+  	}
+
   	public long getSenderBalance() {
     	return this.sender_balance;
   	}
@@ -164,12 +178,20 @@ public final class Block {
     	return this.sender_nonce;
   	}
 
+  	public long getSenderNoteTimestamp() {
+    	return this.sender_note_timestamp;
+  	}
+
   	public long getReceiverBalance() {
     	return this.receiver_balance;
   	}
 
   	public long getReceiverNonce() {
     	return this.receiver_nonce;
+  	}
+
+  	public long getReceiverNoteTimestamp() {
+    	return this.receiver_note_timestamp;
   	}
 
   	public Transaction getTx() {

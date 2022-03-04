@@ -28,6 +28,7 @@ public final class Transaction {
 
 	private final byte[] chain_id;
 	private final int version;
+	private final int type;
 	private final long timestamp;
 	private final byte[] sender;
 	private final byte[] receiver;
@@ -38,6 +39,29 @@ public final class Transaction {
 	private final sha256_hash txid;
 
     private final transaction tx;
+
+    public Transaction(byte[] chain_id, int version, long timestamp, 
+			byte[] sender, long fee, byte[] payload) {
+
+		this.chain_id = chain_id;
+		this.version = version;
+		this.timestamp = timestamp;
+		this.sender = sender;
+		this.receiver = null;
+		this.nonce = 0;
+		this.amount = 0;
+		this.fee = fee;
+		this.payload = payload;
+
+		byte_vector bv_chain_id = Vectors.bytes2byte_vector(chain_id);
+		tx_version  tv = tx_version.swigToEnum(version);
+		public_key  pk_sender = new public_key(Vectors.bytes2byte_array_32(sender));
+		byte_vector bv_payload = Vectors.bytes2byte_vector(payload);
+		this.tx = new transaction(bv_chain_id, tv, timestamp, pk_sender, fee, bv_payload);
+
+        this.type = this.tx.type().swigValue();
+		this.txid = this.tx.sha256();
+	}
 
     public Transaction(byte[] chain_id, int version, long timestamp, 
 			byte[] sender, byte[] receiver, 
@@ -62,6 +86,7 @@ public final class Transaction {
 		this.tx = new transaction(bv_chain_id, tv, timestamp,
 					   pk_sender, pk_receiver, nonce, amount, fee, bv_payload);
 
+        this.type = this.tx.type().swigValue();
 		this.txid = this.tx.sha256();
 	}
 
@@ -69,6 +94,7 @@ public final class Transaction {
 
 		this.chain_id = Vectors.byte_vector2bytes(tx.chain_id());
 		this.version = tx.version().swigValue();
+		this.type = tx.type().swigValue();
 		this.timestamp = tx.timestamp();
 		this.sender = Vectors.byte_vector2bytes(tx.sender().to_bytes());
 		this.receiver = Vectors.byte_vector2bytes(tx.receiver().to_bytes());
@@ -117,6 +143,10 @@ public final class Transaction {
 
   	public int getVersion() {
     	return this.version;
+  	}
+
+  	public int getType() {
+    	return this.type;
   	}
 
   	public long getTimestamp() {
