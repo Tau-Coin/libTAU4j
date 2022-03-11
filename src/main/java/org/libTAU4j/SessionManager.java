@@ -418,6 +418,16 @@ public class SessionManager {
     }
 
     /**
+     * This is for get_port_from_pubkey
+     */
+    public int getPortFromPubkey(String pubkey) {
+		if (session != null) {
+			return new SessionHandle(session).getPortFromPubkey(pubkey);
+		}
+		return 6881;
+    }
+
+    /**
      * This is for get_account_info
      */
     public Account getAccountInfo(byte[] chainID, String pubkey) {
@@ -445,6 +455,25 @@ public class SessionManager {
 			return new SessionHandle(session).getMedianTxFee(chainID);
 		}
 		return -1;
+    }
+
+    /**
+     * This is for get_mining_time
+     */
+    public long getMiningTime(byte[] chainID) {
+		if (session != null) {
+			return new SessionHandle(session).getMiningTime(chainID);
+		}
+		return -1;
+    }
+
+    /**
+     * This is for focus_on_chain
+     */
+    public void focusOnChain(byte[] chainID) {
+		if (session != null) {
+            new SessionHandle(session).focusOnChain(chainID);
+		}
     }
 
     /**

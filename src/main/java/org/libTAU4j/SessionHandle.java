@@ -310,6 +310,20 @@ public final class SessionHandle
     }
 
     /**
+     * This is for get_mining_time
+     */
+    public long getMiningTime(byte[] chainID) {
+        return h.get_mining_time(Vectors.bytes2byte_vector(chainID));
+    }
+
+    /**
+     * This is for focus_on_chain
+     */
+    public void focusOnChain(byte[] chainID) {
+        h.focus_on_chain(Vectors.bytes2byte_vector(chainID));
+    }
+
+    /**
      * This is for get block by number
      */
     public Block getBlockByNumber(byte[] chainID, long blockNumber) {
@@ -448,6 +462,18 @@ public final class SessionHandle
 		sp.setNonReferrable(value);
 		applySettings(sp);
 	}
+
+    /**
+     * This is for getting port from pubkey.
+     */
+    public int getPortFromPubkey(String pubkey) {
+		//key -> dht pubkey
+		byte[] pk = Hex.decode(pubkey);
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+        public_key key = new public_key(bpk);
+
+        return h.get_port_from_pubkey(key);
+    }
 
     /**
      * This is for changing account.
