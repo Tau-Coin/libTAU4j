@@ -244,7 +244,7 @@ public final class SessionHandle
     /**
      * This is for create new community
      */
-    public boolean createNewCommunity(byte[] chainID, Map<String, Account> accounts) {
+    public boolean createNewCommunity(byte[] chainID, Map<String, Account> accounts, Transaction tx) {
 		//map string, account -> public_key, account
 		pubkey_account_map pam = new pubkey_account_map();
 		for(String pubkey : accounts.keySet()) {
@@ -253,7 +253,7 @@ public final class SessionHandle
         	public_key key = new public_key(bpk);
 			pam.put(key, accounts.get(pubkey).swig());
 		}
-        return h.create_new_community(Vectors.bytes2byte_vector(chainID), pam);
+        return h.create_new_community(Vectors.bytes2byte_vector(chainID), pam, tx.swig());
     }
 
     /**

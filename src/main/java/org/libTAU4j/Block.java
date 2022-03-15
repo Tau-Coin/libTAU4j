@@ -34,6 +34,7 @@ public final class Block {
 	private final BigInteger cumulative_difficulty;
 	private final byte[] generation_signature;
 	private final Transaction tx;
+	private final UdpEndpoint endp;
 	private final byte[] miner;
 	private final long miner_balance;
 	private final long miner_nonce;
@@ -88,6 +89,55 @@ public final class Block {
 					  sender_balance, sender_nonce, sender_note_timestamp,
                       receiver_balance, receiver_nonce, receiver_note_timestamp);
 
+		if(blk.end_point() != null) {
+			this.endp = new UdpEndpoint(blk.end_point());
+		} else {
+			this.endp = null;
+		}
+		this.blk_hash = this.blk.sha256().to_hex();
+	}
+
+    public Block(byte[] chain_id, int version, long timestamp, long block_number,
+			byte[] previous_block_hash, BigInteger base_target, BigInteger cumulative_difficulty,
+			byte[] generation_signature, Transaction tx, 
+			byte[] miner, long miner_balance, long miner_nonce, long miner_note_timestamp,
+			long sender_balance, long sender_nonce,  long sender_note_timestamp,
+			long receiver_balance, long receiver_nonce, long receiver_note_timestamp, UdpEndpoint endp) {
+
+		this.chain_id = chain_id;
+		this.version = version;
+		this.timestamp = timestamp;
+		this.block_number = block_number;
+		this.previous_block_hash = previous_block_hash;
+		this.base_target = base_target;
+		this.cumulative_difficulty = cumulative_difficulty;
+		this.generation_signature = generation_signature;
+		this.tx = tx;
+		this.miner = miner;
+		this.miner_balance = miner_balance;
+		this.miner_note_timestamp = miner_note_timestamp;
+		this.miner_nonce = miner_nonce;
+		this.sender_balance = sender_balance;
+		this.sender_nonce = sender_nonce;
+		this.sender_note_timestamp = sender_note_timestamp;
+		this.receiver_balance = receiver_balance;
+		this.receiver_nonce = receiver_nonce;
+		this.receiver_note_timestamp = receiver_note_timestamp;
+		this.endp = endp;
+
+		byte_vector bv_chain_id = Vectors.bytes2byte_vector(chain_id);
+		block_version  bv = block_version.swigToEnum(version);
+		sha256_hash sh_pbh = new sha256_hash(Vectors.bytes2byte_vector(previous_block_hash));
+		sha256_hash sh_sign = new sha256_hash(Vectors.bytes2byte_vector(generation_signature));
+		public_key  pk_miner = new public_key(Vectors.bytes2byte_array_32(miner));
+
+		this.blk = new block(bv_chain_id, bv, timestamp, block_number,
+					  sh_pbh, base_target, cumulative_difficulty,
+					  sh_sign, tx.swig(), 
+					  pk_miner, miner_balance, miner_nonce, miner_note_timestamp,
+					  sender_balance, sender_nonce, sender_note_timestamp,
+                      receiver_balance, receiver_nonce, receiver_note_timestamp, endp.swig());
+
 		this.blk_hash = this.blk.sha256().to_hex();
 	}
 
@@ -116,7 +166,12 @@ public final class Block {
 		this.receiver_balance = blk.receiver_balance();
 		this.receiver_nonce = blk.receiver_nonce();
 		this.receiver_note_timestamp = blk.receiver_note_timestamp();
-		
+		if(blk.end_point() != null) {
+			this.endp = new UdpEndpoint(blk.end_point());
+		} else {
+			this.endp = null;
+		}
+
 		this.blk = blk;
 		this.blk_hash = blk.sha256().to_hex();
 
@@ -196,6 +251,10 @@ public final class Block {
 
   	public Transaction getTx() {
     	return this.tx;
+  	}
+
+  	public UdpEndpoint getEndp() {
+    	return this.endp;
   	}
 
 	public String Hash() {

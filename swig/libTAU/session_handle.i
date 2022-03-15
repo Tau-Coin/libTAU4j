@@ -9,7 +9,7 @@
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>);
 %ignore libTAU::session_handle::update_friend_info(dht::public_key& pubkey, std::vector<char> friend_info);
 %ignore libTAU::session_handle::create_chain_id(std::vector<char> community_name);
-%ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::map<dht::public_key, blockchain::account>& accounts);
+%ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::map<dht::public_key, blockchain::account>& accounts, const blockchain::transaction& tx);
 %ignore libTAU::session_handle::unfollow_chain(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_account_info(std::vector<char> chain_id, dht::public_key pub_key);
 %ignore libTAU::session_handle::get_top_tip_block(std::vector<char> chain_id, int num);
@@ -129,11 +129,11 @@ namespace libTAU {
         return chain_id;
     }
 
-    bool create_new_community(std::vector<std::int8_t> chain_id, const std::map<dht::public_key, blockchain::account>& accounts)
+    bool create_new_community(std::vector<std::int8_t> chain_id, const std::map<dht::public_key, blockchain::account>& accounts, const blockchain::transaction& tx)
     {   
         std::vector<char> id;
         std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
-        return $self->create_new_community(id, accounts);
+        return $self->create_new_community(id, accounts, tx);
     }
 
     bool unfollow_chain(std::vector<std::int8_t> chain_id)
