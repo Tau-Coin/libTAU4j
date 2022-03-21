@@ -597,6 +597,11 @@ public final class SettingsPack
 		return this;
 	}
 
+	public SettingsPack setKeepInterval(int value) {
+		h.set_int(settings_pack.int_types.dht_keep_interval.swigValue(), value);
+		return this;
+	}
+
 	public SettingsPack setNonReferrable(boolean value) {
 		h.set_bool(settings_pack.bool_types.dht_non_referrable.swigValue(), value);
 		return this;
