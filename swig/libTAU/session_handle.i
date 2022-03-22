@@ -15,7 +15,7 @@
 %ignore libTAU::session_handle::get_top_tip_block(std::vector<char> chain_id, int num);
 %ignore libTAU::session_handle::get_median_tx_free(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_mining_time(std::vector<char> chain_id);
-%ignore libTAU::session_handle::focus_on_chain(std::vector<char> chain_id);
+%ignore libTAU::session_handle::set_priority_chain(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_block_by_number(std::vector<char> chain_id, std::int64_t block_number);
 %ignore libTAU::session_handle::get_block_by_hash(std::vector<char> chain_id, sha256_hash block_hash);
 %ignore libTAU::session_handle::request_chain_state(std::vector<char> chain_id);
@@ -172,11 +172,11 @@ namespace libTAU {
         return $self->get_mining_time(id);
     }
 
-    void session_handle::focus_on_chain(std::vector<std::int8_t> chain_id)
+    void session_handle::set_priority_chain(std::vector<std::int8_t> chain_id)
     {
         std::vector<char> id;
         std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
-        return $self->focus_on_chain(id);
+        return $self->set_priority_chain(id);
     }
 
     blockchain::block session_handle::get_block_by_number(std::vector<std::int8_t> chain_id, std::int64_t block_number)

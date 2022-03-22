@@ -319,10 +319,18 @@ public final class SessionHandle
     /**
      * This is for focus_on_chain
      */
-    public void focusOnChain(byte[] chainID) {
-        h.focus_on_chain(Vectors.bytes2byte_vector(chainID));
+    public void setPriorityChain(byte[] chainID) {
+        h.set_priority_chain(Vectors.bytes2byte_vector(chainID));
     }
 
+    /**
+     * This is for un-focus_on_chain
+     */
+    public void unsetPriorityChain() {
+        h.unset_priority_chain();
+    }
+
+    /**
     /**
      * This is for get block by number
      */

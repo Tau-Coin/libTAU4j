@@ -470,9 +470,18 @@ public class SessionManager {
     /**
      * This is for focus_on_chain
      */
-    public void focusOnChain(byte[] chainID) {
+    public void setPriorityChain(byte[] chainID) {
 		if (session != null) {
-            new SessionHandle(session).focusOnChain(chainID);
+            new SessionHandle(session).setPriorityChain(chainID);
+		}
+    }
+
+    /**
+     * This is for unfocus_on_chain
+     */
+    public void unsetPriorityChain() {
+		if (session != null) {
+            new SessionHandle(session).unsetPriorityChain();
 		}
     }
 
