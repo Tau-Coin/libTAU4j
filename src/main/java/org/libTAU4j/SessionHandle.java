@@ -465,6 +465,12 @@ public final class SessionHandle
 		applySettings(sp);
 	}
 
+	public void updateKeepIntervel(int interval) {
+		SettingsPack sp = settings();
+		sp.setKeepInterval(interval);
+		applySettings(sp);
+	}
+
 	public void setNonReferrable(boolean value) {
 		SettingsPack sp = settings();
 		sp.setNonReferrable(value);
