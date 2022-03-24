@@ -330,6 +330,13 @@ public final class Alerts {
             }
         };
 
+        arr[49] = new CastLambda() {
+            @Override
+            public Alert cast(alert a) {
+                return new BlockChainTxConfirmAlert(cast_to_blockchain_tx_confirmation_alert(a));
+            }
+        };
+
         return arr;
     }
 
