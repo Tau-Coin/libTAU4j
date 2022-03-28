@@ -15,6 +15,7 @@ import org.libTAU4j.swig.int_vector;
 import org.libTAU4j.swig.libTAU_errors;
 import org.libTAU4j.swig.portmap_protocol;
 import org.libTAU4j.swig.public_key;
+import org.libTAU4j.swig.pubkey_set;
 import org.libTAU4j.swig.pubkey_vector;
 import org.libTAU4j.swig.pubkey_account_map;
 import org.libTAU4j.swig.remove_flags_t;
@@ -260,8 +261,15 @@ public final class SessionHandle
      * This is for follow chain
      */
     public boolean followChain(byte[] chainID, Set<String> peers) {
-		ChainURL cul = new ChainURL(chainID, peers);
-        return h.follow_chain(cul.swig());
+        pubkey_set keyset = new pubkey_set();
+        for(String peer : peers) {
+		    byte[] pk = Hex.decode(peer);
+	        byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+       	    public_key key = new public_key(bpk);
+            keyset.add(key);
+        }
+
+        return h.follow_chain(Vectors.bytes2byte_vector(chainID), keyset);
     }
 
     /**

@@ -13,7 +13,6 @@ import org.libTAU4j.Vectors;
 import org.libTAU4j.swig.libTAU;
 import org.libTAU4j.swig.pubkey_set;
 import org.libTAU4j.swig.public_key;
-import org.libTAU4j.swig.chain_url;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -32,37 +31,27 @@ public final class ChainURL {
 	private final byte[] chainID;
 	private final Set<String> peers;
 
-    private final chain_url cul;
-    private final byte[] url;
+    private final byte[] bytes_url;
+    private final String string_url;
 
     private static final byte[] tau_chain = Vectors.byte_vector2bytes(libTAU.getTAU_CHAIN_ID());
+    private static final String URL_PREFIX = "tauchain:?";
+    private static final String KEY_PEER = "&bs=";
+    private static final String KEY_CHAIN_ID = "&dn=";
 
     public ChainURL(byte[] chainID, Set<String> peers) {
 
 		this.chainID = chainID;
 		this.peers = peers;
-	
-		pubkey_set ps = new pubkey_set();
-		for(String p: peers){
-			byte[] peer = Hex.decode(p);
-			ps.add(new public_key(Vectors.bytes2byte_array_32(peer)));
-		}
-		this.cul = new chain_url(Vectors.bytes2byte_vector(chainID), ps);
-		this.url = Vectors.byte_vector2bytes(this.cul.get_URL_java());
-	}
 
-    public ChainURL(chain_url cul) {
-		this.cul = cul;
-		this.chainID = Vectors.byte_vector2bytes(cul.chain_id());
-		this.peers = new HashSet();
-		pubkey_set ps = cul.peers();		
-		Iterator<public_key> it = ps.iterator();
-		while (it.hasNext()) {
-			public_key pk = it.next();
-			String key = Hex.encode(Vectors.byte_vector2bytes(pk.to_bytes()));
-			this.peers.add(key);
+        String url = URL_PREFIX + ChainURL.chainIDBytesToString(chainID);
+
+		for(String p: peers){
+            url = url + KEY_PEER + p;
 		}
-		this.url = Vectors.byte_vector2bytes(cul.get_URL_java());
+
+        this.string_url = url;
+        this.bytes_url = ChainURL.chainURLStringToBytes(this.string_url);
 	}
 
   	public byte[] getChainID() {
@@ -73,13 +62,13 @@ public final class ChainURL {
     	return this.peers;
   	}
 
-  	public byte[] getURL() {
-    	return this.url;
+  	public String getStringURL() {
+    	return this.string_url;
   	}
 
-	public chain_url swig() {
-    	return this.cul;
-	}
+  	public byte[] getBytesURL() {
+    	return null;
+  	}
 
     public static String chainIDBytesToString(byte[] chain_id) {
 
@@ -145,10 +134,6 @@ public final class ChainURL {
     }
 
     public static String chainURLBytesToString(byte[] chain_url) {
-		String URL_PREFIX = "tauchain:?";
-		String KEY_PEER = "bs=";
-		String KEY_CHAIN_ID = "&dn=";
-
 		String str_asc_url = "";
 		String str_url = "";
 
@@ -162,7 +147,7 @@ public final class ChainURL {
         str_asc_url = str_asc_url.substring(index + URL_PREFIX.length());
 		str_url = URL_PREFIX;
 		
-        // bs=pk1&bs=pk2&dn=chainID
+        // dn=chainID&bs=pk1&bs=pk2
 		byte[] key_peer_byte_1 = new byte[3];
 		byte[] key_peer_byte_2 = new byte[4];
 		byte[] addr_byte = new byte[32];
@@ -221,10 +206,6 @@ public final class ChainURL {
     }
 	
     public static byte[] chainURLStringToBytes(String chain_url) {
-
-		String URL_PREFIX = "tauchain:?";
-		String KEY_PEER = "bs";
-		String KEY_CHAIN_ID = "dn";
 
 		ArrayList<byte[]> byte_array = new ArrayList<byte[]>();
 
@@ -316,10 +297,6 @@ public final class ChainURL {
     }
 
     public static ChainURL chainURLStringToChainURL(String chain_url) {
-
-		String URL_PREFIX = "tauchain:?";
-		String KEY_PEER = "bs";
-		String KEY_CHAIN_ID = "dn";
 
 		Set<String> peers = new HashSet();
 
