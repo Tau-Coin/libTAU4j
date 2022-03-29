@@ -137,8 +137,8 @@ public final class ChainURL {
 
 		ArrayList<byte[]> byte_array = new ArrayList<byte[]>();
 
-		int index = chain_url.indexOf(URL_PREFIX);
-        chain_url = chain_url.substring(index + URL_PREFIX.length());
+		int index_head = chain_url.indexOf(URL_PREFIX);
+        chain_url = chain_url.substring(index_head + URL_PREFIX.length());
         try {
 			byte_array.add(URL_PREFIX.getBytes("US-ASCII"));
         } catch (UnsupportedEncodingException e) {
@@ -154,7 +154,7 @@ public final class ChainURL {
             int[] tag_array = new int[20];
             index_array[0] = index_chain_id;
             tag_array[0] = 1;
-            index++;
+            int index = 1;
 
             int index_bs = chain_url.indexOf(KEY_PEER);
             while(index_bs != -1) {
@@ -162,7 +162,9 @@ public final class ChainURL {
                 index_array[index] = index_bs;
                 tag_array[index] = 2;
                 index++;
-                index_bs = c_url.indexOf(KEY_PEER);
+                int index_current = c_url.indexOf(KEY_PEER);
+                if(index_current == -1) break;
+                index_bs += index_current + KEY_PEER.length();
             }
             //has chain id, but no bs nodes 
             if(index == 1) {
@@ -252,8 +254,8 @@ public final class ChainURL {
         Set<String> peers = new HashSet();
         String chain_id = "";
 
-		int index = chain_url.indexOf(URL_PREFIX);
-        chain_url = chain_url.substring(index + URL_PREFIX.length());
+		int index_head = chain_url.indexOf(URL_PREFIX);
+        chain_url = chain_url.substring(index_head + URL_PREFIX.length());
 
         // dn=chainID&bs=pk1&bs=pk2
 		// tauchain:?dn=6b2fad7f7e8e2571TauTest
@@ -264,7 +266,7 @@ public final class ChainURL {
             int[] tag_array = new int[20];
             index_array[0] = index_chain_id;
             tag_array[0] = 1;
-            index++;
+            int index = 1;
 
             int index_bs = chain_url.indexOf(KEY_PEER);
             while(index_bs != -1) {
@@ -272,7 +274,9 @@ public final class ChainURL {
                 index_array[index] = index_bs;
                 tag_array[index] = 2;
                 index++;
-                index_bs = c_url.indexOf(KEY_PEER);
+                int index_current = c_url.indexOf(KEY_PEER);
+                if(index_current == -1) break;
+                index_bs += index_current + KEY_PEER.length();
             }
             //has chain id, but no bs nodes 
             if(index == 1) {
