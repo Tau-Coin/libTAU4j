@@ -12,6 +12,7 @@ import org.libTAU4j.swig.error_code;
 import org.libTAU4j.swig.block_vector;
 import org.libTAU4j.swig.byte_vector;
 import org.libTAU4j.swig.int_vector;
+import org.libTAU4j.swig.libTAU;
 import org.libTAU4j.swig.libTAU_errors;
 import org.libTAU4j.swig.portmap_protocol;
 import org.libTAU4j.swig.public_key;
@@ -128,6 +129,13 @@ public final class SessionHandle
      */
     public void postDhtStats() {
         h.post_dht_stats();
+    }
+
+    /**
+     * This is for get chain epoch block size
+     */
+    public int getChainEpochBlockSize() {
+		return libTAU.getCHAIN_EPOCH_BLOCK_SIZE();
     }
 
     /**

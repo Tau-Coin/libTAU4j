@@ -298,6 +298,10 @@ public class SessionManager {
 		}
 	}
 
+    public int getChainEpochBlockSize() {
+		return libTAU.getCHAIN_EPOCH_BLOCK_SIZE();
+    }
+
 	public void setLoopTimeInterval(int milliseconds) {
 		if (session != null) {
 			new SessionHandle(session).setLoopTimeInterval(milliseconds);
