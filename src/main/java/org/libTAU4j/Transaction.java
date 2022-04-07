@@ -186,7 +186,7 @@ public final class Transaction {
   	}
 
 	public long Size(){
-		return 68 + chain_id.length + sender.length + receiver.length + payload.length;
+		return this.tx.get_encode_size();
 	}
 
 	public transaction swig() {
