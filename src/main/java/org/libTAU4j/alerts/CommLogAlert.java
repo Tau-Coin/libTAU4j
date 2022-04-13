@@ -12,8 +12,10 @@ import org.libTAU4j.swig.communication_log_alert;
  */
 public final class CommLogAlert extends AbstractAlert<communication_log_alert> {
 
+    String msg;
     CommLogAlert(communication_log_alert alert) {
         super(alert);
+        this.msg = alert.log_message();
     }
 
     /**
@@ -22,6 +24,6 @@ public final class CommLogAlert extends AbstractAlert<communication_log_alert> {
      * @return the message
      */
     public String logMessage() {
-        return alert.log_message();
+        return this.msg;
     }
 }

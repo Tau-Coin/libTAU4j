@@ -1,6 +1,7 @@
 package org.libTAU4j.alerts;
 
 import org.libTAU4j.Address;
+import org.libTAU4j.swig.address;
 import org.libTAU4j.swig.listen_succeeded_alert;
 
 /**
@@ -13,8 +14,12 @@ import org.libTAU4j.swig.listen_succeeded_alert;
  */
 public final class ListenSucceededAlert extends AbstractAlert<listen_succeeded_alert> {
 
+    Address ads;
+    int port;
     ListenSucceededAlert(listen_succeeded_alert alert) {
         super(alert);
+        this.ads= new Address(alert.get_address());
+        this.port= alert.getPort();
     }
 
     /**
@@ -24,7 +29,7 @@ public final class ListenSucceededAlert extends AbstractAlert<listen_succeeded_a
      * @return the address ended up listening on
      */
     public Address address() {
-        return new Address(alert.get_address());
+        return this.ads;
     }
 
     /**
@@ -33,7 +38,7 @@ public final class ListenSucceededAlert extends AbstractAlert<listen_succeeded_a
      * @return the port
      */
     public int port() {
-        return alert.getPort();
+        return this.port;
     }
 
     /**

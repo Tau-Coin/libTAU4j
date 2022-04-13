@@ -15,8 +15,13 @@ import org.libTAU4j.swig.portmap_alert;
  */
 public final class PortmapAlert extends AbstractAlert<portmap_alert> {
 
+    int mpg;
+    int ep;
+
     PortmapAlert(portmap_alert alert) {
         super(alert);
+        this.mpg = alert.get_mapping();
+        this.ep = alert.getExternal_port();
     }
 
     /**
@@ -26,7 +31,7 @@ public final class PortmapAlert extends AbstractAlert<portmap_alert> {
      * @return the mapping index
      */
     public int mapping() {
-        return alert.get_mapping();
+        return this.mpg;
     }
 
     /**
@@ -35,7 +40,7 @@ public final class PortmapAlert extends AbstractAlert<portmap_alert> {
      * @return the external port
      */
     public int externalPort() {
-        return alert.getExternal_port();
+        return this.ep;
     }
 
     public PortmapTransport mapTransport() {

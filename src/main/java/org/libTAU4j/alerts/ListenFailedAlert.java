@@ -28,8 +28,17 @@ import org.libTAU4j.swig.listen_failed_alert;
  */
 public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> {
 
+    Address ads;
+    int port;
+    String listen_interface;
+    ErrorCode ec;
+
     ListenFailedAlert(listen_failed_alert alert) {
         super(alert);
+        this.ads = new Address(alert.get_address());
+        this.port= alert.getPort();
+        this.listen_interface = alert.listen_interface();
+        this.ec = new ErrorCode(alert.getError());
     }
 
     /**
@@ -38,7 +47,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      * @return the listen interface (as string).
      */
     public String listenInterface() {
-        return alert.listen_interface();
+        return this.listen_interface;
     }
 
     /**
@@ -47,7 +56,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      * @return the error.
      */
     public ErrorCode error() {
-        return new ErrorCode(alert.getError());
+        return this.ec;
     }
 
     /**
@@ -75,7 +84,7 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      * @return the address attempted to listen on.
      */
     public Address address() {
-        return new Address(alert.get_address());
+        return this.ads;
     }
 
     /**
@@ -85,6 +94,6 @@ public final class ListenFailedAlert extends AbstractAlert<listen_failed_alert> 
      * @return the port.
      */
     public int port() {
-        return alert.getPort();
+        return this.port;
     }
 }
