@@ -337,6 +337,13 @@ public final class Alerts {
             }
         };
 
+		arr[50] = new CastLambda() {
+			@Override
+			public Alert cast(alert a) {
+				return new ReferredStatusAlert(cast_to_referred_status_alert(a));
+			}
+		};
+
         return arr;
     }
 

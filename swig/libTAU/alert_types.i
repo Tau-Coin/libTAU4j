@@ -34,6 +34,8 @@
 %ignore libTAU::dht_put_alert::public_key;
 %ignore libTAU::dht_put_alert::signature;
 %ignore libTAU::performance_warning_str;
+%ignore libTAU::referred_status_alert::external_address;
+%ignore libTAU::referred_status_alert::external_port;
 
 %rename("$ignore", regextarget=1, %$isconstructor) ".*_alert$";
 
@@ -267,4 +269,16 @@ namespace libTAU {
         return $self->last_seen;
     }
 }
+
+%extend referred_status_alert {
+
+    address get_external_address() {
+        return $self->external_address;
+    }
+
+    int get_external_port() {
+        return $self->external_port;
+    }
+}
+
 }
