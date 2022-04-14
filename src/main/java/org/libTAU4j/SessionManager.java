@@ -510,6 +510,16 @@ public class SessionManager {
     }
 
     /**
+     * This is judge tx
+     */
+    public boolean isTxInFeePool(byte[] chainID, String txID) {
+		if (session != null) {
+			return new SessionHandle(session).isTxInFeePool(chainID, txID);
+		}
+		return false;
+    }
+
+    /**
      * This is for request chain state
      */
     public void requestChainState(byte[] chainID) {

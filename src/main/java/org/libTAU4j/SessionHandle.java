@@ -362,6 +362,13 @@ public final class SessionHandle
     }
 
     /**
+     * This is for get block by hash
+     */
+    public boolean isTxInFeePool(byte[] chainID, String txID) {
+        return h.is_transaction_in_fee_pool(Vectors.bytes2byte_vector(chainID), sha256_hash.from_hex(txID));
+    }
+
+    /**
      * This is for request chain state
      */
     public void requestChainState(byte[] chainID) {
