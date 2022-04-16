@@ -7,10 +7,10 @@
 
 # remote android-x86 build with travis is available at https://s3.amazonaws.com/gubatron-${LIBRARY_NAME}/release/android/x86_64/lib${LIBRARY_NAME}.so
 
-source build-utils-android-x86_64.shinc
+source build-utils-android-x86.shinc
 check_min_req_vars
 
-export os_arch=x86_64
+export os_arch=x86
 export os_build=android
 export android_api=22
 export SHARED_LIB=${LIBRARY_NAME}.so
@@ -19,17 +19,17 @@ export SHARED_LIB_FINAL=${SHARED_LIB} # dummy for macosx
 export CXX=g++
 export NDK_VERSION=r22b
 
-prepare_android_toolchain
+#prepare_android_toolchain
 abort_if_var_unset "ANDROID_TOOLCHAIN" ${ANDROID_TOOLCHAIN}
-export CC=$ANDROID_TOOLCHAIN/bin/x86_64-linux-android-clang
+export CC=$ANDROID_TOOLCHAIN/bin/i686-linux-android22-clang
 
-export run_openssl_configure="./Configure linux-generic64 ${OPENSSL_NO_OPTS} -fPIC -mstackrealign --prefix=${OPENSSL_ROOT}";
-export run_readelf="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
+export run_openssl_configure="./Configure linux-generic ${OPENSSL_NO_OPTS} -fPIC -mstackrealign --prefix=${OPENSSL_ROOT}";
+export run_readelf="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-readelf -d bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
 export run_bjam="${BOOST_ROOT}/b2 -j8 --user-config=config/${os_build}-${os_arch}-config.jam variant=release toolset=clang-${os_arch} target-os=${os_build} location=bin/release/${os_build}/${os_arch}"
-export run_strip="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
-export run_objcopy="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-objcopy --only-keep-debug bin/release/${os_build}/${os_arch}/${SHARED_LIB} bin/release/${os_build}/${os_arch}/${SHARED_LIB}.debug"
+export run_strip="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-strip --strip-unneeded -x -g bin/release/${os_build}/${os_arch}/${SHARED_LIB}"
+export run_objcopy="${ANDROID_TOOLCHAIN}/bin/i686-linux-android-objcopy --only-keep-debug bin/release/${os_build}/${os_arch}/${SHARED_LIB} bin/release/${os_build}/${os_arch}/${SHARED_LIB}.debug"
 export PATH=$ANDROID_TOOLCHAIN/x86_64-linux-android/bin:$PATH;
-sed -i 's/RANLIB = ranlib/RANLIB = "${ANDROID_TOOLCHAIN}\/bin\/x86_64-linux-android-ranlib"/g' ${BOOST_ROOT}/tools/build/src/tools/gcc.jam;
+sed -i 's/RANLIB = ranlib/RANLIB = "${ANDROID_TOOLCHAIN}\/bin\/i686-linux-android-ranlib"/g' ${BOOST_ROOT}/tools/build/src/tools/gcc.jam;
 
 create_folder_if_it_doesnt_exist ${SRC}
 prompt_msg "About to prepare BOOST ${BOOST_VERSION}"

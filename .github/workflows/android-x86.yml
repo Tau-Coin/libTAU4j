@@ -42,9 +42,9 @@ jobs:
           unzip -qq android-ndk.zip
           mv android-ndk-${NDK_VERSION} android-ndk
           ${PWD}/android-ndk/build/tools/make_standalone_toolchain.py --arch ${os_arch} --api ${android_api} --stl libc++ --install-dir ${TOOLCHAIN_FOLDER};
-          export ANDROID_TOOLCHAIN="${PWD}/android-toolchain-x86_64-api_22"
-          export CXX="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-clang++"
-          export CC="${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android-clang"
+          export ANDROID_TOOLCHAIN="${PWD}/android-toolchain-x86-api_22"
+          export CXX="${ANDROID_TOOLCHAIN}/bin/i686-linux-android22-clang++"
+          export CC="${ANDROID_TOOLCHAIN}/bin/i686-linux-android22-clang"
           export AR="${ANDROID_TOOLCHAIN}/bin/llvm-ar"
           export LD="${ANDROID_TOOLCHAIN}/bin/ld"
           export RANLIB="${ANDROID_TOOLCHAIN}/bin/llvm-ranlib"
@@ -53,7 +53,7 @@ jobs:
           wget -nv -O openssl.tar.gz https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
           tar xzf openssl.tar.gz
           cd openssl-${OPENSSL_VERSION}
-          ./Configure linux-generic64 ${OPENSSL_NO_OPTS} -fPIC --prefix=${PWD}/../openssl
+          ./Configure linux-generic32 ${OPENSSL_NO_OPTS} -fPIC --prefix=${PWD}/../openssl
           make &> /dev/null
           make install_sw &> /dev/null
           cd ..
@@ -70,7 +70,7 @@ jobs:
           make install
       - name: snappy
         run: |
-        wget -nv -O snappy.tar.gz https://github.com/google/snappy/archive/refs/tags/1.1.8.tar.gz
+          wget -nv -O snappy.tar.gz https://github.com/google/snappy/archive/refs/tags/1.1.8.tar.gz
           tar xzf 1.1.8.tar.gz
           cd snappy-1.1.8
           vim CMakeLists.txt -> add_compile_options(-fPIC) && option(SNAPPY_BUILD_TESTS "Build Snappy's own tests" OFF)
@@ -84,7 +84,7 @@ jobs:
           wget -nv -O sqlite.tar.gz https://sqlite.org/2021/sqlite-autoconf-3360000.tar.gz
           tar xzf sqlite.tar.gz
           cd sqlite
-          ./configure --prefix=${SQLITE_ROOT} CFLAGS=-fPIC CXXFLAGS=-fPIC --host=x86_64-android-linux
+          ./configure --prefix=${SQLITE_ROOT} CFLAGS=-fPIC CXXFLAGS=-fPIC --host=x86-android-linux
           make
           make install
       - name: build

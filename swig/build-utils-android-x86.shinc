@@ -8,7 +8,7 @@ BOOST_VERSION="76"
 BOOST_MAJOR="1"
 BOOST_MINOR="0"
 SWIG=`pwd`
-SRC="${HOME}/data/libTAU-arm32-build"
+SRC="${HOME}/data/libTAU-android-x86-build"
 SRC_TAU="${HOME}/codes"
 BOOST_ROOT="${SRC}/boost"
 LIBTAU_ROOT="${SRC_TAU}/libTAU"
@@ -56,8 +56,6 @@ check_min_req_vars() {
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
   abort_if_var_unset "LIBTAU_ROOT" ${LIBTAU_ROOT}
-  abort_if_var_unset "LEVELDB_ROOT" ${LEVELDB_ROOT}
-  abort_if_var_unset "SQLITE_ROOT" ${SQLITE_ROOT}
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
   abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
   abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
@@ -205,7 +203,7 @@ build_libraries() {
   if [[ $os_build == "windows" ]]; then
     # expected but parametrized for flexibility and project
     # SHARED_LIB = lib${LIBRARY_NAME}.dll, libTAU4j.dll
-    # SHARED_LIB_FINAL = ${LIBRARY_NAME}.dll, libTAU4j.dll
+    # SHARED_LIB_FINAL = ${LIBRARY_NAME}.dll, torrent4j.dll
     mv bin/release/windows/${os_arch}/${SHARED_LIB} bin/release/windows/${os_arch}/${SHARED_LIB_FINAL};
   fi
   cd ..

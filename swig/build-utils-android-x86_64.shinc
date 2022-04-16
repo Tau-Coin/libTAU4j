@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 LIBRARY_NAME=libTAU4j
 
-LIBTORRENT_REVISION=70f1de3f7ec4012aaea420ff150ef0135d397706 # bump version to 1.2.10 (branch:RC_1_2) Sep 3, 2020
+LIBTAU_REVISION=70f1de3f7ec4012aaea420ff150ef0135d397706 # bump version to 1.2.10 (branch:RC_1_2) Sep 3, 2020
 
 OPENSSL_VERSION="1.1.1k"
 BOOST_VERSION="76"
 BOOST_MAJOR="1"
 BOOST_MINOR="0"
 SWIG=`pwd`
-SRC="${HOME}/data/libTAU-arm-build"
+SRC="${HOME}/data/libTAU-android-x86-64-build"
+SRC_TAU="${HOME}/codes"
 BOOST_ROOT="${SRC}/boost"
-LIBTORRENT_ROOT="${SRC}/libTAU"
+LIBTAU_ROOT="${SRC_TAU}/libTAU"
 LEVELDB_ROOT="${SRC}/leveldb"
 SQLITE_ROOT="${SRC}/sqlite"
 OPENSSL_SOURCE="${SRC}/openssl-${OPENSSL_VERSION}"
@@ -45,7 +46,7 @@ abort_if_var_unset() {
 }
 
 check_min_req_vars() {
-  abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
+  abort_if_var_unset "LIBTAU_REVISION" ${LIBTAU_REVISION}
   abort_if_var_unset "LIBRARY_NAME" ${LIBRARY_NAME}
   abort_if_var_unset "OPENSSL_VERSION" ${OPENSSL_VERSION}
   abort_if_var_unset "BOOST_VERSION" ${BOOST_VERSION}
@@ -54,7 +55,7 @@ check_min_req_vars() {
   abort_if_var_unset "SWIG" ${SWIG}
   abort_if_var_unset "SRC" ${SRC}
   abort_if_var_unset "BOOST_ROOT" ${BOOST_ROOT}
-  abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
+  abort_if_var_unset "LIBTAU_ROOT" ${LIBTAU_ROOT}
   abort_if_var_unset "OPENSSL_SOURCE" ${OPENSSL_SOURCE}
   abort_if_var_unset "OPENSSL_ROOT" ${OPENSSL_ROOT}
   abort_if_var_unset "OPENSSL_NO_OPTS" ${OPENSSL_NO_OPTS}
@@ -158,20 +159,20 @@ build_openssl() {
 
 prepare_libTAU() {
   abort_if_var_unset "SRC" ${SRC}
-  abort_if_var_unset "LIBTORRENT_ROOT" ${LIBTORRENT_ROOT}
-  abort_if_var_unset "LIBTORRENT_REVISION" ${LIBTORRENT_REVISION}
-  if [ ! -d ${LIBTORRENT_ROOT} ]; then
+  abort_if_var_unset "LIBTAU_ROOT" ${LIBTAU_ROOT}
+  abort_if_var_unset "LIBTAU_REVISION" ${LIBTAU_REVISION}
+  if [ ! -d ${LIBTAU_ROOT} ]; then
     pushd ${SRC}
     git clone https://github.com/arvidn/libTAU
     popd
   fi 
-  pushd ${LIBTORRENT_ROOT}
+  pushd ${LIBTAU_ROOT}
   prompt_msg "Checking if you have any uncommited changes"
   git status
   prompt_msg "Abort with Ctrl-C if there's pending changes above or you will lose them"
   press_any_to_continue
   git fetch origin RC_1_2
-  git reset --hard ${LIBTORRENT_REVISION}
+  git reset --hard ${LIBTAU_REVISION}
   git submodule init
   git submodule update
   make clean
@@ -195,14 +196,14 @@ build_libraries() {
   echo "Added boost tools to PATH:"
   echo ${PATH}
   export OPENSSL_ROOT=${OPENSSL_ROOT}
-  export LIBTORRENT_ROOT=${LIBTORRENT_ROOT}
+  export LIBTAU_ROOT=${LIBTAU_ROOT}
   $run_bjam
   $run_objcopy
   $run_strip
   if [[ $os_build == "windows" ]]; then
     # expected but parametrized for flexibility and project
     # SHARED_LIB = lib${LIBRARY_NAME}.dll, libTAU4j.dll
-    # SHARED_LIB_FINAL = ${LIBRARY_NAME}.dll, libTAU4j.dll
+    # SHARED_LIB_FINAL = ${LIBRARY_NAME}.dll, torrent4j.dll
     mv bin/release/windows/${os_arch}/${SHARED_LIB} bin/release/windows/${os_arch}/${SHARED_LIB_FINAL};
   fi
   cd ..

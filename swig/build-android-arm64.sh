@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source build-utils-arm.shinc
+source build-utils-arm64.shinc
 check_min_req_vars
 
 export os_arch=arm64
