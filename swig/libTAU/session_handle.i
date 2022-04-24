@@ -12,6 +12,9 @@
 %ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::map<dht::public_key, blockchain::account>& accounts, const blockchain::transaction& tx);
 %ignore libTAU::session_handle::follow_chain(std::vector<char> chain_id, const std::set<dht::public_key>& peers);
 %ignore libTAU::session_handle::unfollow_chain(std::vector<char> chain_id);
+%ignore libTAU::session_handle::get_access_list(std::vector<char> chain_id);
+%ignore libTAU::session_handle::get_ban_list(std::vector<char> chain_id);
+%ignore libTAU::session_handle::get_gossip_list(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_account_info(std::vector<char> chain_id, dht::public_key pub_key);
 %ignore libTAU::session_handle::get_top_tip_block(std::vector<char> chain_id, int num);
 %ignore libTAU::session_handle::get_median_tx_free(std::vector<char> chain_id);
@@ -165,6 +168,30 @@ namespace libTAU {
         std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
         std::vector<libTAU::blockchain::block> blks = $self->get_top_tip_block(id, num);
         return blks;
+    }
+
+    std::set<libTAU::dht::public_key> session_handle::get_access_list(std::vector<std::int8_t> chain_id)
+    {
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        std::set<libTAU::dht::public_key> keys = $self->get_access_list(id);
+        return keys;
+    }
+
+    std::set<libTAU::dht::public_key> session_handle::get_ban_list(std::vector<std::int8_t> chain_id)
+    {
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        std::set<libTAU::dht::public_key> keys = $self->get_ban_list(id);
+        return keys;
+    }
+
+    std::set<libTAU::dht::public_key> session_handle::get_gossip_list(std::vector<std::int8_t> chain_id)
+    {
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        std::set<libTAU::dht::public_key> keys = $self->get_gossip_list(id);
+        return keys;
     }
 
     std::int64_t session_handle::get_median_tx_free(std::vector<std::int8_t> chain_id)

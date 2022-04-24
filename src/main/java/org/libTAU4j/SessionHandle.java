@@ -29,6 +29,7 @@ import org.libTAU4j.swig.vector_byte_array_32;
 import org.libTAU4j.swig.byte_array_32;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -316,6 +317,45 @@ public final class SessionHandle
 			blks.add(new Block(bv.get(i)));
 		}
 		return blks;
+    }
+
+    /**
+     * This is for get access list
+     */
+    public ArrayList<String> getAccessList(byte[] chainID) {
+        pubkey_set keyset = h.get_access_list(Vectors.bytes2byte_vector(chainID));
+		ArrayList<String> keys = new ArrayList<String>();
+        Iterator<public_key> key_iter = keyset.iterator();
+        while(key_iter.hasNext()) {
+            keys.add(Hex.encode(Vectors.byte_vector2bytes(key_iter.next().to_bytes())));
+		}
+		return keys;
+    }
+
+    /**
+     * This is for get ban list
+     */
+    public ArrayList<String> getBanList(byte[] chainID) {
+        pubkey_set keyset = h.get_ban_list(Vectors.bytes2byte_vector(chainID));
+		ArrayList<String> keys = new ArrayList<String>();
+        Iterator<public_key> key_iter = keyset.iterator();
+        while(key_iter.hasNext()) {
+            keys.add(Hex.encode(Vectors.byte_vector2bytes(key_iter.next().to_bytes())));
+		}
+		return keys;
+    }
+
+    /**
+     * This is for get gossip list
+     */
+    public ArrayList<String> getGossipList(byte[] chainID) {
+        pubkey_set keyset = h.get_gossip_list(Vectors.bytes2byte_vector(chainID));
+		ArrayList<String> keys = new ArrayList<String>();
+        Iterator<public_key> key_iter = keyset.iterator();
+        while(key_iter.hasNext()) {
+            keys.add(Hex.encode(Vectors.byte_vector2bytes(key_iter.next().to_bytes())));
+		}
+		return keys;
     }
 
     /**

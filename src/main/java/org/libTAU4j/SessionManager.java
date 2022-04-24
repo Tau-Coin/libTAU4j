@@ -452,6 +452,36 @@ public class SessionManager {
     }
 
     /**
+     * This is for get access list
+     */
+    public ArrayList<String> getAccessList(byte[] chainID) {
+		if (session != null) {
+			return new SessionHandle(session).getAccessList(chainID);
+		}
+		return null;
+    }
+
+    /**
+     * This is for get ban list
+     */
+    public ArrayList<String> getBanList(byte[] chainID) {
+		if (session != null) {
+			return new SessionHandle(session).getBanList(chainID);
+		}
+		return null;
+    }
+
+    /**
+     * This is for get gossip list
+     */
+    public ArrayList<String> getGossipList(byte[] chainID) {
+		if (session != null) {
+			return new SessionHandle(session).getGossipList(chainID);
+		}
+		return null;
+    }
+
+    /**
      * This is for get_median_tx_free
      */
     public long getMedianTxFee(byte[] chainID) {
