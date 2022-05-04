@@ -389,9 +389,9 @@ public class SessionManager {
     /**
      * This is for create new community
      */
-    public boolean createNewCommunity(byte[] chainID, Map<String, Account> accounts, Transaction tx) {
+    public boolean createNewCommunity(byte[] chainID, Map<String, Account> accounts) {
 		if (session != null) {
-			return new SessionHandle(session).createNewCommunity(chainID, accounts, tx);
+			return new SessionHandle(session).createNewCommunity(chainID, accounts);
 		}
 		return false;
     }
