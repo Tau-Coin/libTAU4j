@@ -171,10 +171,15 @@ public class SessionManager {
             }
 
             onBeforeStop();
+        
+            session.stop();
+
+            processStopAlerts();
 
             session s = session;
             session = null; // stop alerts loop and session methods
 
+            /*
             // guarantee one more alert is post and detected
             s.post_session_stats();
             try {
@@ -183,7 +188,7 @@ public class SessionManager {
                 Thread.sleep(ALERTS_LOOP_WAIT_MILLIS + 250);
             } catch (InterruptedException ignore) {
             }
-
+            */
             if (alertsLoop != null) {
                 try {
                     alertsLoop.join();
@@ -1012,6 +1017,46 @@ public class SessionManager {
         t.start();
 
         alertsLoop = t;
+    }
+
+    private void processStopAlerts() {
+        alert_ptr_vector v = new alert_ptr_vector();
+        alert ptr = session.wait_for_alert_ms(ALERTS_LOOP_WAIT_MILLIS);
+
+        if (session == null) {
+            return;
+        }
+
+        if (ptr != null) {
+            session.pop_alerts(v);
+            long size = v.size();
+            for (int i = 0; i < size; i++) {
+                alert a = v.get(i);
+                int type = a.type();
+                Alert<?> alert = null;
+                switch (AlertType.fromSwig(type)) {
+                    case SESSION_STATS:
+                        alert = Alerts.cast(a);
+                        stats.update((SessionStatsAlert) alert);
+                        break;
+                }
+
+                if (listeners[type] != null) {
+                    if (alert == null) {
+                        alert = Alerts.cast(a);
+                    }
+                    fireAlert(alert, type);
+                }
+
+                if (!isSpecialType(type) && listeners[Alerts.NUM_ALERT_TYPES] != null) {
+                    if (alert == null) {
+                        alert = Alerts.cast(a);
+                    }
+                    fireAlert(alert, Alerts.NUM_ALERT_TYPES);
+                }
+                v.clear();
+            }
+        }
     }
 
     public static final class MutableItem {

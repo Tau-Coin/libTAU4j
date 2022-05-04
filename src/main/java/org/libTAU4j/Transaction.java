@@ -41,7 +41,7 @@ public final class Transaction {
     private final transaction tx;
 
     public Transaction(byte[] chain_id, int version, long timestamp, 
-			byte[] sender, long fee, byte[] payload) {
+			byte[] sender, byte[] payload) {
 
 		this.chain_id = chain_id;
 		this.version = version;
@@ -50,14 +50,14 @@ public final class Transaction {
 		this.receiver = null;
 		this.nonce = 0;
 		this.amount = 0;
-		this.fee = fee;
+		this.fee = 0;
 		this.payload = payload;
 
 		byte_vector bv_chain_id = Vectors.bytes2byte_vector(chain_id);
 		tx_version  tv = tx_version.swigToEnum(version);
 		public_key  pk_sender = new public_key(Vectors.bytes2byte_array_32(sender));
 		byte_vector bv_payload = Vectors.bytes2byte_vector(payload);
-		this.tx = new transaction(bv_chain_id, tv, timestamp, pk_sender, fee, bv_payload);
+		this.tx = new transaction(bv_chain_id, tv, timestamp, pk_sender, bv_payload);
 
         this.type = this.tx.type().swigValue();
 		this.txid = this.tx.sha256();
