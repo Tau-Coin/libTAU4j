@@ -417,6 +417,16 @@ public class SessionManager {
     }
 
     /**
+     * This is for add new bs peers
+     */
+    public boolean addNewBootstrapPeers(byte[] chainID, Set<String> peers) {
+		if (session != null) {
+			return new SessionHandle(session).addNewBootstrapPeers(chainID, peers);
+		}
+		return false;
+    }
+
+    /**
      * This is for submit transaction
      */
     public boolean submitTransaction(Transaction tx) {

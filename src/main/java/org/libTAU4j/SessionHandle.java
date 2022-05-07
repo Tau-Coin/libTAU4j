@@ -282,6 +282,21 @@ public final class SessionHandle
     }
 
     /**
+     * This is for add new bs peers
+     */
+    public boolean addNewBootstrapPeers(byte[] chainID, Set<String> peers) {
+        pubkey_set keyset = new pubkey_set();
+        for(String peer : peers) {
+		    byte[] pk = Hex.decode(peer);
+	        byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+       	    public_key key = new public_key(bpk);
+            keyset.add(key);
+        }
+
+        return h.add_new_bootstrap_peers(Vectors.bytes2byte_vector(chainID), keyset);
+    }
+
+    /**
      * This is for unfollow chain
      */
     public boolean unfollowChain(byte[] chainID) {

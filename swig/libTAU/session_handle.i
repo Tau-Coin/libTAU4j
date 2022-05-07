@@ -11,6 +11,7 @@
 %ignore libTAU::session_handle::create_chain_id(std::vector<char> community_name);
 %ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::map<dht::public_key, blockchain::account>& accounts);
 %ignore libTAU::session_handle::follow_chain(std::vector<char> chain_id, const std::set<dht::public_key>& peers);
+%ignore libTAU::session_handle::add_new_bootstrap_peers(std::vector<char> chain_id, const std::set<dht::public_key>& peers);
 %ignore libTAU::session_handle::unfollow_chain(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_access_list(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_ban_list(std::vector<char> chain_id);
@@ -146,6 +147,13 @@ namespace libTAU {
         std::vector<char> id;
         std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
         return $self->follow_chain(id, peers);
+    }
+
+    bool add_new_bootstrap_peers(std::vector<std::int8_t> chain_id, std::set<dht::public_key> peers)
+    {   
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        return $self->add_new_bootstrap_peers(id, peers);
     }
 
     bool unfollow_chain(std::vector<std::int8_t> chain_id)
