@@ -12,19 +12,12 @@ public interface Alert<T extends alert> {
     T swig();
 
     alert_category_t ERROR_NOTIFICATION = alert.error_notification;
-    alert_category_t PEER_NOTIFICATION = alert.peer_notification;
     alert_category_t PORT_MAPPING_NOTIFICATION = alert.port_mapping_notification;
-    alert_category_t STORAGE_NOTIFICATION = alert.storage_notification;
-    alert_category_t CONNECT_NOTIFICATION = alert.connect_notification;
     alert_category_t STATUS_NOTIFICATION = alert.status_notification;
-    alert_category_t PERFORMANCE_WARNING = alert.performance_warning;
     alert_category_t DHT_NOTIFICATION = alert.dht_notification;
     alert_category_t SESSION_LOG_NOTIFICATION = alert.session_log_notification;
-    alert_category_t INCOMING_REQUEST_NOTIFICATION = alert.incoming_request_notification;
     alert_category_t DHT_LOG_NOTIFICATION = alert.dht_log_notification;
     alert_category_t DHT_OPERATION_NOTIFICATION = alert.dht_operation_notification;
-    alert_category_t PORT_MAPPING_LOG_NOTIFICATION = alert.port_mapping_log_notification;
-    alert_category_t UPLOAD_NOTIFICATION = alert.upload_notification;
     alert_category_t ALL_CATEGORIES = alert.all_categories;
 
     /**

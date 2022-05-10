@@ -926,12 +926,8 @@ public class SessionManager {
         alert_category_t mask = alert.all_categories;
         if (!logging) {
             alert_category_t log_mask = alert.session_log_notification;
-            log_mask = log_mask.or_(alert.torrent_log_notification);
-            log_mask = log_mask.or_(alert.peer_log_notification);
             log_mask = log_mask.or_(alert.dht_log_notification);
             log_mask = log_mask.or_(alert.port_mapping_log_notification);
-            log_mask = log_mask.or_(alert.picker_log_notification);
-
             mask = mask.and_(log_mask.inv());
         }
         return mask;
@@ -1031,7 +1027,7 @@ public class SessionManager {
 
     private void processStopAlerts() {
         alert_ptr_vector v = new alert_ptr_vector();
-        alert ptr = session.wait_for_alert_ms(ALERTS_LOOP_WAIT_MILLIS);
+        alert ptr = session.wait_for_alert_ms(0);
 
         if (session == null) {
             return;
