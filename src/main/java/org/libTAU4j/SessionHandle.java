@@ -7,6 +7,7 @@
 
 package org.libTAU4j;
 
+import org.libTAU4j.ChainURL;
 import org.libTAU4j.alerts.SessionStatsAlert;
 import org.libTAU4j.swig.error_code;
 import org.libTAU4j.swig.block_vector;
@@ -16,6 +17,7 @@ import org.libTAU4j.swig.libTAU;
 import org.libTAU4j.swig.libTAU_errors;
 import org.libTAU4j.swig.portmap_protocol;
 import org.libTAU4j.swig.public_key;
+import org.libTAU4j.swig.byte_vector_vector;
 import org.libTAU4j.swig.pubkey_set;
 import org.libTAU4j.swig.pubkey_vector;
 import org.libTAU4j.swig.pubkey_account_map;
@@ -371,6 +373,22 @@ public final class SessionHandle
             keys.add(Hex.encode(Vectors.byte_vector2bytes(key_iter.next().to_bytes())));
 		}
 		return keys;
+    }
+
+    /**
+     * This is for get all chains
+     */
+    public ArrayList<String> getAllChains() {
+        byte_vector_vector chain_vector = h.get_all_chains_swig();
+		ArrayList<String> chains = new ArrayList<String>();
+        int cv_size = chain_vector.size();
+        System.out.println(cv_size);
+        int i = 0;
+        while(i < cv_size) {
+            chains.add(ChainURL.chainIDBytesToString(Vectors.byte_vector2bytes(chain_vector.get(i))));
+            i++;
+		}
+		return chains;
     }
 
     /**

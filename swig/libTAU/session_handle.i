@@ -9,6 +9,7 @@
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>);
 %ignore libTAU::session_handle::update_friend_info(dht::public_key& pubkey, std::vector<char> friend_info);
 %ignore libTAU::session_handle::create_chain_id(std::vector<char> community_name);
+%ignore libTAU::session_handle::get_all_chains;
 %ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::map<dht::public_key, blockchain::account>& accounts);
 %ignore libTAU::session_handle::follow_chain(std::vector<char> chain_id, const std::set<dht::public_key>& peers);
 %ignore libTAU::session_handle::add_new_bootstrap_peers(std::vector<char> chain_id, const std::set<dht::public_key>& peers);
@@ -133,6 +134,18 @@ namespace libTAU {
         std::copy(id.begin(), id.end(), std::inserter(chain_id, chain_id.begin()));
 
         return chain_id;
+    }
+
+    std::vector<std::vector<std::int8_t>> get_all_chains_swig()
+    {   
+        std::set<std::vector<char>> cids = $self->get_all_chains();
+        std::vector<std::vector<std::int8_t>> chains;
+        std::for_each(cids.begin(), cids.end(), [&](std::vector<char> cid) {
+            std::vector<std::int8_t> chain_id;
+            std::copy(cid.begin(), cid.end(), std::inserter(chain_id, chain_id.begin()));
+            chains.emplace(chains.end(), chain_id);
+        });
+        return chains;
     }
 
     bool create_new_community(std::vector<std::int8_t> chain_id, const std::map<dht::public_key, blockchain::account>& accounts)

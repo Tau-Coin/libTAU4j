@@ -212,6 +212,7 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 %template(ip_route_vector) std::vector<ip_route>;
 
 %template(bool_vector_vector) std::vector<std::vector<bool>>;
+%template(byte_vector_vector) std::vector<std::vector<std::int8_t>>;
 %template(sha256_hash_vector_vector) std::vector<std::vector<libTAU::digest32<256>>>;
 %template(sha256_hash_udp_endpoint_pair_vector) std::vector<std::pair<libTAU::digest32<256>, libTAU::udp::endpoint>>;
 %template(address_sha256_hash_pair_vector) std::vector<std::pair<libTAU::address, libTAU::digest32<256>>>;

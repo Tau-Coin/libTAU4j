@@ -497,6 +497,16 @@ public class SessionManager {
     }
 
     /**
+     * This is for get all chains
+     */
+    public ArrayList<String> getAllChains() {
+		if (session != null) {
+			return new SessionHandle(session).getAllChains();
+		}
+		return null;
+    }
+
+    /**
      * This is for get_median_tx_free
      */
     public long getMedianTxFee(byte[] chainID) {
