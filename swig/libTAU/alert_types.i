@@ -281,4 +281,28 @@ namespace libTAU {
     }
 }
 
+%extend communication_message_arrived_alert
+{
+    std::int64_t get_timestamp()
+    {
+        return $self->time;
+    }
+}
+
+%extend blockchain_tx_sent_alert
+{
+    std::int64_t get_timestamp()
+    {
+        return $self->time;
+    }
+}
+
+%extend blockchain_tx_arrived_alert
+{
+    std::int64_t get_timestamp()
+    {
+        return $self->time;
+    }
+}
+
 }

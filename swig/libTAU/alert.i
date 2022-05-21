@@ -70,6 +70,9 @@ struct alert_category_tag;
     CAST_ALERT_METHOD(blockchain_syncing_head_block_alert)
     CAST_ALERT_METHOD(blockchain_tx_confirmation_alert)
     CAST_ALERT_METHOD(referred_status_alert)
+    CAST_ALERT_METHOD(communication_message_arrived_alert)
+    CAST_ALERT_METHOD(blockchain_tx_sent_alert)
+    CAST_ALERT_METHOD(blockchain_tx_arrived_alert)
 
 }
 

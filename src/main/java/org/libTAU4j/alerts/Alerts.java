@@ -344,6 +344,28 @@ public final class Alerts {
 			}
 		};
 
+		arr[51] = new CastLambda() {
+			@Override
+			public Alert cast(alert a) {
+				return new CommMsgArrivedAlert(cast_to_communication_message_arrived_alert(a));
+			}
+		};
+
+		arr[52] = new CastLambda() {
+			@Override
+			public Alert cast(alert a) {
+				return new BlockChainTxSentAlert(cast_to_blockchain_tx_sent_alert(a));
+			}
+		};
+
+		arr[53] = new CastLambda() {
+			@Override
+			public Alert cast(alert a) {
+				return new BlockChainTxArrivedAlert(cast_to_blockchain_tx_arrived_alert(a));
+			}
+		};
+
+
         return arr;
     }
 

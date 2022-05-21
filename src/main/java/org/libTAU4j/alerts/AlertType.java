@@ -51,6 +51,9 @@ public enum AlertType {
     BLOCK_CHAIN_SYNCING_HEAD_BLOCK(blockchain_syncing_head_block_alert.alert_type),
     BLOCK_CHAIN_TX_CONFIRM(blockchain_tx_confirmation_alert.alert_type),
 	REFERRED_STATUS(referred_status_alert.alert_type),
+	COMM_MSG_ARRIVED(communication_message_arrived_alert.alert_type),
+	BLOCK_CHAIN_TX_SENT(blockchain_tx_sent_alert.alert_type),
+	BLOCK_CHAIN_TX_ARRIVED(blockchain_tx_arrived_alert.alert_type),
     DHT_PKT(dht_pkt_alert.alert_type),
     SESSION_ERROR(session_error_alert.alert_type),
     SESSION_STATS_HEADER(session_stats_header_alert.alert_type),
@@ -134,6 +137,9 @@ public enum AlertType {
         arr[48] = BLOCK_CHAIN_SYNCING_HEAD_BLOCK;
         arr[49] = BLOCK_CHAIN_TX_CONFIRM;
 		arr[50] = REFERRED_STATUS;
+		arr[51] = COMM_MSG_ARRIVED;
+		arr[52] = BLOCK_CHAIN_TX_SENT;
+		arr[53] = BLOCK_CHAIN_TX_ARRIVED;
 
         return arr;
     }
