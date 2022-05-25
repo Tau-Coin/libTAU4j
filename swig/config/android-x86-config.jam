@@ -19,6 +19,7 @@ using clang : x86 : $(ANDROID_TOOLCHAIN)/bin/i686-linux-android19-clang++ :
     <linkflags>-Wl,--no-rosegment
     # x86 devices have stack alignment issues, http://b.android.com/222239
     <cxxflags>-mstackrealign
+    #<linkflags>-L$(ANDROID_LOG_ROOT) -llog
     # debug information
     <cxxflags>-g
     ;

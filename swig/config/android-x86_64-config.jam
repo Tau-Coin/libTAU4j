@@ -14,6 +14,7 @@ using clang : x86_64 : $(ANDROID_TOOLCHAIN)/bin/x86_64-linux-android-clang++ :
     <linkflags>-Wl,--build-id=sha1
     # remove when API >= 29
     <linkflags>-Wl,--no-rosegment
+    #<linkflags>-L$(ANDROID_LOG_ROOT) -llog
     # debug information
     <cxxflags>-g
     ;
