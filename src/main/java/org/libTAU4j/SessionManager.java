@@ -593,6 +593,15 @@ public class SessionManager {
 		return -1;
     }
 
+    /**
+     * This is for crash test
+     */
+    public void crashTest() {
+		if (session != null) {
+            new SessionHandle(session).crashTest();
+		}
+    }
+
     //--------------------------------------------------
     // Settings methods
     //--------------------------------------------------

@@ -133,7 +133,6 @@ public final class Block {
 	}
 
     public Block(block blk) {
-
 		this.chain_id = Vectors.byte_vector2bytes(blk.chain_id());
 		this.version = blk.version().swigValue();
 		this.timestamp = blk.timestamp();

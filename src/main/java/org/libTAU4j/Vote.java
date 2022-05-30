@@ -24,18 +24,18 @@ public final class Vote {
 	private final BigInteger cumulative_difficulty;
 	private final long block_number;
     */
-	private final block bk;
+	private final Block blk;
 	private final long count;
     private final vote vt;
 
     public Vote(vote vt) {
 		this.vt = vt;
-		this.bk = vt.voting_block();
+		this.blk = new Block(vt.voting_block());
 		this.count = vt.count();
 	}
 
   	public Block getBlock() {
-    	return new Block(this.bk);
+        return this.blk;
   	}
 
   	public long getVoteCount() {

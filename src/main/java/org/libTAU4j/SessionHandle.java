@@ -456,6 +456,13 @@ public final class SessionHandle
     }
 
     /**
+     * This is for crashTest
+     */
+    public void crashTest() {
+        h.crash_test();
+    }
+
+    /**
      * Delete the files belonging to the torrent from disk,
      * including the part-file, if there is one.
      */
