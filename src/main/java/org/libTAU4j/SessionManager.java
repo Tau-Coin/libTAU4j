@@ -594,6 +594,15 @@ public class SessionManager {
     }
 
     /**
+     * This is for enable or disable log
+     */
+    public void enableDebugLog(boolean logged) {
+		if (session != null) {
+            new SessionHandle(session).enableDebugLog(logged);
+		}
+    }
+
+    /**
      * This is for crash test
      */
     public void crashTest() {

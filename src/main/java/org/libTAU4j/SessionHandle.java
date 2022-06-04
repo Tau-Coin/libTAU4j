@@ -456,6 +456,13 @@ public final class SessionHandle
     }
 
     /**
+     * This is for enable or diable log
+     */
+    public void enableDebugLog(boolean logged) {
+        h.enable_debug_log(logged);
+    }
+
+    /**
      * This is for crashTest
      */
     public void crashTest() {
