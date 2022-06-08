@@ -596,9 +596,9 @@ public class SessionManager {
     /**
      * This is for enable or disable log
      */
-    public void enableDebugLog(boolean logged) {
+    public void setLogLevel(int logged) {
 		if (session != null) {
-            new SessionHandle(session).enableDebugLog(logged);
+            new SessionHandle(session).setLogLevel(logged);
 		}
     }
 

@@ -458,8 +458,8 @@ public final class SessionHandle
     /**
      * This is for enable or diable log
      */
-    public void enableDebugLog(boolean logged) {
-        h.enable_debug_log(logged);
+    public void setLogLevel(int logged) {
+        h.set_log_level(logged);
     }
 
     /**
