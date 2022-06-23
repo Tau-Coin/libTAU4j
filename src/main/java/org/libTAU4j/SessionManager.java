@@ -611,6 +611,15 @@ public class SessionManager {
 		}
     }
 
+    /**
+     * This is for sql test
+     */
+    public void sqlTest() {
+		if (session != null) {
+            new SessionHandle(session).sqlTest();
+		}
+    }
+
     //--------------------------------------------------
     // Settings methods
     //--------------------------------------------------
