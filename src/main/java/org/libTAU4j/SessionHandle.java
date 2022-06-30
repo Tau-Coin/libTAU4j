@@ -134,6 +134,26 @@ public final class SessionHandle
         h.post_dht_stats();
     }
 
+    // Stop tau service
+    public void stopService() {
+        h.stop_service();
+    }
+
+    // Restart tau service
+    public void restartService() {
+        h.restart_service();
+    }
+
+    // Pause tau service
+    public void pauseService() {
+        h.pause_service();
+    }
+
+    // Resume tau service
+    public void resumeService() {
+        h.resume_service();
+    }
+
     /**
      * This is for get chain epoch block size
      */

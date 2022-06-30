@@ -303,6 +303,31 @@ public class SessionManager {
 		}
 	}
 
+    public void stopService() {
+		if (session != null) {
+			new SessionHandle(session).stopService();
+		}
+    }
+
+    public void restartService() {
+		if (session != null) {
+			new SessionHandle(session).stopService();
+		}
+    }
+
+    public void pauseService() {
+		if (session != null) {
+			new SessionHandle(session).pauseService();
+		}
+    }
+
+    // Resume tau service
+    public void resumeService() {
+		if (session != null) {
+			new SessionHandle(session).resumeService();
+		}
+    }
+
     public int getChainEpochBlockSize() {
 		return libTAU.getCHAIN_EPOCH_BLOCK_SIZE();
     }
