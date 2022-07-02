@@ -7,6 +7,9 @@
 %ignore libTAU::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::int64_t&, std::string const&)>);
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>, std::string);
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>);
+%ignore libTAU::session_handle::publish_data(const std::vector<char>& key, const std::vector<char>& value);
+%ignore libTAU::session_handle::subscribe_from_peer(const dht::public_key& pubkey, const std::vector<char>& data);
+%ignore libTAU::session_handle::send_to_peer(const dht::public_key& pubkey, const std::vector<char>& data);
 %ignore libTAU::session_handle::update_friend_info(dht::public_key& pubkey, std::vector<char> friend_info);
 %ignore libTAU::session_handle::create_chain_id(std::vector<char> community_name);
 %ignore libTAU::session_handle::get_all_chains;
@@ -104,6 +107,32 @@ namespace libTAU {
     void unset_chatting_friend()
     {
         $self->unset_chatting_friend();
+    }
+
+    bool publish_data(std::vector<std::int8_t> key, std::vector<std::int8_t> value)
+    {
+        std::vector<char> ckey;
+        std::vector<char> cvalue;
+        std::copy(key.begin(), key.end(), std::inserter(ckey, ckey.begin()));
+        std::copy(value.begin(), value.end(), std::inserter(cvalue, cvalue.begin()));
+
+        return $self->publish_data(ckey, cvalue);
+    }
+
+    bool subscribe_from_peer(dht::public_key & pubkey, std::vector<std::int8_t> data)
+    {
+        std::vector<char> cdata;
+        std::copy(data.begin(), data.end(), std::inserter(cdata, cdata.begin()));
+
+        return $self->subscribe_from_peer(pubkey, cdata);
+    }
+
+    bool send_to_peer(dht::public_key & pubkey, std::vector<std::int8_t> data)
+    {
+        std::vector<char> cdata;
+        std::copy(data.begin(), data.end(), std::inserter(cdata, cdata.begin()));
+
+        return $self->send_to_peer(pubkey, cdata);
     }
 
     bool update_friend_info(dht::public_key & pubkey, std::vector<std::int8_t> friend_info)
