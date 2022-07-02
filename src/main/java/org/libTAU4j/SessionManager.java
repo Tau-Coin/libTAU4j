@@ -338,6 +338,27 @@ public class SessionManager {
 		}
 	}
 
+    public boolean publishData(byte[] key, byte[] value){
+		if (session != null) {
+			return new SessionHandle(session).publishData(key, value);
+		}
+        return false;
+    }
+
+    public boolean subscribeFromPeer(byte[] pubkey, byte[] data){
+		if (session != null) {
+			return new SessionHandle(session).subscribeFromPeer(pubkey, data);
+		}
+        return false;
+    }
+
+    public boolean sendToPeer(byte[] pubkey, byte[] data){
+		if (session != null) {
+			return new SessionHandle(session).sendToPeer(pubkey, data);
+		}
+        return false;
+    }
+
 	public boolean addNewFriend(String pk) {
 		if (session != null) {
 			return new SessionHandle(session).addNewFriend(pk);

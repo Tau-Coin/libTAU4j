@@ -365,6 +365,20 @@ public final class Alerts {
 			}
 		};
 
+		arr[54] = new CastLambda() {
+			@Override
+			public Alert cast(alert a) {
+				return new CommUserInfoAlert(cast_to_communication_user_info_alert(a));
+			}
+		};
+
+		arr[55] = new CastLambda() {
+			@Override
+			public Alert cast(alert a) {
+				return new CommUserEventAlert(cast_to_communication_user_event_alert(a));
+			}
+		};
+
 
         return arr;
     }

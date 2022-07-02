@@ -168,6 +168,22 @@ public final class SessionHandle
 		h.set_loop_time_interval(milliseconds);
     }
 
+    public boolean publishData(byte[] key, byte[] value){
+        return h.publish_data(Vectors.bytes2byte_vector(key), Vectors.bytes2byte_vector(value));
+    }
+
+    public boolean subscribeFromPeer(byte[] pubkey, byte[] data){
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(pubkey);
+        public_key key = new public_key(bpk);
+        return h.subscribe_from_peer(key, Vectors.bytes2byte_vector(data));  
+    }
+
+    public boolean sendToPeer(byte[] pubkey, byte[] data){
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(pubkey);
+        public_key key = new public_key(bpk);
+        return h.send_to_peer(key, Vectors.bytes2byte_vector(data));  
+    }
+
     /**
      * This is for adding new friend.
      */
