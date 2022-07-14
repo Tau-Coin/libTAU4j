@@ -14,14 +14,14 @@ import org.libTAU4j.swig.communication_user_event_alert;
 public final class CommUserEventAlert extends AbstractAlert<communication_user_event_alert> {
 
 	byte[] peer;
-	String userEvent;
+	byte[] userEvent;
 	String alertMsg;
 
     CommUserEventAlert(communication_user_event_alert alert) {
         super(alert);
 
 		this.peer = Vectors.byte_vector2bytes(alert.getPeer().to_bytes());
-        this.userEvent = alert.getUser_event();
+        this.userEvent = Vectors.byte_vector2bytes(alert.getUser_event());
 		this.alertMsg = alert.message();
 
     }
@@ -30,7 +30,7 @@ public final class CommUserEventAlert extends AbstractAlert<communication_user_e
 		return this.peer;
     }
 
-    public String get_user_event() {
+    public byte[] get_user_event() {
         return this.userEvent;
     }
 

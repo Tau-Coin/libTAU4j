@@ -12,7 +12,7 @@ import org.libTAU4j.swig.byte_array_32;
 import org.libTAU4j.swig.byte_array_64;
 import org.libTAU4j.swig.public_key;
 import org.libTAU4j.swig.secret_key;
-import org.libTAU4j.swig.sha256_hash;
+import org.libTAU4j.swig.sha1_hash;
 import org.libTAU4j.swig.transaction;
 import org.libTAU4j.swig.tx_version;
 
@@ -36,7 +36,7 @@ public final class Transaction {
 	private final long amount;
 	private final long fee;
 	private final byte[] payload;
-	private final sha256_hash txid;
+	private final sha1_hash txid;
 
     private final transaction tx;
 
@@ -60,7 +60,7 @@ public final class Transaction {
 		this.tx = new transaction(bv_chain_id, tv, timestamp, pk_sender, bv_payload);
 
         this.type = this.tx.type().swigValue();
-		this.txid = this.tx.sha256();
+		this.txid = this.tx.sha1();
 	}
 
     public Transaction(byte[] chain_id, int version, long timestamp, 
@@ -87,7 +87,7 @@ public final class Transaction {
 					   pk_sender, pk_receiver, nonce, amount, fee, bv_payload);
 
         this.type = this.tx.type().swigValue();
-		this.txid = this.tx.sha256();
+		this.txid = this.tx.sha1();
 	}
 
     public Transaction(transaction tx) {
@@ -112,7 +112,7 @@ public final class Transaction {
 		this.tx = new transaction(bv_chain_id, tv, this.timestamp,
 					   pk_sender, pk_receiver, this.nonce, this.amount, this.fee, bv_payload);
 
-		this.txid = new sha256_hash(tx.sha256());
+		this.txid = new sha1_hash(tx.sha1());
 	}
 
 	public void sign(String publicKey, String secretKey) {
@@ -177,7 +177,7 @@ public final class Transaction {
     	return this.payload;
   	}
 
-  	public sha256_hash getTxID() {
+  	public sha1_hash getTxID() {
     	return this.txid;
   	}
 

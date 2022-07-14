@@ -21,9 +21,10 @@ import org.libTAU4j.swig.byte_vector_vector;
 import org.libTAU4j.swig.pubkey_set;
 import org.libTAU4j.swig.pubkey_vector;
 import org.libTAU4j.swig.pubkey_account_map;
+import org.libTAU4j.swig.pubkey_account_set;
 import org.libTAU4j.swig.remove_flags_t;
 import org.libTAU4j.swig.reopen_network_flags_t;
-import org.libTAU4j.swig.sha256_hash;
+import org.libTAU4j.swig.sha1_hash;
 import org.libTAU4j.swig.save_state_flags_t;
 import org.libTAU4j.swig.session_flags_t;
 import org.libTAU4j.swig.session_handle;
@@ -294,7 +295,8 @@ public final class SessionHandle
      */
     public boolean createNewCommunity(byte[] chainID, Map<String, Account> accounts) {
 		//map string, account -> public_key, account
-		pubkey_account_map pam = new pubkey_account_map();
+        /*
+		pubkey_account_set sa = new pubkey_account_set();
 		for(String pubkey : accounts.keySet()) {
 			byte[] pk = Hex.decode(pubkey);
 		    byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
@@ -302,6 +304,20 @@ public final class SessionHandle
 			pam.put(key, accounts.get(pubkey).swig());
 		}
         return h.create_new_community(Vectors.bytes2byte_vector(chainID), pam);
+        */
+        return false;
+    }
+
+    /**
+     * This is for create new community
+     */
+    public boolean createNewCommunity(byte[] chainID, Set<Account> accounts) {
+		//map string, account -> public_key, account
+		pubkey_account_set sa = new pubkey_account_set();
+		for(Account act : accounts) {
+			sa.add(act.swig());
+		}
+        return h.create_new_community(Vectors.bytes2byte_vector(chainID), sa);
     }
 
     /**
@@ -402,6 +418,7 @@ public final class SessionHandle
      * This is for get gossip list
      */
     public ArrayList<String> getGossipList(byte[] chainID) {
+        /*
         pubkey_set keyset = h.get_gossip_list(Vectors.bytes2byte_vector(chainID));
 		ArrayList<String> keys = new ArrayList<String>();
         Iterator<public_key> key_iter = keyset.iterator();
@@ -409,6 +426,8 @@ public final class SessionHandle
             keys.add(Hex.encode(Vectors.byte_vector2bytes(key_iter.next().to_bytes())));
 		}
 		return keys;
+        */
+        return null;
     }
 
     /**
@@ -467,21 +486,23 @@ public final class SessionHandle
      * This is for get block by hash
      */
     public Block getBlockByHash(byte[] chainID, String blockHash) {
-        return new Block(h.get_block_by_hash(Vectors.bytes2byte_vector(chainID), sha256_hash.from_hex(blockHash)));
+        return new Block(h.get_block_by_hash(Vectors.bytes2byte_vector(chainID), sha1_hash.from_hex(blockHash)));
     }
 
     /**
      * This is for get block by hash
      */
     public boolean isTxInFeePool(byte[] chainID, String txID) {
-        return h.is_transaction_in_fee_pool(Vectors.bytes2byte_vector(chainID), sha256_hash.from_hex(txID));
+        return h.is_transaction_in_fee_pool(Vectors.bytes2byte_vector(chainID), sha1_hash.from_hex(txID));
     }
 
     /**
      * This is for request chain state
      */
     public void requestChainState(byte[] chainID) {
+    /* 
          h.request_chain_state(Vectors.bytes2byte_vector(chainID));
+    */
     }
 
     /**

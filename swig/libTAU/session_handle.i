@@ -13,7 +13,7 @@
 %ignore libTAU::session_handle::update_friend_info(dht::public_key& pubkey, std::vector<char> friend_info);
 %ignore libTAU::session_handle::create_chain_id(std::vector<char> community_name);
 %ignore libTAU::session_handle::get_all_chains;
-%ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::map<dht::public_key, blockchain::account>& accounts);
+%ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::set<blockchain::account>& accounts);
 %ignore libTAU::session_handle::follow_chain(std::vector<char> chain_id, const std::set<dht::public_key>& peers);
 %ignore libTAU::session_handle::add_new_bootstrap_peers(std::vector<char> chain_id, const std::set<dht::public_key>& peers);
 %ignore libTAU::session_handle::unfollow_chain(std::vector<char> chain_id);
@@ -177,7 +177,7 @@ namespace libTAU {
         return chains;
     }
 
-    bool create_new_community(std::vector<std::int8_t> chain_id, const std::map<dht::public_key, blockchain::account>& accounts)
+    bool create_new_community(std::vector<std::int8_t> chain_id, const std::set<blockchain::account>& accounts)
     {   
         std::vector<char> id;
         std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
@@ -272,14 +272,14 @@ namespace libTAU {
         return $self->get_block_by_number(id, block_number);
     }
 
-    blockchain::block session_handle::get_block_by_hash(std::vector<std::int8_t> chain_id, sha256_hash block_hash)
+    blockchain::block session_handle::get_block_by_hash(std::vector<std::int8_t> chain_id, sha1_hash block_hash)
     {
         std::vector<char> id;
         std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
         return $self->get_block_by_hash(id, block_hash);
     }
 
-    bool session_handle::is_transaction_in_fee_pool(std::vector<std::int8_t> chain_id, sha256_hash txid)
+    bool session_handle::is_transaction_in_fee_pool(std::vector<std::int8_t> chain_id, sha1_hash txid)
     {
         std::vector<char> id;
         std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
