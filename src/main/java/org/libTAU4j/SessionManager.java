@@ -422,9 +422,9 @@ public class SessionManager {
     /**
      * This is for create chain id
      */
-    public byte[] createChainID(String communityName) {
+    public byte[] createChainID(byte[] type, String communityName) {
 		if (session != null) {
-			return new SessionHandle(session).createChainID(communityName);
+			return new SessionHandle(session).createChainID(type, communityName);
 		}
 		return null;
     }

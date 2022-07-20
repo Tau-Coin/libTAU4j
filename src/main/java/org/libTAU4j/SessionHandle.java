@@ -284,9 +284,9 @@ public final class SessionHandle
     /**
      * This is for create chain id
      */
-    public byte[] createChainID(String communityName) {
+    public byte[] createChainID(byte[] type, String communityName) {
 		byte[] name = communityName.getBytes();
-		byte_vector id = h.create_chain_id(Vectors.bytes2byte_vector(name));
+		byte_vector id = h.create_chain_id(Vectors.bytes2byte_vector(type), Vectors.bytes2byte_vector(name));
 		return Vectors.byte_vector2bytes(id);
     }
 

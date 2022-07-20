@@ -232,6 +232,7 @@ TYPE_INTEGRAL_CONVERSION(file_index_t, std::int32_t, int)
 %template(pubkey_set) std::set<libTAU::dht::public_key>;
 %template(pubkey_account_map) std::map<libTAU::dht::public_key, libTAU::blockchain::account>;
 %template(pubkey_account_set) std::set<libTAU::blockchain::account>;
+%template(pubkey_account_vector) std::vector<libTAU::blockchain::account>;
 
 %template(boost_string_entry_map) boost::container::map<std::string, libTAU::entry>;
 

@@ -11,7 +11,7 @@
 %ignore libTAU::session_handle::subscribe_from_peer(const dht::public_key& pubkey, const std::vector<char>& data);
 %ignore libTAU::session_handle::send_to_peer(const dht::public_key& pubkey, const std::vector<char>& data);
 %ignore libTAU::session_handle::update_friend_info(dht::public_key& pubkey, std::vector<char> friend_info);
-%ignore libTAU::session_handle::create_chain_id(std::vector<char> community_name);
+%ignore libTAU::session_handle::create_chain_id(std::vector<char> type, std::vector<char> community_name);
 %ignore libTAU::session_handle::get_all_chains;
 %ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::set<blockchain::account>& accounts);
 %ignore libTAU::session_handle::follow_chain(std::vector<char> chain_id, const std::set<dht::public_key>& peers);
@@ -152,12 +152,14 @@ namespace libTAU {
         return friend_info;
     }
 
-    std::vector<std::int8_t> create_chain_id(std::vector<std::int8_t> community_name)
+    std::vector<std::int8_t> create_chain_id(std::vector<std::int8_t> chain_type, std::vector<std::int8_t> community_name)
     {   
+        std::vector<char> ctype;
         std::vector<char> name;
         std::copy(community_name.begin(), community_name.end(), std::inserter(name, name.begin()));
+        std::copy(chain_type.begin(), chain_type.end(), std::inserter(ctype, ctype.begin()));
 
-        std::vector<char> id = $self->create_chain_id(name);
+        std::vector<char> id = $self->create_chain_id(ctype, name);
         
         std::vector<std::int8_t> chain_id;
         std::copy(id.begin(), id.end(), std::inserter(chain_id, chain_id.begin()));
