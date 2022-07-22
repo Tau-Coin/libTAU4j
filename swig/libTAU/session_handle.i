@@ -3,6 +3,7 @@
 %ignore libTAU::session_handle::get_io_service;
 %ignore libTAU::session_handle::get_connection_queue;
 %ignore libTAU::session_handle::add_extension;
+%ignore libTAU::session_handle::send(dht::public_key const& to, entry const& payload, std::int8_t alpha, std::int8_t beta, std::int8_t invoke_limit, std::int8_t hit_limit);
 %ignore libTAU::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::int64_t&, std::string const&)>, std::string);
 %ignore libTAU::session_handle::dht_put_item(std::array<char, 32>, std::function<void(entry&, std::array<char,64>&, std::int64_t&, std::string const&)>);
 %ignore libTAU::session_handle::dht_get_item(std::array<char, 32>, std::string);
@@ -73,6 +74,14 @@ namespace libTAU {
         $self->dht_put_item(pk, std::bind(&dht_put_item_cb, _1, _2, _3, _4,
             public_key((char*)key.data()), secret_key((char*)sk.data()), data),
             std::string(salt.begin(), salt.end()));
+    }
+
+    void send(std::array<std::int8_t, 32>& key, entry const& payload
+        , int invoke_window, int invoke_limit, int hit_limit)
+    {
+        $self->send(libTAU::dht::public_key((char*)key.data()), payload
+            , 1, std::int8_t(invoke_window)
+            , std::int8_t(invoke_limit), std::int8_t(hit_limit));
     }
 
     alert* wait_for_alert_ms(std::int64_t max_wait)
