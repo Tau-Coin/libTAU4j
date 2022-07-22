@@ -60,6 +60,10 @@ public final class Account {
     	return this.nonce;
   	}
 
+    public byte[] getPeer(){
+        return this.peer;
+    }
+
     /*
   	public long getEffectivePower() {
     	return this.effective_power;

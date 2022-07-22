@@ -29,6 +29,8 @@
 %ignore libTAU::session_handle::get_block_by_hash(std::vector<char> chain_id, sha256_hash block_hash);
 %ignore libTAU::session_handle::is_transaction_in_fee_pool(std::vector<char> chain_id, sha256_hash txid);
 %ignore libTAU::session_handle::request_chain_state(std::vector<char> chain_id);
+%ignore libTAU::session_handle::request_chain_data(std::vector<char> chain_id, dht::public_key peer);
+%ignore libTAU::session_handle::put_all_chain_data(std::vector<char> chain_id);
 %ignore libTAU::session_handle::set_load_function;
 %ignore libTAU::session_handle::set_alert_notify;
 %ignore libTAU::session_handle::native_handle;
@@ -293,6 +295,20 @@ namespace libTAU {
         std::vector<char> id;
         std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
         return $self->request_chain_state(id);
+    }
+
+    void session_handle::request_chain_data(std::vector<std::int8_t> chain_id, dht::public_key peer)
+    {
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        return $self->request_chain_data(id, peer);
+    }
+
+    void session_handle::put_all_chain_data(std::vector<std::int8_t> chain_id)
+    {
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        return $self->put_all_chain_data(id);
     }
 
 }

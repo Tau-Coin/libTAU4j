@@ -505,6 +505,17 @@ public final class SessionHandle
     */
     }
 
+    public void requestChainData(byte[] chainID, String peer) {
+		byte[] pk = Hex.decode(peer);
+	    byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+       	public_key key = new public_key(bpk);
+        h.request_chain_data(Vectors.bytes2byte_vector(chainID), key);
+    }
+
+    public void putAllChainData(byte[] chainID) {
+        h.put_all_chain_data(Vectors.bytes2byte_vector(chainID));
+    }
+
     /**
      * This is for get_session_time
      */

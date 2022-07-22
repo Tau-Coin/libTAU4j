@@ -630,6 +630,24 @@ public class SessionManager {
     }
 
     /**
+     * This is for request chain data
+     */
+    public void requestChainData(byte[] chainID, String peer) {
+		if (session != null) {
+			new SessionHandle(session).requestChainData(chainID, peer);
+		}
+    }
+
+    /**
+     * This is for put all chain data
+     */
+    public void putAllChainData(byte[] chainID) {
+		if (session != null) {
+			new SessionHandle(session).putAllChainData(chainID);
+		}
+    }
+
+    /**
      * This is for get session time
      */
     public long getSessionTime() {
