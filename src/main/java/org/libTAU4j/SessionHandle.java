@@ -155,6 +155,14 @@ public final class SessionHandle
         h.resume_service();
     }
 
+	public void send(String to, Entry payload, int invoke_window
+		, int invoke_limit, int hit_limit)
+	{
+		byte[] pk = Hex.decode(to);
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(pk);
+		h.send(bpk, payload.swig(), invoke_window, invoke_limit, hit_limit);
+	}
+
     /**
      * This is for get chain epoch block size
      */
