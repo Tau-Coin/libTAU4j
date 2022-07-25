@@ -57,6 +57,7 @@ public enum AlertType {
 	COMM_USER_INFO(communication_user_info_alert.alert_type),
 	COMM_USER_EVENT(communication_user_event_alert.alert_type),
     BLOCK_CHAIN_STATE_ARRAY(blockchain_state_array_alert.alert_type),
+    BLOCK_CHAIN_FAIL_TO_GET_CHAIN_DATA(blockchain_fail_to_get_chain_data_alert.alert_type),
     DHT_PKT(dht_pkt_alert.alert_type),
     SESSION_ERROR(session_error_alert.alert_type),
     SESSION_STATS_HEADER(session_stats_header_alert.alert_type),
@@ -146,6 +147,7 @@ public enum AlertType {
 		arr[54] = COMM_USER_INFO;
 		arr[55] = COMM_USER_EVENT;
 		arr[56] = BLOCK_CHAIN_STATE_ARRAY;
+		arr[57] = BLOCK_CHAIN_FAIL_TO_GET_CHAIN_DATA;
 
         return arr;
     }

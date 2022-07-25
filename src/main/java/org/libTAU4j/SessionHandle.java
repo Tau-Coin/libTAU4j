@@ -358,6 +358,13 @@ public final class SessionHandle
     }
 
     /**
+     * This is for start chain
+     */
+    public boolean startChain(byte[] chainID) {
+        return h.start_chain(Vectors.bytes2byte_vector(chainID));
+    }
+
+    /**
      * This is for submit transaction
      */
     public boolean submitTransaction(Transaction tx) {

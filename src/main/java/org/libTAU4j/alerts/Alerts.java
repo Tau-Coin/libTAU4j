@@ -386,6 +386,13 @@ public final class Alerts {
 			}
 		};
 
+		arr[57] = new CastLambda() {
+			@Override
+			public Alert cast(alert a) {
+				return new BlockChainFailToGetChainDataAlert(cast_to_blockchain_fail_to_get_chain_data_alert(a));
+			}
+		};
+
         return arr;
     }
 

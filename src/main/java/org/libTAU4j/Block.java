@@ -35,9 +35,9 @@ public final class Block {
 	private final byte[] generation_signature;
 	private final byte[] state_root;
 	private final Transaction tx;
-	private final UdpEndpoint endp;
 	private final byte[] miner;
     /*
+	private final UdpEndpoint endp;
 	private final long miner_balance;
 	private final long miner_nonce;
 	private final long sender_balance;
@@ -84,11 +84,13 @@ public final class Block {
 					  sh_pbh, base_target, cumulative_difficulty,
 					  sh_sign, sh_sr, tx.swig(), pk_miner);
 
+        /*
 		if(blk.end_point() != null) {
 			this.endp = new UdpEndpoint(blk.end_point());
 		} else {
 			this.endp = null;
 		}
+        */
 		this.blk_hash = this.blk.sha1().to_hex();
 	}
 
@@ -114,8 +116,8 @@ public final class Block {
 		this.sender_nonce = sender_nonce;
 		this.receiver_balance = receiver_balance;
 		this.receiver_nonce = receiver_nonce;
-        */
 		this.endp = endp;
+        */
 
 		byte_vector bv_chain_id = Vectors.bytes2byte_vector(chain_id);
 		block_version  bv = block_version.swigToEnum(version);
@@ -126,7 +128,7 @@ public final class Block {
 
 		this.blk = new block(bv_chain_id, bv, timestamp, block_number,
 					  sh_pbh, base_target, cumulative_difficulty,
-					  sh_sign, sh_sr, tx.swig(), pk_miner, endp.swig());
+					  sh_sign, sh_sr, tx.swig(), pk_miner);
 
 		this.blk_hash = this.blk.sha1().to_hex();
 	}
@@ -154,12 +156,12 @@ public final class Block {
 		this.sender_nonce = blk.sender_nonce();
 		this.receiver_balance = blk.receiver_balance();
 		this.receiver_nonce = blk.receiver_nonce();
-        */
 		if(blk.end_point() != null) {
 			this.endp = new UdpEndpoint(blk.end_point());
 		} else {
 			this.endp = null;
 		}
+        */
 
 		this.blk = blk;
 		this.blk_hash = blk.sha1().to_hex();
@@ -230,14 +232,14 @@ public final class Block {
   	public long getReceiverNonce() {
     	return this.receiver_nonce;
   	}
+
+  	public UdpEndpoint getEndp() {
+    	return this.endp;
+  	}
     */
 
   	public Transaction getTx() {
     	return this.tx;
-  	}
-
-  	public UdpEndpoint getEndp() {
-    	return this.endp;
   	}
 
 	public String Hash() {

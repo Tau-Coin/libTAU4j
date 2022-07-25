@@ -76,6 +76,7 @@ struct alert_category_tag;
     CAST_ALERT_METHOD(communication_user_info_alert)
     CAST_ALERT_METHOD(communication_user_event_alert)
     CAST_ALERT_METHOD(blockchain_state_array_alert)
+    CAST_ALERT_METHOD(blockchain_fail_to_get_chain_data_alert)
 
 }
 

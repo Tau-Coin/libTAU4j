@@ -430,12 +430,19 @@ public class SessionManager {
     }
 
     /**
-     * This is for follow chain
-     */
-    /**
      * This is for create new community
      */
     public boolean createNewCommunity(byte[] chainID, Map<String, Account> accounts) {
+		if (session != null) {
+			return new SessionHandle(session).createNewCommunity(chainID, accounts);
+		}
+		return false;
+    }
+
+    /**
+     * This is for create new community
+     */
+    public boolean createNewCommunity(byte[] chainID, Set<Account> accounts) {
 		if (session != null) {
 			return new SessionHandle(session).createNewCommunity(chainID, accounts);
 		}
@@ -458,6 +465,16 @@ public class SessionManager {
     public boolean unfollowChain(byte[] chainID) {
 		if (session != null) {
 			return new SessionHandle(session).unfollowChain(chainID);
+		}
+		return false;
+    }
+
+    /**
+     * This is for start chain
+     */
+    public boolean startChain(byte[] chainID) {
+		if (session != null) {
+			return new SessionHandle(session).startChain(chainID);
 		}
 		return false;
     }
