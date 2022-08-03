@@ -677,6 +677,12 @@ public final class SessionHandle
 		applySettings(sp);
 	}
 
+	public void setAutoRelay(boolean value) {
+		SettingsPack sp = settings();
+		sp.setAutoRelay(value);
+		applySettings(sp);
+	}
+
     /**
      * This is for getting port from pubkey.
      */

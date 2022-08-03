@@ -607,6 +607,11 @@ public final class SettingsPack
 		return this;
 	}
 
+	public SettingsPack setAutoRelay(boolean value) {
+		h.set_bool(settings_pack.bool_types.auto_relay.swigValue(), value);
+		return this;
+	}
+
 	public SettingsPack setAccoutSeed(String value) {
 		h.set_str(settings_pack.string_types.account_seed.swigValue(), value);
 		return this;
