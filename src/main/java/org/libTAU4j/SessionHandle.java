@@ -483,6 +483,13 @@ public final class SessionHandle
     }
 
     /**
+     * This is for send online signal
+     */
+    public void sendOnlineSignal(byte[] chainID) {
+        h.send_online_signal(Vectors.bytes2byte_vector(chainID));
+    }
+
+    /**
      * This is for un-focus_on_chain
      */
     public void unsetPriorityChain() {

@@ -393,6 +393,13 @@ public final class Alerts {
 			}
 		};
 
+		arr[58] = new CastLambda() {
+			@Override
+			public Alert cast(alert a) {
+				return new BlockChainOnlinePeerAlert(cast_to_blockchain_online_peer_alert(a));
+			}
+		};
+
         return arr;
     }
 

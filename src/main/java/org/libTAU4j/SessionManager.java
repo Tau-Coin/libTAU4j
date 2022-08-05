@@ -621,6 +621,15 @@ public class SessionManager {
     }
 
     /**
+     * This is for send online signal
+     */
+    public void sendOnlineSignal(byte[] chainID) {
+		if (session != null) {
+            new SessionHandle(session).sendOnlineSignal(chainID);
+		}
+    }
+
+    /**
      * This is for unfocus_on_chain
      */
     public void unsetPriorityChain() {
