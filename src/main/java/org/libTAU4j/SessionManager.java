@@ -303,6 +303,28 @@ public class SessionManager {
 		}
 	}
 
+	/**
+	 * Update non_referrable setting
+	 *
+	 * @param value non_referrable setting
+	 */
+	public void setNonReferrable(boolean value) {
+		if (session != null) {
+			new SessionHandle(session).setNonReferrable(value);
+		}
+	}
+
+	/**
+	 * Update auto_relay setting
+	 *
+	 * @param value auto_relay setting
+	 */
+	public void setAutoRelay(boolean value) {
+		if (session != null) {
+			new SessionHandle(session).setAutoRelay(value);
+		}
+	}
+
     public void stopService() {
 		if (session != null) {
 			new SessionHandle(session).stopService();
