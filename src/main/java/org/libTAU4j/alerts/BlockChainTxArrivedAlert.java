@@ -6,21 +6,21 @@ import org.libTAU4j.swig.blockchain_tx_arrived_alert;
 
 public class BlockChainTxArrivedAlert extends AbstractAlert<blockchain_tx_arrived_alert> {
 
-	byte[] peer;
+	byte[] chain_id;
 	byte[] arrivedTxHash;
 	long timestamp;
 	String alertMsg;
 
     BlockChainTxArrivedAlert(blockchain_tx_arrived_alert alert) {
         super(alert);
-		this.peer = Vectors.byte_vector2bytes(alert.getPeer().to_bytes());
+        this.chain_id = Vectors.byte_vector2bytes(alert.getChain_id());
         this.arrivedTxHash = Vectors.byte_vector2bytes(alert.getTx_arrived_hash().to_bytes());
 		this.timestamp = alert.get_timestamp();
 		this.alertMsg = alert.message();
     }
 
-    public byte[] get_peer() {
-        return this.peer;
+    public byte[] get_chain_id() {
+        return this.chain_id;
     }
 
     public byte[] getArrived_tx_hash() {
