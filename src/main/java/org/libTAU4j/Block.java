@@ -47,6 +47,7 @@ public final class Block {
     */
 
     private final block blk;
+    private final String genesis_blk_hash; //block hex string
     private final String blk_hash; //hex string
 
     public Block(byte[] chain_id, int version, long timestamp, long block_number,
@@ -91,6 +92,7 @@ public final class Block {
 			this.endp = null;
 		}
         */
+		this.genesis_blk_hash = this.blk.genesis_block_hash().to_hex();
 		this.blk_hash = this.blk.sha1().to_hex();
 	}
 
@@ -130,6 +132,7 @@ public final class Block {
 					  sh_pbh, base_target, cumulative_difficulty,
 					  sh_sign, sh_sr, tx.swig(), pk_miner);
 
+		this.genesis_blk_hash = this.blk.genesis_block_hash().to_hex();
 		this.blk_hash = this.blk.sha1().to_hex();
 	}
 
@@ -164,6 +167,7 @@ public final class Block {
         */
 
 		this.blk = blk;
+		this.genesis_blk_hash = blk.genesis_block_hash().to_hex();
 		this.blk_hash = blk.sha1().to_hex();
 
 	}
@@ -241,6 +245,10 @@ public final class Block {
   	public Transaction getTx() {
     	return this.tx;
   	}
+
+	public String GenesisBlockHash() {
+    	return this.genesis_blk_hash;
+	}
 
 	public String Hash() {
     	return this.blk_hash;
