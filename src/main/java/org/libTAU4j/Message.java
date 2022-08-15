@@ -49,7 +49,7 @@ public final class Message {
 		byte_vector bv_payload = Vectors.bytes2byte_vector(payload);
 		this.msg = new message(timestamp, spk, rpk, bv_payload);
 
-		this.msgId = this.msg.sha256().to_hex();
+		this.msgId = this.msg.sha1().to_hex();
 	}
 
     public Message(message msg) {
@@ -58,7 +58,7 @@ public final class Message {
 		this.sender = Vectors.byte_vector2bytes(msg.sender().to_bytes());
 		this.receiver = Vectors.byte_vector2bytes(msg.receiver().to_bytes());
 		this.payload = Vectors.byte_vector2bytes(msg.payload());
-		this.msgId = msg.sha256().to_hex();
+		this.msgId = msg.sha1().to_hex();
 		
 		this.msg = msg;
 

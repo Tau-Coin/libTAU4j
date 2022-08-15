@@ -2,7 +2,7 @@ package org.libTAU4j.alerts;
 
 import org.libTAU4j.Vectors;
 import org.libTAU4j.swig.communication_confirmation_root_alert;
-import org.libTAU4j.swig.sha256_hash_vector;
+import org.libTAU4j.swig.sha1_hash_vector;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public final class CommConfirmRootAlert extends AbstractAlert<communication_conf
 		this.timestamp = alert.get_timestamp();
 		this.alertMsg = alert.message();
 
-		sha256_hash_vector hash_vector = alert.getConfirmation_roots();
+		sha1_hash_vector hash_vector = alert.getConfirmation_roots();
 		if (!hash_vector.isEmpty()) {
             long size = hash_vector.size();
             for (int i = 0; i < size; ++i) {
