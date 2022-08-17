@@ -135,6 +135,16 @@ public final class SessionHandle
         h.post_dht_stats();
     }
 
+    // Disconnect tau network
+    public void disconnectNetwork() {
+        h.disconnect();
+    }
+
+    // Reconnect tau network
+    public void reconnectNetwork() {
+        h.reconnect();
+    }
+
     // Stop tau service
     public void stopService() {
         h.stop_service();
@@ -193,6 +203,13 @@ public final class SessionHandle
         return h.send_to_peer(key, Vectors.bytes2byte_vector(data));  
     }
 
+    public boolean payAttenToPeer(byte[] peer){
+		byte_array_32 bpk = Vectors.bytes2byte_array_32(peer);
+        public_key key = new public_key(bpk);
+        return h.pay_attention_to_peer(key);  
+    }
+
+    /**
     /**
      * This is for adding new friend.
      */

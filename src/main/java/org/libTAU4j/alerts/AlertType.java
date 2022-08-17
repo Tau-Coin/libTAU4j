@@ -59,6 +59,7 @@ public enum AlertType {
     BLOCK_CHAIN_STATE_ARRAY(blockchain_state_array_alert.alert_type),
     BLOCK_CHAIN_FAIL_TO_GET_CHAIN_DATA(blockchain_fail_to_get_chain_data_alert.alert_type),
     BLOCK_CHAIN_ONLINE_PEER(blockchain_online_peer_alert.alert_type),
+    COMM_PEER_ATTENTION(communication_peer_attention_alert.alert_type),
     DHT_PKT(dht_pkt_alert.alert_type),
     SESSION_ERROR(session_error_alert.alert_type),
     SESSION_STATS_HEADER(session_stats_header_alert.alert_type),
@@ -150,6 +151,7 @@ public enum AlertType {
 		arr[56] = BLOCK_CHAIN_STATE_ARRAY;
 		arr[57] = BLOCK_CHAIN_FAIL_TO_GET_CHAIN_DATA;
 		arr[58] = BLOCK_CHAIN_ONLINE_PEER;
+		arr[59] = COMM_PEER_ATTENTION;
 
         return arr;
     }

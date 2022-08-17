@@ -325,6 +325,18 @@ public class SessionManager {
 		}
 	}
 
+    public void disconnectNetwork() {
+		if (session != null) {
+			new SessionHandle(session).disconnectNetwork();
+		}
+    }
+
+    public void reconnectNetwork() {
+		if (session != null) {
+			new SessionHandle(session).reconnectNetwork();
+		}
+    }
+
     public void stopService() {
 		if (session != null) {
 			new SessionHandle(session).stopService();
@@ -377,6 +389,13 @@ public class SessionManager {
     public boolean sendToPeer(byte[] pubkey, byte[] data){
 		if (session != null) {
 			return new SessionHandle(session).sendToPeer(pubkey, data);
+		}
+        return false;
+    }
+
+    public boolean payAttenToPeer(byte[] peer){
+		if (session != null) {
+			return new SessionHandle(session).payAttenToPeer(peer);
 		}
         return false;
     }
