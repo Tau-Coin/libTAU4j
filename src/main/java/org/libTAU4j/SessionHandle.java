@@ -502,10 +502,18 @@ public final class SessionHandle
     /**
      * This is for send online signal
      */
-    public void sendOnlineSignal(byte[] chainID) {
-        h.send_online_signal(Vectors.bytes2byte_vector(chainID));
+    public boolean sendOnlineSignal(byte[] chainID) {
+        return h.send_online_signal(Vectors.bytes2byte_vector(chainID));
     }
 
+    /**
+     * This is for chain connect
+     */
+    public boolean connectChain(byte[] chainID) {
+        return h.connect_chain(Vectors.bytes2byte_vector(chainID));
+    }
+
+    /**
     /**
      * This is for un-focus_on_chain
      */

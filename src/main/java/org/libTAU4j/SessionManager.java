@@ -642,10 +642,21 @@ public class SessionManager {
     /**
      * This is for send online signal
      */
-    public void sendOnlineSignal(byte[] chainID) {
+    public boolean sendOnlineSignal(byte[] chainID) {
 		if (session != null) {
-            new SessionHandle(session).sendOnlineSignal(chainID);
+            return new SessionHandle(session).sendOnlineSignal(chainID);
 		}
+        return false;
+    }
+
+    /**
+     * This is for chain connect
+     */
+    public boolean connectChain(byte[] chainID) {
+		if (session != null) {
+            return new SessionHandle(session).connectChain(chainID);
+		}
+        return false;
     }
 
     /**

@@ -19,6 +19,7 @@
 %ignore libTAU::session_handle::add_new_bootstrap_peers(std::vector<char> chain_id, const std::set<dht::public_key>& peers);
 %ignore libTAU::session_handle::unfollow_chain(std::vector<char> chain_id);
 %ignore libTAU::session_handle::send_online_signal(std::vector<char> chain_id);
+%ignore libTAU::session_handle::connect_chain(std::vector<char> chain_id);
 %ignore libTAU::session_handle::start_chain(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_access_list(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_ban_list(std::vector<char> chain_id);
@@ -329,11 +330,18 @@ namespace libTAU {
         return $self->put_all_chain_data(id);
     }
 
-    void session_handle::send_online_signal(std::vector<std::int8_t> chain_id)
+    bool session_handle::send_online_signal(std::vector<std::int8_t> chain_id)
     {
         std::vector<char> id;
         std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
         return $self->send_online_signal(id);
+    }
+
+    bool session_handle::connect_chain(std::vector<std::int8_t> chain_id)
+    {
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        return $self->connect_chain(id);
     }
 
 }
