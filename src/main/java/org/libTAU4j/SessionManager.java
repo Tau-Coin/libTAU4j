@@ -362,6 +362,10 @@ public class SessionManager {
 		}
     }
 
+    public int getMaxAccountSize() {
+		return libTAU.getMAX_ACCOUNT_SIZE();
+    }
+
     public int getChainEpochBlockSize() {
 		return libTAU.getCHAIN_EPOCH_BLOCK_SIZE();
     }
