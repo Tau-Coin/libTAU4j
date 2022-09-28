@@ -21,21 +21,22 @@ public final class Account {
 	private final byte[] peer;
 	private final long balance;
 	private final long nonce;
-	//private final long effective_power;
+	private final long power;
 	//private final long block_number;
 
     private final account act;
 
-    public Account(byte[] peer, long balance, long nonce) {
+    public Account(byte[] peer, long balance, long nonce, long power) {
 
 		this.peer = peer;
 		this.balance = balance;
 		this.nonce = nonce;
+		this.power = power;
 		//this.block_number = block_number;
         
 		byte_array_32 bpk = Vectors.bytes2byte_array_32(peer);
         public_key key = new public_key(bpk);
-		this.act = new account(key, balance, nonce);
+		this.act = new account(key, balance, nonce, power);
 		//this.effective_power = this.act.effective_power();
 
 	}
@@ -45,7 +46,7 @@ public final class Account {
 		this.peer = Vectors.byte_vector2bytes(act.peer().to_bytes());
 		this.balance = act.balance();
 		this.nonce = act.nonce();
-		//this.effective_power = act.effective_power();		
+		this.power = act.power();		
 		//this.block_number = act.block_number();		
 
 		this.act = act;
@@ -64,11 +65,11 @@ public final class Account {
         return this.peer;
     }
 
-    /*
-  	public long getEffectivePower() {
-    	return this.effective_power;
+  	public long getPower() {
+    	return this.power;
   	}
 
+    /*
   	public long getBlockNumber() {
     	return this.block_number;
   	}
