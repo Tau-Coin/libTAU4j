@@ -36,12 +36,13 @@ public final class Transaction {
 	private final long amount;
 	private final long fee;
 	private final byte[] payload;
+	private final sha1_hash previous_hash;
 	private final sha1_hash txid;
 
     private final transaction tx;
 
     public Transaction(byte[] chain_id, int version, long timestamp, 
-			byte[] sender, byte[] payload) {
+			byte[] sender, byte[] phash, byte[] payload) {
 
 		this.chain_id = chain_id;
 		this.version = version;
@@ -51,13 +52,14 @@ public final class Transaction {
 		this.nonce = 0;
 		this.amount = 0;
 		this.fee = 0;
+		this.previous_hash = new sha1_hash(Vectors.bytes2byte_vector(phash));
 		this.payload = payload;
 
 		byte_vector bv_chain_id = Vectors.bytes2byte_vector(chain_id);
 		tx_version  tv = tx_version.swigToEnum(version);
 		public_key  pk_sender = new public_key(Vectors.bytes2byte_array_32(sender));
 		byte_vector bv_payload = Vectors.bytes2byte_vector(payload);
-		this.tx = new transaction(bv_chain_id, tv, timestamp, pk_sender, bv_payload);
+		this.tx = new transaction(bv_chain_id, tv, timestamp, pk_sender, previous_hash, bv_payload);
 
         this.type = this.tx.type().swigValue();
 		this.txid = this.tx.sha1();
@@ -76,6 +78,7 @@ public final class Transaction {
 		this.nonce = nonce;
 		this.amount = amount;
 		this.fee = fee;
+		this.previous_hash = null;
 		this.payload = payload;
 
 		byte_vector bv_chain_id = Vectors.bytes2byte_vector(chain_id);
@@ -101,6 +104,7 @@ public final class Transaction {
 		this.nonce = tx.nonce();
 		this.amount = tx.amount();
 		this.fee = tx.fee();
+		this.previous_hash = new sha1_hash(tx.previous_hash());
 		this.payload = Vectors.byte_vector2bytes(tx.payload());
 
 		byte_vector bv_chain_id = Vectors.bytes2byte_vector(this.chain_id);
@@ -175,6 +179,10 @@ public final class Transaction {
 
   	public byte[] getPayload() {
     	return this.payload;
+  	}
+
+  	public sha1_hash getPreviousHash() {
+    	return this.previous_hash;
   	}
 
   	public sha1_hash getTxID() {
