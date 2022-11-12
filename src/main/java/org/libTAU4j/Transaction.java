@@ -1,5 +1,4 @@
-/*
- * Copyright (c) 2018-2020, Alden Torres
+/* * Copyright (c) 2018-2020, Alden Torres
  *
  * Licensed under the terms of the MIT license.
  * Copy of the license at https://opensource.org/licenses/MIT
@@ -52,7 +51,10 @@ public final class Transaction {
 		this.nonce = 0;
 		this.amount = 0;
 		this.fee = 0;
-		this.previous_hash = new sha1_hash(Vectors.bytes2byte_vector(phash));
+		if(phash != null)
+			this.previous_hash = new sha1_hash(Vectors.bytes2byte_vector(phash));
+		else
+			this.previous_hash = null;
 		this.payload = payload;
 
 		byte_vector bv_chain_id = Vectors.bytes2byte_vector(chain_id);
@@ -104,7 +106,10 @@ public final class Transaction {
 		this.nonce = tx.nonce();
 		this.amount = tx.amount();
 		this.fee = tx.fee();
-		this.previous_hash = new sha1_hash(tx.previous_hash());
+		if(tx.previous_hash() != null)
+			this.previous_hash = new sha1_hash(tx.previous_hash());
+		else
+			this.previous_hash = null;
 		this.payload = Vectors.byte_vector2bytes(tx.payload());
 
 		byte_vector bv_chain_id = Vectors.bytes2byte_vector(this.chain_id);

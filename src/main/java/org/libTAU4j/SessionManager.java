@@ -349,6 +349,18 @@ public class SessionManager {
 		}
     }
 
+    public void setForegroundMode() {
+		if (session != null) {
+			new SessionHandle(session).setForegroundMode();
+		}
+    }
+
+    public void setBackgroundMode() {
+		if (session != null) {
+			new SessionHandle(session).setBackgroundMode();
+		}
+	}
+
     public void pauseService() {
 		if (session != null) {
 			new SessionHandle(session).pauseService();

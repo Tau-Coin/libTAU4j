@@ -155,6 +155,16 @@ public final class SessionHandle
         h.restart_service();
     }
 
+    // set forground mode
+    public void setForegroundMode() {
+        h.set_foreground_mode();
+    }
+
+    // set background mode
+    public void setBackgroundMode() {
+        h.set_background_mode();
+    }
+
     // Pause tau service
     public void pauseService() {
         h.pause_service();
