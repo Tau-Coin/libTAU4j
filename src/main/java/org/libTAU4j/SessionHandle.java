@@ -191,6 +191,13 @@ public final class SessionHandle
     }
 
     /**
+     * This is for get max tx encoded size
+     */
+    public int getMaxTxEncodedSize() {
+		return libTAU.getMAX_TX_ENCODE_SIZE();
+    }
+
+    /**
      * This is for main loop interval set.
      */
     public void setLoopTimeInterval(int milliseconds) {
@@ -521,6 +528,13 @@ public final class SessionHandle
      */
     public boolean connectChain(byte[] chainID) {
         return h.connect_chain(Vectors.bytes2byte_vector(chainID));
+    }
+
+    /**
+     * This is for chain touch
+     */
+    public boolean touchChain(byte[] chainID) {
+        return h.touch_chain(Vectors.bytes2byte_vector(chainID));
     }
 
     /**

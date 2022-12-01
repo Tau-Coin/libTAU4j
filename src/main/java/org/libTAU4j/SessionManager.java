@@ -383,6 +383,10 @@ public class SessionManager {
 		return libTAU.getCHAIN_EPOCH_BLOCK_SIZE();
     }
 
+    public int getMaxTxEncodedSize() {
+		return libTAU.getMAX_TX_ENCODE_SIZE();
+    }
+
 	public void setLoopTimeInterval(int milliseconds) {
 		if (session != null) {
 			new SessionHandle(session).setLoopTimeInterval(milliseconds);
@@ -672,6 +676,16 @@ public class SessionManager {
     public boolean connectChain(byte[] chainID) {
 		if (session != null) {
             return new SessionHandle(session).connectChain(chainID);
+		}
+        return false;
+    }
+
+    /**
+     * This is for chain touch
+     */
+    public boolean touchChain(byte[] chainID) {
+		if (session != null) {
+            return new SessionHandle(session).touchChain(chainID);
 		}
         return false;
     }

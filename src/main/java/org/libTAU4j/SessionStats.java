@@ -67,6 +67,12 @@ public final class SessionStats {
     }
 
     public long uploadRate() {
+		System.out.println("------------------------------------");
+		System.out.println(stat[UPLOAD_PAYLOAD].rate());
+		System.out.println(stat[UPLOAD_PROTOCOL].rate());
+		System.out.println(stat[UPLOAD_IP_PROTOCOL].rate());
+		System.out.println(stat[DHT_TOTAL_UPLOAD].rate());
+		System.out.println("------------------------------------");
         return stat[UPLOAD_PAYLOAD].rate() +
                 stat[UPLOAD_PROTOCOL].rate() +
                 stat[UPLOAD_IP_PROTOCOL].rate() +
