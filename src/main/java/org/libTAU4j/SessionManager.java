@@ -387,6 +387,10 @@ public class SessionManager {
 		return libTAU.getMAX_TX_ENCODE_SIZE();
     }
 
+    public int getMaxOverdraft() {
+		return libTAU.getMAX_OVERDRAFT();
+    }
+
 	public void setLoopTimeInterval(int milliseconds) {
 		if (session != null) {
 			new SessionHandle(session).setLoopTimeInterval(milliseconds);

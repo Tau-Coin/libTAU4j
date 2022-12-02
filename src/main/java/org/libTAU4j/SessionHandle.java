@@ -197,6 +197,10 @@ public final class SessionHandle
 		return libTAU.getMAX_TX_ENCODE_SIZE();
     }
 
+    public int getMaxOverdraft() {
+		return libTAU.getMAX_OVERDRAFT();
+    }
+
     /**
      * This is for main loop interval set.
      */
