@@ -349,15 +349,15 @@ public class SessionManager {
 		}
     }
 
-    public void setForegroundMode() {
+    public void setHighFrequencyMode() {
 		if (session != null) {
-			new SessionHandle(session).setForegroundMode();
+			new SessionHandle(session).setHighFrequencyMode();
 		}
     }
 
-    public void setBackgroundMode() {
+    public void setLowFrequencyMode() {
 		if (session != null) {
-			new SessionHandle(session).setBackgroundMode();
+			new SessionHandle(session).setLowFrequencyMode();
 		}
 	}
 

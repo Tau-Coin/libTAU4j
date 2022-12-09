@@ -155,14 +155,14 @@ public final class SessionHandle
         h.restart_service();
     }
 
-    // set forground mode
-    public void setForegroundMode() {
-        h.set_foreground_mode();
+    // set high frequency mode
+    public void setHighFrequencyMode() {
+        h.set_high_frequency_mode();
     }
 
-    // set background mode
-    public void setBackgroundMode() {
-        h.set_background_mode();
+    // set low frequency mode
+    public void setLowFrequencyMode() {
+        h.set_low_frequency_mode();
     }
 
     // Pause tau service
