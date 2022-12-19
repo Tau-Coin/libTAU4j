@@ -34,6 +34,7 @@ public final class Block {
 	private final BigInteger cumulative_difficulty;
 	private final byte[] generation_signature;
 	private final byte[] state_root;
+	private final byte[] news_root;
 	private final Transaction tx;
 	private final byte[] miner;
     /*
@@ -52,7 +53,7 @@ public final class Block {
 
     public Block(byte[] chain_id, int version, long timestamp, long block_number,
 			byte[] previous_block_hash, BigInteger base_target, BigInteger cumulative_difficulty,
-			byte[] generation_signature, byte[] state_root, Transaction tx, byte[] miner) {
+			byte[] generation_signature, byte[] state_root, byte[] news_root, Transaction tx, byte[] miner) {
 
 		this.chain_id = chain_id;
 		this.version = version;
@@ -62,6 +63,7 @@ public final class Block {
 		this.base_target = base_target;
 		this.cumulative_difficulty = cumulative_difficulty;
 		this.state_root = state_root;
+		this.news_root = news_root;
 		this.generation_signature = generation_signature;
 		this.tx = tx;
 		this.miner = miner;
@@ -79,11 +81,12 @@ public final class Block {
 		sha1_hash sh_pbh = new sha1_hash(Vectors.bytes2byte_vector(previous_block_hash));
 		sha1_hash sh_sign = new sha1_hash(Vectors.bytes2byte_vector(generation_signature));
 		sha1_hash sh_sr = new sha1_hash(Vectors.bytes2byte_vector(state_root));
+		sha1_hash sh_nr = new sha1_hash(Vectors.bytes2byte_vector(news_root));
 		public_key  pk_miner = new public_key(Vectors.bytes2byte_array_32(miner));
 
 		this.blk = new block(bv_chain_id, bv, timestamp, block_number,
 					  sh_pbh, base_target, cumulative_difficulty,
-					  sh_sign, sh_sr, tx.swig(), pk_miner);
+					  sh_sign, sh_sr, sh_nr, tx.swig(), pk_miner);
 
         /*
 		if(blk.end_point() != null) {
@@ -98,7 +101,7 @@ public final class Block {
 
     public Block(byte[] chain_id, int version, long timestamp, long block_number,
 			byte[] previous_block_hash, BigInteger base_target, BigInteger cumulative_difficulty,
-			byte[] generation_signature, byte[] state_root, Transaction tx, byte[] miner, UdpEndpoint endp) {
+			byte[] generation_signature, byte[] state_root, byte[] news_root, Transaction tx, byte[] miner, UdpEndpoint endp) {
 
 		this.chain_id = chain_id;
 		this.version = version;
@@ -109,6 +112,7 @@ public final class Block {
 		this.cumulative_difficulty = cumulative_difficulty;
 		this.generation_signature = generation_signature;
 		this.state_root = state_root;
+		this.news_root = news_root;
 		this.tx = tx;
 		this.miner = miner;
         /*
@@ -126,11 +130,12 @@ public final class Block {
 		sha1_hash sh_pbh = new sha1_hash(Vectors.bytes2byte_vector(previous_block_hash));
 		sha1_hash sh_sign = new sha1_hash(Vectors.bytes2byte_vector(generation_signature));
 		sha1_hash sh_sr = new sha1_hash(Vectors.bytes2byte_vector(state_root));
+		sha1_hash sh_nr = new sha1_hash(Vectors.bytes2byte_vector(news_root));
 		public_key  pk_miner = new public_key(Vectors.bytes2byte_array_32(miner));
 
 		this.blk = new block(bv_chain_id, bv, timestamp, block_number,
 					  sh_pbh, base_target, cumulative_difficulty,
-					  sh_sign, sh_sr, tx.swig(), pk_miner);
+					  sh_sign, sh_sr, sh_nr, tx.swig(), pk_miner);
 
 		this.genesis_blk_hash = this.blk.genesis_block_hash().to_hex();
 		this.blk_hash = this.blk.sha1().to_hex();
@@ -146,6 +151,7 @@ public final class Block {
 		this.cumulative_difficulty = blk.cumulative_difficulty();
 		this.generation_signature = Vectors.byte_vector2bytes(blk.generation_signature().to_bytes());
 		this.state_root = Vectors.byte_vector2bytes(blk.state_root().to_bytes());
+		this.news_root = Vectors.byte_vector2bytes(blk.news_root().to_bytes());
 		if(blk.tx() != null) {
 			this.tx = new Transaction(blk.tx());
 		} else {
@@ -206,6 +212,10 @@ public final class Block {
 
   	public byte[] getStateRoot() {
     	return this.state_root;
+  	}
+
+  	public byte[] getNewsRoot() {
+    	return this.news_root;
   	}
 
   	public byte[] getMiner() {
