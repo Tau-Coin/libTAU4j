@@ -23,6 +23,7 @@
 %ignore libTAU::session_handle::touch_chain(std::vector<char> chain_id);
 %ignore libTAU::session_handle::start_chain(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_access_list(std::vector<char> chain_id);
+%ignore libTAU::session_handle::get_active_list(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_ban_list(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_gossip_list(std::vector<char> chain_id);
 %ignore libTAU::session_handle::get_account_info(std::vector<char> chain_id, dht::public_key pub_key);
@@ -249,6 +250,14 @@ namespace libTAU {
         std::vector<char> id;
         std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
         std::set<libTAU::dht::public_key> keys = $self->get_access_list(id);
+        return keys;
+    }
+
+    std::set<libTAU::dht::public_key> session_handle::get_active_list(std::vector<std::int8_t> chain_id)
+    {
+        std::vector<char> id;
+        std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
+        std::set<libTAU::dht::public_key> keys = $self->get_active_list(id);
         return keys;
     }
 
