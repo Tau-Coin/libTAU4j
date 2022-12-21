@@ -606,6 +606,16 @@ public class SessionManager {
     }
 
     /**
+     * This is for get active list
+     */
+    public ArrayList<String> getActiveList(byte[] chainID) {
+		if (session != null) {
+			return new SessionHandle(session).getActiveList(chainID);
+		}
+		return null;
+    }
+
+    /**
      * This is for get ban list
      */
     public ArrayList<String> getBanList(byte[] chainID) {
