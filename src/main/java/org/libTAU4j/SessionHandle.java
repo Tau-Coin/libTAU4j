@@ -418,6 +418,17 @@ public final class SessionHandle
     }
 
     /**
+     * This is for submit news transaction
+     */
+    public boolean submitNewsTransaction(Transaction tx, ArrayList<byte[]> slices) {
+		byte_vector_vector vvSlices = new byte_vector_vector();
+		for(byte[] slice : slices) {
+			vvSlices.add(Vectors.bytes2byte_vector(slice));
+		}
+		return h.submit_news_transaction(tx.swig(), vvSlices);
+    }
+
+    /**
      * This is for get_account_info
      */
     public Account getAccountInfo(byte[] chainID, String pubkey) {
@@ -503,7 +514,6 @@ public final class SessionHandle
         byte_vector_vector chain_vector = h.get_all_chains_swig();
 		ArrayList<String> chains = new ArrayList<String>();
         int cv_size = chain_vector.size();
-        System.out.println(cv_size);
         int i = 0;
         while(i < cv_size) {
             chains.add(ChainURL.chainIDBytesToString(Vectors.byte_vector2bytes(chain_vector.get(i))));

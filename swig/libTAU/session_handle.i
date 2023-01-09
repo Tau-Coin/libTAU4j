@@ -15,6 +15,7 @@
 %ignore libTAU::session_handle::create_chain_id(std::vector<char> type, std::vector<char> community_name);
 %ignore libTAU::session_handle::get_all_chains;
 %ignore libTAU::session_handle::create_new_community(std::vector<char> chain_id, const std::set<blockchain::account>& accounts);
+%ignore libTAU::session_handle::submit_news_transaction(const blockchain::transaction & tx, const std::vector<std::vector<char>> & picSlices);
 %ignore libTAU::session_handle::follow_chain(std::vector<char> chain_id, const std::set<dht::public_key>& peers);
 %ignore libTAU::session_handle::add_new_bootstrap_peers(std::vector<char> chain_id, const std::set<dht::public_key>& peers);
 %ignore libTAU::session_handle::unfollow_chain(std::vector<char> chain_id);
@@ -289,6 +290,17 @@ namespace libTAU {
         std::vector<char> id;
         std::copy(chain_id.begin(), chain_id.end(), std::inserter(id, id.begin()));
         return $self->get_mining_time(id);
+    }
+
+    bool submit_news_transaction(blockchain::transaction tx, std::vector<std::vector<std::int8_t>> picSlices)
+    {
+        std::vector<std::vector<char>> pCharSlices;
+        std::for_each(picSlices.begin(), picSlices.end(), [&](std::vector<std::int8_t> slice) {
+            std::vector<char> cslice;
+            std::copy(slice.begin(), slice.end(), std::inserter(cslice, cslice.begin()));
+            pCharSlices.emplace(pCharSlices.end(), cslice);
+        });
+        return $self->submit_news_transaction(tx, pCharSlices);
     }
 
     void session_handle::set_priority_chain(std::vector<std::int8_t> chain_id)
