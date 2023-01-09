@@ -566,6 +566,16 @@ public class SessionManager {
     }
 
     /**
+     * This is for submit news transaction
+     */
+    public boolean submitNewsTransaction(Transaction tx, List<byte[]> slices) {
+		if (session != null) {
+			return new SessionHandle(session).submitNewsTransaction(tx, slices);
+		}
+		return false;
+    }
+
+    /**
      * This is for get_port_from_pubkey
      */
     public int getPortFromPubkey(String pubkey) {

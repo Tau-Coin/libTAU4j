@@ -31,6 +31,7 @@ import org.libTAU4j.swig.session_handle;
 import org.libTAU4j.swig.vector_byte_array_32;
 import org.libTAU4j.swig.byte_array_32;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -420,7 +421,7 @@ public final class SessionHandle
     /**
      * This is for submit news transaction
      */
-    public boolean submitNewsTransaction(Transaction tx, ArrayList<byte[]> slices) {
+    public boolean submitNewsTransaction(Transaction tx, List<byte[]> slices) {
 		byte_vector_vector vvSlices = new byte_vector_vector();
 		for(byte[] slice : slices) {
 			vvSlices.add(Vectors.bytes2byte_vector(slice));

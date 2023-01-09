@@ -79,6 +79,7 @@ struct alert_category_tag;
     CAST_ALERT_METHOD(blockchain_fail_to_get_chain_data_alert)
     CAST_ALERT_METHOD(blockchain_online_peer_alert)
     CAST_ALERT_METHOD(communication_peer_attention_alert)
+    CAST_ALERT_METHOD(blockchain_pic_slice_alert)
 
 }
 

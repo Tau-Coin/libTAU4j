@@ -407,6 +407,13 @@ public final class Alerts {
 			}
 		};
 
+		arr[60] = new CastLambda() {
+			@Override
+			public Alert cast(alert a) {
+				return new BlockChainPicSliceAlert(cast_to_blockchain_pic_slice_alert(a));
+			}
+		};
+
         return arr;
     }
 
