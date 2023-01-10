@@ -423,8 +423,10 @@ public final class SessionHandle
      */
     public boolean submitNewsTransaction(Transaction tx, List<byte[]> slices) {
 		byte_vector_vector vvSlices = new byte_vector_vector();
-		for(byte[] slice : slices) {
-			vvSlices.add(Vectors.bytes2byte_vector(slice));
+		if(slices != null) {
+			for(byte[] slice : slices) {
+				vvSlices.add(Vectors.bytes2byte_vector(slice));
+			}
 		}
 		return h.submit_news_transaction(tx.swig(), vvSlices);
     }
