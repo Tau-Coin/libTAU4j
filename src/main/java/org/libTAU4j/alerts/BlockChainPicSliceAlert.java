@@ -42,6 +42,4 @@ public class BlockChainPicSliceAlert extends AbstractAlert<blockchain_pic_slice_
     public String get_message() {
         return this.alertMsg;
     }
-
-
 }

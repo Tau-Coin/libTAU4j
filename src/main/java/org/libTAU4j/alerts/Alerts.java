@@ -414,6 +414,13 @@ public final class Alerts {
 			}
 		};
 
+		arr[61] = new CastLambda() {
+			@Override
+			public Alert cast(alert a) {
+				return new PortmapClosedAlert(cast_to_portmap_closed_alert(a));
+			}
+		};
+
         return arr;
     }
 

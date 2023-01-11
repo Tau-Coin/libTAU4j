@@ -61,6 +61,7 @@ public enum AlertType {
     BLOCK_CHAIN_ONLINE_PEER(blockchain_online_peer_alert.alert_type),
     COMM_PEER_ATTENTION(communication_peer_attention_alert.alert_type),
     BLOCK_CHAIN_PIC_SLICE(blockchain_pic_slice_alert.alert_type),
+    PORTMAP_CLOSED_ALERT(portmap_closed_alert.alert_type),
     DHT_PKT(dht_pkt_alert.alert_type),
     SESSION_ERROR(session_error_alert.alert_type),
     SESSION_STATS_HEADER(session_stats_header_alert.alert_type),
@@ -154,6 +155,7 @@ public enum AlertType {
 		arr[58] = BLOCK_CHAIN_ONLINE_PEER;
 		arr[59] = COMM_PEER_ATTENTION;
 		arr[60] = BLOCK_CHAIN_PIC_SLICE;
+		arr[61] = PORTMAP_CLOSED_ALERT;
 
         return arr;
     }
